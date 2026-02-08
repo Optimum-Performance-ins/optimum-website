@@ -171,7 +171,7 @@ ul {
     align-items: center;
     justify-content: center;
     position: relative;
-    background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-secondary) 60%, var(--color-accent) 100%);
+    background: linear-gradient(180deg, var(--color-primary) 0%, var(--color-secondary) 55%, #2a5068 100%);
     text-align: center;
     padding: 2rem;
 }
@@ -229,25 +229,46 @@ ul {
     50% { transform: translateY(8px); }
 }
 
-/* --- Sections --- */
+/* --- Sections ---
+   Continuous color flow — each section's top matches the previous section's bottom.
+   Hero ends at ~#2a5068 (accent-ish). The flow goes:
+   Hero(bottom) → flow-1 → flow-2 → flow-3 → flow-4 → flow-5 → flow-6 → flow-7 → footer
+*/
 .section {
     padding: 7rem 0;
-}
-
-.section--dark {
-    background-color: var(--color-primary);
-}
-
-.section--gradient {
-    background: linear-gradient(180deg, var(--color-secondary) 0%, var(--color-primary) 100%);
-}
-
-.section--ceo {
-    background: linear-gradient(160deg, var(--color-primary) 0%, var(--color-secondary) 100%);
     position: relative;
 }
 
-.section--ceo::before {
+/* Hero ends around #3c7696 at bottom, so flow-1 picks up there */
+.section--flow-1 {
+    background: linear-gradient(180deg, #2a5068 0%, #1e3847 100%);
+}
+
+.section--flow-2 {
+    background: linear-gradient(180deg, #1e3847 0%, #192230 100%);
+}
+
+.section--flow-3 {
+    background: linear-gradient(180deg, #192230 0%, #171025 100%);
+}
+
+.section--flow-4 {
+    background: linear-gradient(180deg, #171025 0%, #1a2535 100%);
+}
+
+.section--flow-5 {
+    background: linear-gradient(180deg, #1a2535 0%, #203c49 100%);
+}
+
+.section--flow-6 {
+    background: linear-gradient(180deg, #203c49 0%, #1b2c3c 100%);
+}
+
+.section--flow-7 {
+    background: linear-gradient(180deg, #1b2c3c 0%, #171025 100%);
+}
+
+.section--flow-7::before {
     content: '';
     position: absolute;
     inset: 0;
