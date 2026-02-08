@@ -1,4 +1,2 @@
-*.png
-*.pdf
-*.ai
+context/*
 .claude/*
