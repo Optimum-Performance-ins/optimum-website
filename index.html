@@ -11,6 +11,17 @@
 </head>
 <body>
 
+    <!-- Page Load Overlay -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-logo">
+            <img src="static/OP_original.png" alt="">
+            <div class="loader-bar"><div class="loader-fill"></div></div>
+        </div>
+    </div>
+
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -36,6 +47,12 @@
     <!-- Hero Section -->
     <section class="hero" id="hero">
         <div class="hero-particles" id="particles"></div>
+        <div class="hero-mouse-glow" id="heroGlow"></div>
+        <div class="hero-ambient">
+            <div class="ambient-ring ambient-ring--1"></div>
+            <div class="ambient-ring ambient-ring--2"></div>
+            <div class="ambient-ring ambient-ring--3"></div>
+        </div>
         <div class="hero-content reveal">
             <img src="static/OP_original.png" alt="Optimum Performance" class="hero-logo">
             <div class="hero-divider"></div>
@@ -50,8 +67,9 @@
 
     <!-- Who We Are -->
     <section class="section section--flow-1" id="about" data-parallax="0.3">
+        <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
-            <h2 class="section-title reveal">Who We Are</h2>
+            <h2 class="section-title reveal" data-word-reveal>Who We Are</h2>
             <div class="section-content reveal" data-delay="200">
                 <p class="lead">Optimum Performance is a premier business consultancy dedicated to unlocking the full potential of organizations across the region.</p>
                 <p>Founded on the belief that exceptional results come from a culture of excellence, we partner with businesses to elevate their strategy, operations, and people. Our team of seasoned consultants brings decades of cross-industry expertise to every engagement, delivering measurable outcomes that drive sustainable growth.</p>
@@ -62,8 +80,9 @@
 
     <!-- Vision & Mission -->
     <section class="section section--flow-2" id="vision-mission" data-parallax="0.2">
+        <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
-            <h2 class="section-title reveal">Vision &amp; Mission</h2>
+            <h2 class="section-title reveal" data-word-reveal>Vision &amp; Mission</h2>
             <div class="vm-grid">
                 <div class="vm-card reveal slide-left">
                     <h3>Our Vision</h3>
@@ -79,8 +98,9 @@
 
     <!-- Core Values -->
     <section class="section section--flow-3" id="values" data-parallax="0.3">
+        <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
-            <h2 class="section-title reveal">Core Values</h2>
+            <h2 class="section-title reveal" data-word-reveal>Core Values</h2>
             <div class="values-grid">
                 <div class="value-card tilt-card reveal stagger">
                     <div class="value-icon">
@@ -130,8 +150,9 @@
 
     <!-- Our Services -->
     <section class="section section--flow-4" id="services" data-parallax="0.2">
+        <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
-            <h2 class="section-title reveal">Our Services</h2>
+            <h2 class="section-title reveal" data-word-reveal>Our Services</h2>
             <p class="section-subtitle reveal" data-delay="100">Comprehensive solutions tailored to drive your business forward</p>
             <div class="services-grid">
                 <div class="service-card tilt-card reveal stagger">
@@ -170,8 +191,9 @@
 
     <!-- Competitive Advantage -->
     <section class="section section--flow-5" id="advantage" data-parallax="0.3">
+        <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
-            <h2 class="section-title reveal">Competitive Advantage</h2>
+            <h2 class="section-title reveal" data-word-reveal>Competitive Advantage</h2>
             <p class="section-subtitle reveal" data-delay="100">What sets us apart in a crowded marketplace</p>
             <div class="advantage-grid">
                 <div class="advantage-item reveal stagger">
@@ -210,8 +232,9 @@
 
     <!-- Trusted By -->
     <section class="section section--flow-6" id="trusted" data-parallax="0.2">
+        <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
-            <h2 class="section-title reveal">Trusted By</h2>
+            <h2 class="section-title reveal" data-word-reveal>Trusted By</h2>
             <p class="section-subtitle reveal" data-delay="100">Partnering with leading organizations across the region</p>
             <div class="trusted-grid reveal">
                 <div class="trusted-logo"><span>Client</span></div>
@@ -232,9 +255,10 @@
 
     <!-- CEO Message -->
     <section class="section section--flow-7" id="ceo" data-parallax="0.3">
+        <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <div class="ceo-content reveal">
-                <h2 class="section-title">A Word From Our CEO</h2>
+                <h2 class="section-title" data-word-reveal>A Word From Our CEO</h2>
                 <blockquote class="ceo-quote">
                     <p>&ldquo;At Optimum Performance, we believe that true business excellence is not a destination — it is a culture. A culture built on relentless improvement, meaningful partnerships, and a deep commitment to delivering value at every turn.</p>
                     <p>Our team is driven by a singular purpose: to empower organizations to reach their highest potential. We don't just consult — we collaborate, we innovate, and we deliver. Every challenge is an opportunity, and every client is a partner in progress.</p>

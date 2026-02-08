@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Optimum Performance — Dynamic & Immersive
-   Parallax, staggered reveals, particles, tilt cards, active nav
+   Optimum Performance — Immersive Experience
+   Page loader, scroll progress, word reveals, cursor glow, ambient shapes
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,6 +12,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealElements = document.querySelectorAll('.reveal');
     const parallaxSections = document.querySelectorAll('[data-parallax]');
     const tiltCards = document.querySelectorAll('.tilt-card');
+    const scrollProgress = document.getElementById('scrollProgress');
+    const pageLoader = document.getElementById('pageLoader');
+    const heroGlow = document.getElementById('heroGlow');
+
+    // --- Page Loader ---
+    document.body.classList.add('loading');
+
+    const loaderFill = pageLoader.querySelector('.loader-fill');
+    let loadProgress = 0;
+    const loadInterval = setInterval(() => {
+        loadProgress += Math.random() * 25 + 10;
+        if (loadProgress > 100) loadProgress = 100;
+        loaderFill.style.width = loadProgress + '%';
+        if (loadProgress >= 100) {
+            clearInterval(loadInterval);
+            setTimeout(() => {
+                pageLoader.classList.add('done');
+                document.body.classList.remove('loading');
+            }, 400);
+        }
+    }, 200);
+
+    // --- Scroll Progress Bar ---
+    const updateScrollProgress = () => {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        scrollProgress.style.width = progress + '%';
+    };
+
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
     // --- Sticky Navbar ---
     const handleScroll = () => {
@@ -68,11 +99,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Word-by-Word Title Reveal ---
+    document.querySelectorAll('[data-word-reveal]').forEach(title => {
+        const text = title.textContent.trim();
+        title.textContent = '';
+        text.split(/\s+/).forEach((word, i) => {
+            const span = document.createElement('span');
+            span.classList.add('word');
+            span.textContent = word;
+            span.style.transitionDelay = (i * 0.12) + 's';
+            title.appendChild(span);
+            if (i < text.split(/\s+/).length - 1) {
+                title.appendChild(document.createTextNode('\u00A0'));
+            }
+        });
+    });
+
     // --- Staggered Reveal Animations ---
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const el = entry.target;
+
+                // Trigger word reveals inside this element
+                el.querySelectorAll('.word').forEach(word => {
+                    word.classList.add('word-visible');
+                });
 
                 // Find stagger siblings within same parent
                 if (el.classList.contains('stagger')) {
@@ -83,7 +135,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             child.classList.add('visible');
                         }, i * 120);
                     });
-                    // Unobserve all siblings
                     staggerChildren.forEach(child => revealObserver.unobserve(child));
                 } else {
                     const delay = parseInt(el.dataset.delay) || 0;
@@ -102,9 +153,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     revealElements.forEach(el => revealObserver.observe(el));
 
+    // Word reveal for non-.reveal titles (like CEO section)
+    const wordTitleObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.word').forEach(word => {
+                    word.classList.add('word-visible');
+                });
+                wordTitleObserver.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+
+    document.querySelectorAll('[data-word-reveal]:not(.reveal)').forEach(el => {
+        wordTitleObserver.observe(el);
+    });
+
+    // --- Advantage Line Animation ---
+    const advantageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const parent = entry.target.parentElement;
+                const items = parent.querySelectorAll('.advantage-item');
+                items.forEach((item, i) => {
+                    setTimeout(() => {
+                        item.classList.add('line-visible');
+                    }, i * 150);
+                });
+                items.forEach(item => advantageObserver.unobserve(item));
+            }
+        });
+    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+
+    document.querySelectorAll('.advantage-item').forEach(el => {
+        advantageObserver.observe(el);
+    });
+
     // --- Parallax Effect ---
     const handleParallax = () => {
-        const scrollY = window.scrollY;
         parallaxSections.forEach(section => {
             const speed = parseFloat(section.dataset.parallax) || 0.2;
             const rect = section.getBoundingClientRect();
@@ -118,8 +204,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', handleParallax, { passive: true });
 
-    // --- 3D Tilt Cards ---
+    // --- 3D Tilt Cards with Cursor Glow ---
     tiltCards.forEach(card => {
+        // Add glow element
+        const glow = document.createElement('div');
+        glow.classList.add('card-glow');
+        card.appendChild(glow);
+
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -129,12 +220,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const rotateX = ((y - centerY) / centerY) * -6;
             const rotateY = ((x - centerX) / centerX) * 6;
             card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+
+            // Move glow
+            glow.style.left = x + 'px';
+            glow.style.top = y + 'px';
         });
 
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
         });
     });
+
+    // --- Hero Mouse-Following Glow ---
+    if (heroGlow) {
+        const hero = document.getElementById('hero');
+        hero.addEventListener('mousemove', (e) => {
+            const rect = hero.getBoundingClientRect();
+            heroGlow.style.left = (e.clientX - rect.left) + 'px';
+            heroGlow.style.top = (e.clientY - rect.top) + 'px';
+        });
+    }
 
     // --- Hero Particles ---
     const particleContainer = document.getElementById('particles');
@@ -151,6 +256,23 @@ document.addEventListener('DOMContentLoaded', () => {
             particleContainer.appendChild(particle);
         }
     }
+
+    // --- Section Ambient Shapes ---
+    document.querySelectorAll('.section-shapes').forEach(container => {
+        const count = 3 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < count; i++) {
+            const shape = document.createElement('div');
+            shape.classList.add('shape');
+            const size = 80 + Math.random() * 200;
+            shape.style.width = size + 'px';
+            shape.style.height = size + 'px';
+            shape.style.left = Math.random() * 100 + '%';
+            shape.style.top = Math.random() * 100 + '%';
+            shape.style.animationDelay = (Math.random() * 10) + 's';
+            shape.style.animationDuration = (20 + Math.random() * 20) + 's';
+            container.appendChild(shape);
+        }
+    });
 
     // --- Smooth Scroll ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
