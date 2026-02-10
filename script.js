@@ -274,6 +274,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Stats Counter Animation ---
+    const statNumbers = document.querySelectorAll('.stat-number[data-count]');
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.count);
+                const duration = 2000;
+                const startTime = performance.now();
+
+                const animate = (currentTime) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    el.textContent = Math.floor(target * eased);
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        el.textContent = target;
+                    }
+                };
+
+                requestAnimationFrame(animate);
+                counterObserver.unobserve(el);
+            }
+        });
+    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+
+    statNumbers.forEach(el => counterObserver.observe(el));
+
+    // --- Language Toggle ---
+    const langToggle = document.getElementById('langToggle');
+    if (langToggle) {
+        langToggle.addEventListener('click', () => {
+            const active = langToggle.querySelector('.lang-active');
+            const inactive = langToggle.querySelector('.lang-inactive');
+            const currentActive = active.textContent;
+            active.textContent = inactive.textContent;
+            inactive.textContent = currentActive;
+        });
+    }
+
     // --- Smooth Scroll ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', (e) => {

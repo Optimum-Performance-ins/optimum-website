@@ -36,11 +36,16 @@
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">Who We Are</a></li>
                 <li><a href="#vision-mission">Vision &amp; Mission</a></li>
-                <li><a href="#values">Core Values</a></li>
                 <li><a href="#services">Services</a></li>
                 <li><a href="#advantage">Why Us</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+                <span class="lang-active">EN</span>
+                <span class="lang-divider">|</span>
+                <span class="lang-inactive">عربي</span>
+            </button>
         </div>
     </nav>
 
@@ -57,6 +62,7 @@
             <img src="static/OP_original.png" alt="Optimum Performance" class="hero-logo">
             <div class="hero-divider"></div>
             <p class="hero-tagline">It's not only business, It's a business culture</p>
+            <a href="#contact" class="hero-cta">Request a Consultation</a>
         </div>
         <a href="#about" class="scroll-indicator" aria-label="Scroll down">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -66,7 +72,7 @@
     </section>
 
     <!-- Who We Are -->
-    <section class="section section--flow-1" id="about" data-parallax="0.3">
+    <section class="section section--flow-1 section--light" id="about" data-parallax="0.3">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <h2 class="section-title reveal" data-word-reveal>Who We Are</h2>
@@ -78,8 +84,37 @@
         </div>
     </section>
 
+    <!-- Trust Metrics -->
+    <section class="section section--flow-2 stats-section" id="stats" data-parallax="0.2">
+        <div class="section-shapes" aria-hidden="true"></div>
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal stagger">
+                    <span class="stat-number" data-count="15">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Years of Experience</span>
+                </div>
+                <div class="stat-item reveal stagger">
+                    <span class="stat-number" data-count="200">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Projects Delivered</span>
+                </div>
+                <div class="stat-item reveal stagger">
+                    <span class="stat-number" data-count="50">0</span>
+                    <span class="stat-suffix">+</span>
+                    <span class="stat-label">Corporate Clients</span>
+                </div>
+                <div class="stat-item reveal stagger">
+                    <span class="stat-number" data-count="98">0</span>
+                    <span class="stat-suffix">%</span>
+                    <span class="stat-label">Client Satisfaction</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Vision & Mission -->
-    <section class="section section--flow-2" id="vision-mission" data-parallax="0.2">
+    <section class="section section--flow-3" id="vision-mission" data-parallax="0.2">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <h2 class="section-title reveal" data-word-reveal>Vision &amp; Mission</h2>
@@ -97,7 +132,7 @@
     </section>
 
     <!-- Core Values -->
-    <section class="section section--flow-3" id="values" data-parallax="0.3">
+    <section class="section section--flow-4 section--light" id="values" data-parallax="0.3">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <h2 class="section-title reveal" data-word-reveal>Core Values</h2>
@@ -149,7 +184,7 @@
     </section>
 
     <!-- Our Services -->
-    <section class="section section--flow-4" id="services" data-parallax="0.2">
+    <section class="section section--flow-5" id="services" data-parallax="0.2">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <h2 class="section-title reveal" data-word-reveal>Our Services</h2>
@@ -189,8 +224,60 @@
         </div>
     </section>
 
+    <!-- How We Work -->
+    <section class="section section--flow-6 section--light" id="process" data-parallax="0.3">
+        <div class="section-shapes" aria-hidden="true"></div>
+        <div class="container">
+            <h2 class="section-title reveal" data-word-reveal>How We Work</h2>
+            <p class="section-subtitle reveal" data-delay="100">A proven methodology that delivers results</p>
+            <div class="process-grid">
+                <div class="process-step reveal stagger">
+                    <div class="process-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="18"/><path d="M24 14v10l7 7"/></svg>
+                    </div>
+                    <div class="process-number">01</div>
+                    <h4>Discovery &amp; Assessment</h4>
+                    <p>We listen, analyze, and map your current state — understanding your challenges, goals, and opportunities from the inside out.</p>
+                </div>
+                <div class="process-connector" aria-hidden="true">
+                    <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 10h50M45 4l6 6-6 6"/></svg>
+                </div>
+                <div class="process-step reveal stagger">
+                    <div class="process-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 38l10-14 8 8 8-16 10 14"/><path d="M40 12h-8v8"/></svg>
+                    </div>
+                    <div class="process-number">02</div>
+                    <h4>Strategy Development</h4>
+                    <p>We craft a tailored roadmap with clear milestones, KPIs, and actionable steps aligned with your vision.</p>
+                </div>
+                <div class="process-connector" aria-hidden="true">
+                    <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 10h50M45 4l6 6-6 6"/></svg>
+                </div>
+                <div class="process-step reveal stagger">
+                    <div class="process-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 24l7 7 13-14"/><rect x="6" y="6" width="36" height="36" rx="4"/></svg>
+                    </div>
+                    <div class="process-number">03</div>
+                    <h4>Implementation</h4>
+                    <p>We work alongside your team to execute the plan — driving change, building capacity, and ensuring adoption at every level.</p>
+                </div>
+                <div class="process-connector" aria-hidden="true">
+                    <svg viewBox="0 0 60 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M0 10h50M45 4l6 6-6 6"/></svg>
+                </div>
+                <div class="process-step reveal stagger">
+                    <div class="process-icon">
+                        <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 38l10-14 8 8 8-16 14 22"/><circle cx="38" cy="10" r="6"/></svg>
+                    </div>
+                    <div class="process-number">04</div>
+                    <h4>Monitor &amp; Optimize</h4>
+                    <p>We track results, refine strategies, and provide ongoing support to ensure sustained growth and continuous improvement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Competitive Advantage -->
-    <section class="section section--flow-5" id="advantage" data-parallax="0.3">
+    <section class="section section--flow-7 section--light" id="advantage" data-parallax="0.3">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <h2 class="section-title reveal" data-word-reveal>Competitive Advantage</h2>
@@ -230,8 +317,76 @@
         </div>
     </section>
 
+    <!-- Testimonials -->
+    <section class="section section--flow-8" id="testimonials" data-parallax="0.2">
+        <div class="section-shapes" aria-hidden="true"></div>
+        <div class="container">
+            <h2 class="section-title reveal" data-word-reveal>What Our Clients Say</h2>
+            <p class="section-subtitle reveal" data-delay="100">Real results, real partnerships</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal stagger">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        &ldquo;Optimum Performance transformed our operations entirely. Their team embedded with ours and delivered a strategy that increased our efficiency by 40% within six months.&rdquo;
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AH</div>
+                        <div class="testimonial-info">
+                            <span class="testimonial-name">Ahmed Hassan</span>
+                            <span class="testimonial-role">CEO, Regional Manufacturing Co.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal stagger">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        &ldquo;Their HR consulting completely reshaped our talent strategy. We went from high turnover to being recognized as an employer of choice in our industry.&rdquo;
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">SE</div>
+                        <div class="testimonial-info">
+                            <span class="testimonial-name">Sara El-Masry</span>
+                            <span class="testimonial-role">CHRO, Financial Services Group</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal stagger">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                        <svg viewBox="0 0 20 20" fill="currentColor"><polygon points="10,1 12.5,7 19,7.5 14,12 15.5,19 10,15.5 4.5,19 6,12 1,7.5 7.5,7"/></svg>
+                    </div>
+                    <blockquote class="testimonial-quote">
+                        &ldquo;The digital transformation roadmap they built for us was practical, phased, and achievable. We're now operating at a level we didn't think was possible.&rdquo;
+                    </blockquote>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MK</div>
+                        <div class="testimonial-info">
+                            <span class="testimonial-name">Mohamed Khalil</span>
+                            <span class="testimonial-role">COO, Logistics Enterprise</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Trusted By -->
-    <section class="section section--flow-6" id="trusted" data-parallax="0.2">
+    <section class="section section--flow-9" id="trusted" data-parallax="0.2">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <h2 class="section-title reveal" data-word-reveal>Trusted By</h2>
@@ -254,7 +409,7 @@
     </section>
 
     <!-- CEO Message -->
-    <section class="section section--flow-7" id="ceo" data-parallax="0.3">
+    <section class="section section--flow-10 section--light" id="ceo" data-parallax="0.3">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <div class="ceo-content reveal">
