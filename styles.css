@@ -145,10 +145,18 @@ ul { list-style: none; }
 .nav-logo img {
     height: 48px;
     width: auto;
-    transition: height var(--transition);
+    transition: height var(--transition), opacity 0.4s ease, transform 0.4s ease;
+    opacity: 0;
+    transform: translateX(-10px);
+    pointer-events: none;
 }
 
-.navbar.scrolled .nav-logo img { height: 40px; }
+.navbar.scrolled .nav-logo img {
+    height: 40px;
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
 
 .nav-links {
     display: flex;

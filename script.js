@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Sticky Navbar ---
     const handleScroll = () => {
-        if (window.scrollY > 60) {
+        if (window.scrollY > 300) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
