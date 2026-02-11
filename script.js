@@ -100,20 +100,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- Word-by-Word Title Reveal ---
-    document.querySelectorAll('[data-word-reveal]').forEach(title => {
-        const text = title.textContent.trim();
-        title.textContent = '';
-        text.split(/\s+/).forEach((word, i) => {
-            const span = document.createElement('span');
-            span.classList.add('word');
-            span.textContent = word;
-            span.style.transitionDelay = (i * 0.12) + 's';
-            title.appendChild(span);
-            if (i < text.split(/\s+/).length - 1) {
-                title.appendChild(document.createTextNode('\u00A0'));
-            }
+    const initWordReveal = () => {
+        document.querySelectorAll('[data-word-reveal]').forEach(title => {
+            if (title.querySelector('.word')) return;
+            const text = title.textContent.trim();
+            title.textContent = '';
+            text.split(/\s+/).forEach((word, i) => {
+                const span = document.createElement('span');
+                span.classList.add('word');
+                span.textContent = word;
+                span.style.transitionDelay = (i * 0.12) + 's';
+                title.appendChild(span);
+                if (i < text.split(/\s+/).length - 1) {
+                    title.appendChild(document.createTextNode('\u00A0'));
+                }
+            });
         });
-    });
+    };
+
+    initWordReveal();
 
     // --- Staggered Reveal Animations ---
     const revealObserver = new IntersectionObserver((entries) => {
@@ -305,6 +310,225 @@ document.addEventListener('DOMContentLoaded', () => {
 
     statNumbers.forEach(el => counterObserver.observe(el));
 
+    // --- Translation System ---
+    const translations = {
+        ar: {
+            // Navigation
+            'nav.about': 'من نحن',
+            'nav.vision': 'الرؤية والرسالة',
+            'nav.services': 'خدماتنا',
+            'nav.advantage': 'لماذا نحن',
+            'nav.testimonials': 'آراء العملاء',
+            'nav.contact': 'تواصل معنا',
+
+            // Hero
+            'hero.tagline': 'ليس مجرد تأمين، إنها ثقافة أعمال',
+            'hero.cta': 'احصل على عرض سعر',
+            'hero.fra.label': 'مرخصة ومنظمة من الهيئة العامة للرقابة المالية',
+            'hero.fra.reg': 'رقم القيد <strong>٩١</strong>',
+
+            // Who We Are
+            'about.title': 'من نحن',
+            'about.lead': 'أوبتيموم بيرفورمنس هي شركة وساطة تأمينية رائدة مكرّسة لحماية ما يهمّك أكثر — عملك، وموظفيك، ومستقبلك.',
+            'about.p1': 'تأسست على إيمان راسخ بأن التغطية المناسبة تبدأ بالعلاقة الصحيحة، حيث نتشارك مع المؤسسات للتنقل بثقة في عالم التأمين المعقد. يضم فريقنا وسطاء ذوي خبرة واسعة تمتد لعقود في مختلف القطاعات، لتأمين تغطية مصممة خصيصاً توفر حماية حقيقية وراحة بال دائمة.',
+            'about.p2': 'نحن لا نكتفي بإصدار الوثائق — بل ننغمس في عملياتكم لفهم المخاطر الفريدة التي تواجهونها ونصمم برامج تأمينية شاملة وتنافسية ومبنية لتدوم. من الشركات الناشئة إلى المؤسسات الكبرى، أوبتيموم بيرفورمنس هي الوسيط الموثوق الذي يحوّل المخاطر إلى مرونة.',
+
+            // Stats
+            'stat.1': 'سنوات الخبرة',
+            'stat.2': 'وثيقة تأمين',
+            'stat.3': 'شريك تأمين',
+            'stat.4': 'نسبة نجاح المطالبات',
+
+            // Vision & Mission
+            'vm.title': 'الرؤية والرسالة',
+            'vision.title': 'رؤيتنا',
+            'vision.text': 'أن نكون شركة وساطة التأمين الأكثر ثقة في المنطقة — نضع معايير جديدة للحماية والشفافية والدفاع عن مصالح العملاء في بيئة مخاطر متغيرة باستمرار.',
+            'mission.title': 'رسالتنا',
+            'mission.text': 'تقديم حلول تأمينية عالمية المستوى تحمي الشركات والأفراد من عدم اليقين. نلتزم بتأمين أفضل تغطية بشروط تنافسية من خلال معرفتنا العميقة بالسوق وعلاقاتنا القوية مع شركات التأمين وتركيزنا الدائم على مصالح عملائنا.',
+
+            // Core Values
+            'values.title': 'قيمنا الأساسية',
+            'value.1.title': 'التميّز',
+            'value.1.text': 'نسعى لأعلى المعايير في كل وثيقة نصدرها، لضمان تغطية تفوق التوقعات وتضع معايير جديدة.',
+            'value.2.title': 'النزاهة',
+            'value.2.text': 'الشفافية والصدق والسلوك الأخلاقي هي أساس كل علاقة نبنيها وكل توصية نقدمها.',
+            'value.3.title': 'المناصرة',
+            'value.3.text': 'نعمل حصرياً لصالحك — نتفاوض مع شركات التأمين ونتحدى الشروط غير العادلة وندافع عن كل مطالبة نيابة عنك.',
+            'value.4.title': 'التركيز على العميل',
+            'value.4.text': 'عملاؤنا في صميم كل ما نقوم به. نستمع ونقيّم المخاطر بعناية ونصمم تغطية تلبي احتياجاتهم الفريدة.',
+            'value.5.title': 'الشراكة',
+            'value.5.text': 'نبني علاقات دائمة — مع عملائنا ومع أبرز شركات التأمين في العالم — لتقديم حماية يمكنك الاعتماد عليها.',
+            'value.6.title': 'التوجه نحو النتائج',
+            'value.6.text': 'نقيس نجاحنا بالمطالبات التي نسوّيها والتوفيرات التي نحققها وراحة البال التي نوفرها لكل عميل.',
+
+            // Services
+            'services.title': 'خدماتنا',
+            'services.subtitle': 'تغطية شاملة مصممة لحماية أعمالك وموظفيك',
+            'service.1.title': 'التأمين التجاري',
+            'service.1.text': 'احمِ أعمالك بتغطية مخصصة للممتلكات والمسؤولية وانقطاع الأعمال مصممة للحفاظ على استمرارية عملياتك مهما حدث.',
+            'service.2.title': 'تأمين الحياة والصحة',
+            'service.2.text': 'اضمن رفاهية موظفيك مع خطط تأمين شاملة للحياة والصحة والتأمين الطبي من أبرز مقدمي الخدمات في المنطقة.',
+            'service.3.title': 'إدارة المخاطر',
+            'service.3.text': 'نقيّم ونحدد ونخفف من تعرضك للمخاطر — نبني أطر إدارة مخاطر تقلل الخسائر وتعزز مرونتك.',
+            'service.4.title': 'مزايا الموظفين',
+            'service.4.text': 'استقطب أفضل الكفاءات واحتفظ بها من خلال برامج تأمين جماعية تنافسية — من التأمين الطبي وطب الأسنان إلى التقاعد والرعاية الصحية.',
+            'service.5.title': 'التأمين البحري والشحن',
+            'service.5.text': 'احمِ بضائعك أثناء النقل مع حلول التأمين البحري والشحن واللوجستيات التي تغطي كل مرحلة من سلسلة التوريد.',
+            'service.6.title': 'إدارة المطالبات',
+            'service.6.text': 'عندما يكون الأمر أكثر أهمية، نقف بجانبك. فريق المطالبات المخصص لدينا يدافع عن تسويات سريعة وعادلة — حتى تتمكن من التركيز على عملك.',
+
+            // How We Work
+            'process.title': 'كيف نعمل',
+            'process.subtitle': 'عملية مثبتة تضع حمايتك أولاً',
+            'process.1.title': 'تقييم المخاطر',
+            'process.1.text': 'نحلل عملياتك وأصولك وتعرضاتك — نبني صورة شاملة لملف المخاطر الخاص بك من الأساس.',
+            'process.2.title': 'التسويق والتفاوض',
+            'process.2.text': 'نتواصل مع عدة شركات تأمين نيابة عنك، نقارن الشروط ونتفاوض للحصول على أفضل تغطية بأكثر الأقساط تنافسية.',
+            'process.3.title': 'الإصدار والتفعيل',
+            'process.3.text': 'بعد موافقتك، ننهي ونفعّل وثيقتك — نتولى جميع المستندات والملحقات والتنسيق مع شركات الاكتتاب.',
+            'process.4.title': 'الدعم المستمر',
+            'process.4.text': 'من التجديدات والتعديلات خلال فترة الوثيقة إلى المناصرة في المطالبات، ندير محفظتك على مدار العام لضمان حمايتك الدائمة.',
+
+            // Competitive Advantage
+            'advantage.title': 'ميزتنا التنافسية',
+            'advantage.subtitle': 'ما يميزنا في سوق التأمين',
+            'advantage.1.title': 'مستقلون وغير منحازين',
+            'advantage.1.text': 'لسنا مرتبطين بأي شركة تأمين واحدة. استقلاليتنا تعني أننا نوصي دائماً بالتغطية الأفضل لك — وليس لشركة التأمين.',
+            'advantage.2.title': 'تغطية مخصصة',
+            'advantage.2.text': 'لا تواجه شركتان نفس المخاطر. كل برنامج تأمين نصممه مبني خصيصاً لمعالجة تعرضاتك وأهدافك المحددة.',
+            'advantage.3.title': 'المناصرة في المطالبات',
+            'advantage.3.text': 'عندما تحتاج لتقديم مطالبة، لا نختفي. فريقنا يدافع عنك لضمان تسويات سريعة وعادلة وكاملة.',
+            'advantage.4.title': 'علاقات قوية مع شركات التأمين',
+            'advantage.4.text': 'شراكاتنا الطويلة مع كبرى شركات التأمين المحلية والدولية تمنحنا وصولاً لشروط حصرية وأسعار تنافسية.',
+            'advantage.5.title': 'خبرة متعددة القطاعات',
+            'advantage.5.text': 'من البناء إلى الرعاية الصحية إلى اللوجستيات، يتمتع وسطاؤنا بمعرفة عميقة بالقطاعات لتقييم المخاطر المتخصصة وتأمينها بدقة.',
+            'advantage.6.title': 'خدمة على مدار العام',
+            'advantage.6.text': 'التأمين لا يتوقف عند إصدار الوثيقة. ندير التجديدات والتعديلات ومراجعات المخاطر المستمرة للحفاظ على تغطيتك محدثة.',
+
+            // Testimonials
+            'testimonials.title': 'ماذا يقول عملاؤنا',
+            'testimonials.subtitle': 'حماية حقيقية، شراكات حقيقية',
+            'testimonial.1.quote': '\u201Cأوبتيموم بيرفورمنس وفرت لنا 30% من أقساط التأمين التجاري مع تحسين التغطية فعلياً. معرفتهم بالسوق لا مثيل لها.\u201D',
+            'testimonial.1.name': 'أحمد حسن',
+            'testimonial.1.role': 'الرئيس التنفيذي، شركة تصنيع إقليمية',
+            'testimonial.2.quote': '\u201Cعندما تعرضنا لمطالبة حريق كبيرة، كان فريقهم في الموقع خلال ساعات. تولوا كل شيء مع شركة التأمين وحصلنا على التسوية الكاملة في وقت قياسي.\u201D',
+            'testimonial.2.name': 'سارة المصري',
+            'testimonial.2.role': 'المدير المالي، مجموعة ضيافة',
+            'testimonial.3.quote': '\u201Cصمموا حزمة مزايا موظفين ساعدتنا على استقطاب أفضل الكفاءات مع البقاء ضمن الميزانية. شريك حقيقي، وليس مجرد وسيط.\u201D',
+            'testimonial.3.name': 'محمد خليل',
+            'testimonial.3.role': 'مدير الموارد البشرية، مؤسسة لوجستية',
+
+            // Trusted By
+            'trusted.title': 'يثقون بنا',
+            'trusted.subtitle': 'شراكات مع مؤسسات رائدة في المنطقة',
+
+            // CEO Message
+            'ceo.title': 'كلمة الرئيس التنفيذي',
+            'ceo.p1': '\u201Cفي أوبتيموم بيرفورمنس، نؤمن بأن التأمين أكثر من مجرد وثيقة — إنه وعد. وعد مبني على الثقة والخبرة العميقة والالتزام الراسخ بحماية ما بناه عملاؤنا بجهد كبير.',
+            'ceo.p2': 'فريقنا مدفوع بهدف واحد: أن نكون الوسيط الذي يمكنك الاعتماد عليه عندما يكون الأمر أكثر أهمية. نحن لا نكتفي بتوفير التغطية — نستمع وندافع ونقدم. كل خطر هو فرصة لإثبات قيمتنا، وكل عميل هو شريك نفخر بخدمته.',
+            'ceo.p3': 'شكراً لثقتكم بنا لحمايتكم. معاً، سنواصل وضع معايير جديدة للتميز في وساطة التأمين.\u201D',
+            'ceo.name': 'الرئيس التنفيذي',
+            'ceo.company': 'أوبتيموم بيرفورمنس',
+
+            // FRA Strip
+            'fra.label': 'مرخصة ومنظمة من',
+            'fra.authority': 'الهيئة العامة للرقابة المالية',
+            'fra.authority.ar': 'Financial Regulatory Authority (FRA)',
+            'fra.reg.number': 'رقم القيد <strong>٩١</strong>',
+            'fra.reg.date': 'تاريخ القيد: أكتوبر 2019',
+            'fra.reg.number.ar': 'Registration No. <strong>91</strong>',
+            'fra.reg.date.ar': 'Issued on: October 2019',
+
+            // Footer
+            'footer.tagline': 'ليس مجرد تأمين،<br>إنها ثقافة أعمال',
+            'footer.quicklinks': 'روابط سريعة',
+            'footer.link.about': 'من نحن',
+            'footer.link.vision': 'الرؤية والرسالة',
+            'footer.link.values': 'قيمنا الأساسية',
+            'footer.link.services': 'خدماتنا',
+            'footer.link.advantage': 'لماذا نحن',
+            'footer.getintouch': 'تواصل معنا',
+            'footer.email': 'info@optimumperformance.com',
+            'footer.phone': '+00 000 000 0000',
+            'footer.address': 'منطقة الأعمال، المدينة',
+            'footer.copyright': '\u00A9 2026 أوبتيموم بيرفورمنس. جميع الحقوق محفوظة.',
+            'footer.regulatory': 'أوبتيموم بيرفورمنس مرخصة ومنظمة من الهيئة العامة للرقابة المالية، رقم القيد ٩١.',
+        }
+    };
+
+    // Store original English content
+    const originalContent = {};
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        originalContent[key] = el.textContent;
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        originalContent[key] = el.innerHTML;
+    });
+
+    let currentLang = 'en';
+
+    const applyTranslation = (lang) => {
+        const htmlEl = document.documentElement;
+
+        if (lang === 'ar') {
+            htmlEl.setAttribute('lang', 'ar');
+            htmlEl.setAttribute('dir', 'rtl');
+            document.body.classList.add('lang-ar');
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations.ar[key]) {
+                    el.textContent = translations.ar[key];
+                }
+            });
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.getAttribute('data-i18n-html');
+                if (translations.ar[key]) {
+                    el.innerHTML = translations.ar[key];
+                }
+            });
+        } else {
+            htmlEl.setAttribute('lang', 'en');
+            htmlEl.setAttribute('dir', 'ltr');
+            document.body.classList.remove('lang-ar');
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (originalContent[key]) {
+                    el.textContent = originalContent[key];
+                }
+            });
+            document.querySelectorAll('[data-i18n-html]').forEach(el => {
+                const key = el.getAttribute('data-i18n-html');
+                if (originalContent[key]) {
+                    el.innerHTML = originalContent[key];
+                }
+            });
+        }
+
+        // Re-initialize word reveal for translated titles
+        document.querySelectorAll('[data-word-reveal]').forEach(title => {
+            // Clear existing word spans
+            const text = title.textContent.trim();
+            title.innerHTML = '';
+            text.split(/\s+/).forEach((word, i) => {
+                const span = document.createElement('span');
+                span.classList.add('word', 'word-visible');
+                span.textContent = word;
+                span.style.transitionDelay = (i * 0.12) + 's';
+                title.appendChild(span);
+                if (i < text.split(/\s+/).length - 1) {
+                    title.appendChild(document.createTextNode('\u00A0'));
+                }
+            });
+        });
+
+        currentLang = lang;
+    };
+
     // --- Language Toggle ---
     const langToggle = document.getElementById('langToggle');
     if (langToggle) {
@@ -314,6 +538,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentActive = active.textContent;
             active.textContent = inactive.textContent;
             inactive.textContent = currentActive;
+
+            const newLang = currentLang === 'en' ? 'ar' : 'en';
+            applyTranslation(newLang);
         });
     }
 

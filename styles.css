@@ -1660,3 +1660,153 @@ ul {
         font-size: 0.9rem;
     }
 }
+
+/* ==========================================================================
+   RTL / Arabic Language Styles
+   ========================================================================== */
+
+/* Base RTL direction */
+.lang-ar {
+    direction: rtl;
+    text-align: right;
+}
+
+.lang-ar .section-title,
+.lang-ar .section-subtitle,
+.lang-ar .section-content,
+.lang-ar .hero-content,
+.lang-ar .ceo-content,
+.lang-ar .stats-grid,
+.lang-ar .process-step {
+    text-align: center;
+}
+
+/* Navigation RTL */
+.lang-ar .nav-container {
+    flex-direction: row-reverse;
+}
+
+.lang-ar .nav-links {
+    flex-direction: row-reverse;
+}
+
+.lang-ar .lang-toggle {
+    margin-left: 0;
+    margin-right: 1.5rem;
+}
+
+/* Nav logo in RTL - keep left animation working */
+.lang-ar .nav-logo img {
+    transform: translateX(10px);
+}
+
+.lang-ar .navbar.scrolled .nav-logo img {
+    transform: translateX(0);
+}
+
+/* Hero FRA badge - move to right in Arabic */
+.lang-ar .hero-fra {
+    left: auto;
+    right: 2rem;
+}
+
+/* Scroll progress - start from right */
+.lang-ar .scroll-progress {
+    left: auto;
+    right: 0;
+}
+
+/* Vision & Mission cards */
+.lang-ar .vm-card {
+    text-align: right;
+}
+
+/* Value & Service cards - keep centered */
+.lang-ar .value-card,
+.lang-ar .service-card {
+    text-align: center;
+}
+
+/* Advantage items - flip padding and line */
+.lang-ar .advantage-item {
+    padding-left: 0;
+    padding-right: 1.5rem;
+}
+
+.lang-ar .advantage-item:hover {
+    transform: translateX(-8px);
+}
+
+.lang-ar .advantage-line {
+    left: auto;
+    right: 0;
+}
+
+/* Testimonials */
+.lang-ar .testimonial-author {
+    flex-direction: row-reverse;
+}
+
+.lang-ar .testimonial-info {
+    text-align: right;
+}
+
+/* FRA Strip */
+.lang-ar .fra-content {
+    flex-direction: row-reverse;
+}
+
+.lang-ar .fra-text {
+    text-align: right;
+}
+
+/* Footer RTL */
+.lang-ar .footer-grid {
+    direction: rtl;
+}
+
+.lang-ar .footer-links a:hover {
+    padding-left: 0;
+    padding-right: 6px;
+}
+
+.lang-ar .footer-contact li {
+    flex-direction: row-reverse;
+}
+
+/* Process connectors flip in RTL */
+.lang-ar .process-connector svg {
+    transform: scaleX(-1);
+}
+
+/* Mobile RTL overrides */
+@media (max-width: 768px) {
+    .lang-ar .nav-links {
+        right: auto;
+        left: -100%;
+        flex-direction: column;
+    }
+
+    .lang-ar .nav-links.open {
+        left: 0;
+        right: auto;
+    }
+
+    .lang-ar .lang-toggle {
+        margin-right: auto;
+        margin-left: 1rem;
+    }
+
+    .lang-ar .hero-fra {
+        right: auto;
+        right: 1rem;
+    }
+
+    .lang-ar .fra-content {
+        flex-direction: column;
+    }
+
+    .lang-ar .fra-text {
+        text-align: center;
+    }
+}
