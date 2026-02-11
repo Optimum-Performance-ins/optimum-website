@@ -1217,6 +1217,162 @@ ul {
     letter-spacing: 0.05em;
 }
 
+/* --- Hero FRA Badge (gold seal, top-left) --- */
+.hero-fra {
+    position: absolute;
+    top: 5.5rem;
+    left: 2rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.hero-fra-logo {
+    width: 84px;
+    height: 84px;
+    object-fit: contain;
+    flex-shrink: 0;
+    padding: 12px;
+    border-radius: 50%;
+    border: 2.5px solid rgba(200, 150, 46, 0.5);
+    background: rgba(15, 31, 60, 0.6);
+    backdrop-filter: blur(8px);
+    box-shadow:
+        0 0 24px rgba(200, 150, 46, 0.15),
+        inset 0 0 12px rgba(200, 150, 46, 0.06);
+}
+
+.hero-fra-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    text-align: center;
+    max-width: 160px;
+}
+
+.hero-fra-label {
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.35;
+}
+
+.hero-fra-reg {
+    font-size: 0.75rem;
+    color: rgba(200, 150, 46, 0.7);
+    letter-spacing: 0.03em;
+}
+
+.hero-fra-reg strong {
+    color: var(--color-accent);
+}
+
+/* --- FRA Regulatory Strip --- */
+.fra-strip {
+    background: linear-gradient(180deg, #0f1f3c 0%, #0a1628 100%);
+    border-top: 1px solid rgba(200, 150, 46, 0.15);
+    border-bottom: 1px solid rgba(200, 150, 46, 0.15);
+    padding: 2.5rem 0;
+}
+
+.fra-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.fra-badge {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+}
+
+.fra-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(200, 150, 46, 0.15));
+}
+
+.fra-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    text-align: left;
+}
+
+.fra-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.fra-authority {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-white);
+    letter-spacing: 0.02em;
+}
+
+.fra-authority-ar {
+    font-size: 1rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    direction: rtl;
+}
+
+.fra-details-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.fra-details {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.fra-reg {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.fra-reg strong {
+    color: var(--color-white);
+}
+
+.fra-details-ar {
+    direction: rtl;
+    font-size: 0.9rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.fra-divider-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.5;
+}
+
+.footer-regulatory {
+    margin-top: 0.75rem;
+    font-size: 0.78rem !important;
+    color: var(--color-text-muted);
+    opacity: 0.7;
+}
+
 /* --- Footer --- */
 .footer {
     background-color: var(--color-primary);
@@ -1370,6 +1526,44 @@ ul {
 
     .nav-links a {
         font-size: 1.1rem;
+    }
+
+    .hero-fra {
+        top: 4.5rem;
+        left: 1rem;
+        gap: 0.35rem;
+    }
+
+    .hero-fra-logo {
+        width: 60px;
+        height: 60px;
+        padding: 10px;
+    }
+
+    .hero-fra-info {
+        max-width: 130px;
+    }
+
+    .hero-fra-label {
+        font-size: 0.58rem;
+    }
+
+    .hero-fra-reg {
+        font-size: 0.6rem;
+    }
+
+    .fra-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.25rem;
+    }
+
+    .fra-text {
+        text-align: center;
+    }
+
+    .fra-details {
+        justify-content: center;
     }
 
     .hero-logo {
