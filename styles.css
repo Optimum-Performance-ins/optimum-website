@@ -32,6 +32,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
 }
 
 body {
@@ -370,6 +371,7 @@ ul {
     padding: 8rem 0 5rem;
     background: var(--color-bg);
     position: relative;
+    overflow: hidden;
 }
 
 .hero-grid {
@@ -638,6 +640,7 @@ ul {
 .section {
     padding: 6rem 0;
     position: relative;
+    overflow: hidden;
 }
 
 .section--white {
@@ -1426,6 +1429,7 @@ ul {
     border-top: 1px solid rgba(200, 150, 46, 0.15);
     border-bottom: 1px solid rgba(200, 150, 46, 0.15);
     padding: 2.5rem 0;
+    overflow: hidden;
 }
 
 .fra-content {
