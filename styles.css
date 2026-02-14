@@ -428,23 +428,42 @@ ul {
     width: 36px;
     height: 36px;
     object-fit: contain;
-    opacity: 0.7;
+    border-radius: 50%;
+    background: #0f1f3c;
+    box-shadow: 0 0 0 2px rgba(200, 150, 46, 0.3);
 }
 
 .hero-fra-link {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    transition: opacity var(--transition);
+    padding: 0.5rem 1rem 0.5rem 0.65rem;
+    border: 1px solid rgba(200, 150, 46, 0.25);
+    border-radius: 999px;
+    background: rgba(200, 150, 46, 0.06);
+    transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    cursor: pointer;
 }
 
 .hero-fra-link:hover {
-    opacity: 0.8;
+    background: rgba(200, 150, 46, 0.12);
+    border-color: rgba(200, 150, 46, 0.45);
+    transform: translateY(-1px);
+}
+
+.hero-fra-link:hover .hero-fra-arrow {
+    transform: translate(2px, -2px);
 }
 
 .hero-fra-text {
     font-size: 0.8rem;
-    color: var(--color-text-muted);
+    color: #0f1f3c;
+}
+
+.hero-fra-arrow {
+    color: var(--color-accent);
+    flex-shrink: 0;
+    transition: transform var(--transition);
 }
 
 /* --- Image Placeholders --- */
