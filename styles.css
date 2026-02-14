@@ -63,6 +63,8 @@ ul {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    position: relative;
+    z-index: 1;
 }
 
 /* --- Scroll Progress --- */
@@ -374,6 +376,19 @@ ul {
     overflow: hidden;
 }
 
+.hero::after {
+    content: '';
+    position: absolute;
+    right: -5%;
+    bottom: -10%;
+    width: 500px;
+    height: 500px;
+    background: url('static/OP_grey.svg') no-repeat center / contain;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+}
+
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -641,6 +656,28 @@ ul {
     padding: 6rem 0;
     position: relative;
     overflow: hidden;
+}
+
+#services::after,
+#trusted::after {
+    content: '';
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: url('static/OP_grey.svg') no-repeat center / contain;
+    opacity: 0.04;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#services::after {
+    left: -5%;
+    bottom: -8%;
+}
+
+#trusted::after {
+    right: -5%;
+    top: -10%;
 }
 
 .section--white {
@@ -2118,8 +2155,7 @@ ul {
     }
 
     .hero-photo--angled {
-        clip-path: none;
-        border-radius: 8px;
+        clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
     }
 
     .whyus-layout .whyus-card {
