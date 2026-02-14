@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Optimum Performance — Immersive Experience
-   Page loader, scroll progress, word reveals, cursor glow, ambient shapes
+   Optimum Performance — Lead Generation Website
+   Tabs, accordion, form validation, scroll effects, translation
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -10,29 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.getElementById('navLinks');
     const navAnchors = navLinks.querySelectorAll('a');
     const revealElements = document.querySelectorAll('.reveal');
-    const parallaxSections = document.querySelectorAll('[data-parallax]');
-    const tiltCards = document.querySelectorAll('.tilt-card');
     const scrollProgress = document.getElementById('scrollProgress');
-    const pageLoader = document.getElementById('pageLoader');
-    const heroGlow = document.getElementById('heroGlow');
-
-    // --- Page Loader ---
-    document.body.classList.add('loading');
-
-    const loaderFill = pageLoader.querySelector('.loader-fill');
-    let loadProgress = 0;
-    const loadInterval = setInterval(() => {
-        loadProgress += Math.random() * 25 + 10;
-        if (loadProgress > 100) loadProgress = 100;
-        loaderFill.style.width = loadProgress + '%';
-        if (loadProgress >= 100) {
-            clearInterval(loadInterval);
-            setTimeout(() => {
-                pageLoader.classList.add('done');
-                document.body.classList.remove('loading');
-            }, 400);
-        }
-    }, 200);
 
     // --- Scroll Progress Bar ---
     const updateScrollProgress = () => {
@@ -46,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Sticky Navbar ---
     const handleScroll = () => {
-        if (window.scrollY > 300) {
+        if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
@@ -109,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const span = document.createElement('span');
                 span.classList.add('word');
                 span.textContent = word;
-                span.style.transitionDelay = (i * 0.12) + 's';
+                span.style.transitionDelay = (i * 0.1) + 's';
                 title.appendChild(span);
                 if (i < text.split(/\s+/).length - 1) {
                     title.appendChild(document.createTextNode('\u00A0'));
@@ -126,19 +104,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 const el = entry.target;
 
-                // Trigger word reveals inside this element
                 el.querySelectorAll('.word').forEach(word => {
                     word.classList.add('word-visible');
                 });
 
-                // Find stagger siblings within same parent
                 if (el.classList.contains('stagger')) {
                     const parent = el.parentElement;
                     const staggerChildren = parent.querySelectorAll('.stagger');
                     staggerChildren.forEach((child, i) => {
                         setTimeout(() => {
                             child.classList.add('visible');
-                        }, i * 120);
+                        }, i * 100);
                     });
                     staggerChildren.forEach(child => revealObserver.unobserve(child));
                 } else {
@@ -152,13 +128,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, {
         root: null,
-        rootMargin: '0px 0px -80px 0px',
+        rootMargin: '0px 0px -60px 0px',
         threshold: 0.1
     });
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // Word reveal for non-.reveal titles (like CEO section)
+    // Word reveal for non-.reveal titles
     const wordTitleObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -174,82 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
         wordTitleObserver.observe(el);
     });
 
-    // --- Advantage Line Animation ---
-    const advantageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const parent = entry.target.parentElement;
-                const items = parent.querySelectorAll('.advantage-item');
-                items.forEach((item, i) => {
-                    setTimeout(() => {
-                        item.classList.add('line-visible');
-                    }, i * 150);
-                });
-                items.forEach(item => advantageObserver.unobserve(item));
-            }
-        });
-    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
-
-    document.querySelectorAll('.advantage-item').forEach(el => {
-        advantageObserver.observe(el);
-    });
-
-    // --- Parallax Effect ---
-    const handleParallax = () => {
-        parallaxSections.forEach(section => {
-            const speed = parseFloat(section.dataset.parallax) || 0.2;
-            const rect = section.getBoundingClientRect();
-            const offset = (rect.top + rect.height / 2 - window.innerHeight / 2) * speed;
-            const container = section.querySelector('.container');
-            if (container) {
-                container.style.transform = `translateY(${offset * 0.15}px)`;
-            }
-        });
-    };
-
-    window.addEventListener('scroll', handleParallax, { passive: true });
-
-    // --- 3D Tilt Cards with Cursor Glow ---
-    tiltCards.forEach(card => {
-        // Add glow element
-        const glow = document.createElement('div');
-        glow.classList.add('card-glow');
-        card.appendChild(glow);
-
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -6;
-            const rotateY = ((x - centerX) / centerX) * 6;
-            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-
-            // Move glow
-            glow.style.left = x + 'px';
-            glow.style.top = y + 'px';
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(800px) rotateX(0) rotateY(0) scale(1)';
-        });
-    });
-
-    // --- Hero Mouse-Following Glow ---
-    if (heroGlow) {
-        const hero = document.getElementById('hero');
-        hero.addEventListener('mousemove', (e) => {
-            const rect = hero.getBoundingClientRect();
-            heroGlow.style.left = (e.clientX - rect.left) + 'px';
-            heroGlow.style.top = (e.clientY - rect.top) + 'px';
-        });
-    }
-
     // --- Hero Particles ---
     const particleContainer = document.getElementById('particles');
     if (particleContainer) {
-        for (let i = 0; i < 40; i++) {
+        for (let i = 0; i < 30; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
             particle.style.left = Math.random() * 100 + '%';
@@ -264,15 +168,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Section Ambient Shapes ---
     document.querySelectorAll('.section-shapes').forEach(container => {
-        const count = 3 + Math.floor(Math.random() * 3);
+        const count = 4 + Math.floor(Math.random() * 3);
         for (let i = 0; i < count; i++) {
             const shape = document.createElement('div');
             shape.classList.add('shape');
-            const size = 80 + Math.random() * 200;
+            const size = 100 + Math.random() * 250;
             shape.style.width = size + 'px';
             shape.style.height = size + 'px';
-            shape.style.left = Math.random() * 100 + '%';
-            shape.style.top = Math.random() * 100 + '%';
+            shape.style.left = (Math.random() * 120 - 10) + '%';
+            // Spread shapes across full range including edges that cross into adjacent sections
+            const edgeBias = Math.random();
+            if (edgeBias < 0.3) {
+                shape.style.top = (-15 + Math.random() * 30) + '%'; // near top edge
+            } else if (edgeBias > 0.7) {
+                shape.style.top = (70 + Math.random() * 30) + '%'; // near bottom edge
+            } else {
+                shape.style.top = (20 + Math.random() * 60) + '%'; // middle
+            }
             shape.style.animationDelay = (Math.random() * 10) + 's';
             shape.style.animationDuration = (20 + Math.random() * 20) + 's';
             container.appendChild(shape);
@@ -310,34 +222,350 @@ document.addEventListener('DOMContentLoaded', () => {
 
     statNumbers.forEach(el => counterObserver.observe(el));
 
+    // --- Segment Tab Switching ---
+    const segmentTabs = document.querySelectorAll('.segment-tab');
+    const segmentContents = document.querySelectorAll('.segment-content');
+
+    segmentTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const segment = tab.dataset.segment;
+
+            segmentTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            segmentContents.forEach(content => {
+                content.classList.remove('active');
+                if (content.id === `segment-${segment}`) {
+                    content.classList.add('active');
+                    // Trigger reveal animations for newly visible cards
+                    content.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+                        revealObserver.observe(el);
+                    });
+                }
+            });
+        });
+    });
+
+    // --- Dynamic Insurance Type Dropdown ---
+    const clientTypeRadios = document.querySelectorAll('input[name="clientType"]');
+    const insuranceTypeSelect = document.getElementById('insuranceType');
+
+    const insuranceOptions = {
+        individual: [
+            { value: 'life-health', label: 'Medical Insurance' },
+            { value: 'home', label: 'Home Insurance' },
+            { value: 'motor', label: 'Motor Insurance' },
+            { value: 'personal-accident', label: 'Personal Accident' }
+        ],
+        corporate: [
+            { value: 'commercial', label: 'Commercial Insurance' },
+            { value: 'employee-benefits', label: 'Employee Benefits' },
+            { value: 'marine-cargo', label: 'Marine & Cargo Insurance' },
+            { value: 'risk-management', label: 'Risk Management' },
+            { value: 'claims-management', label: 'Claims Management' },
+            { value: 'professional-liability', label: 'Professional Liability' }
+        ]
+    };
+
+    const insuranceOptionsAr = {
+        individual: [
+            { value: 'home', label: 'تأمين المنزل' },
+            { value: 'motor', label: 'تأمين السيارات' },
+            { value: 'personal-accident', label: 'الحوادث الشخصية' }
+        ],
+        corporate: [
+            { value: 'commercial', label: 'التأمين التجاري' },
+            { value: 'employee-benefits', label: 'مزايا الموظفين' },
+            { value: 'marine-cargo', label: 'التأمين البحري والشحن' },
+            { value: 'risk-management', label: 'إدارة المخاطر' },
+            { value: 'claims-management', label: 'إدارة المطالبات' },
+            { value: 'professional-liability', label: 'المسؤولية المهنية' }
+        ]
+    };
+
+    if (clientTypeRadios.length && insuranceTypeSelect) {
+        clientTypeRadios.forEach(radio => radio.addEventListener('change', () => {
+            const type = radio.value;
+            const options = currentLang === 'ar' ? insuranceOptionsAr[type] : insuranceOptions[type];
+
+            insuranceTypeSelect.innerHTML = '';
+
+            const placeholder = document.createElement('option');
+            placeholder.value = '';
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            placeholder.textContent = currentLang === 'ar' ? 'اختر نوع التأمين' : 'Select insurance type';
+            insuranceTypeSelect.appendChild(placeholder);
+
+            if (options) {
+                options.forEach(opt => {
+                    const option = document.createElement('option');
+                    option.value = opt.value;
+                    option.textContent = opt.label;
+                    insuranceTypeSelect.appendChild(option);
+                });
+            }
+        }));
+    }
+
+    // --- Accordion ---
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            const body = item.querySelector('.accordion-body');
+            const isOpen = item.classList.contains('open');
+
+            // Close all
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('open');
+                i.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
+                i.querySelector('.accordion-body').style.maxHeight = null;
+            });
+
+            // Open clicked if it wasn't open
+            if (!isOpen) {
+                item.classList.add('open');
+                header.setAttribute('aria-expanded', 'true');
+                body.style.maxHeight = body.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // --- Form Validation ---
+    const quoteForm = document.getElementById('quoteForm');
+    const formSuccess = document.getElementById('formSuccess');
+
+    if (quoteForm) {
+        quoteForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Clear previous errors
+            quoteForm.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('error');
+            });
+
+            // Validate required fields
+            const fullName = document.getElementById('fullName');
+            if (!fullName.value.trim()) {
+                fullName.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            const email = document.getElementById('email');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value.trim())) {
+                email.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            const phone = document.getElementById('phone');
+            if (!phone.value.trim()) {
+                phone.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            const clientTypeChecked = document.querySelector('input[name="clientType"]:checked');
+            if (!clientTypeChecked) {
+                document.getElementById('clientType').closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            const insuranceType = document.getElementById('insuranceType');
+            if (!insuranceType.value) {
+                insuranceType.closest('.form-group').classList.add('error');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Show success
+                document.querySelector('.form-grid').style.display = 'none';
+                formSuccess.classList.add('show');
+
+                // Scroll to success message
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+
+    // --- Meeting Form ---
+    const meetingBtn = document.getElementById('meetingBtn');
+    if (meetingBtn) {
+        meetingBtn.addEventListener('click', () => {
+            const name = document.getElementById('meetingName');
+            const phone = document.getElementById('meetingPhone');
+
+            let valid = true;
+
+            if (!name.value.trim()) {
+                name.style.borderColor = '#c0392b';
+                valid = false;
+            } else {
+                name.style.borderColor = '';
+            }
+
+            if (!phone.value.trim()) {
+                phone.style.borderColor = '#c0392b';
+                valid = false;
+            } else {
+                phone.style.borderColor = '';
+            }
+
+            if (valid) {
+                document.querySelector('.form-grid').style.display = 'none';
+                formSuccess.classList.add('show');
+                formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    }
+
     // --- Translation System ---
     const translations = {
         ar: {
             // Navigation
-            'nav.about': 'من نحن',
-            'nav.vision': 'الرؤية والرسالة',
             'nav.services': 'خدماتنا',
-            'nav.advantage': 'لماذا نحن',
+            'nav.whyus': 'لماذا نحن',
+            'nav.process': 'كيف نعمل',
             'nav.testimonials': 'آراء العملاء',
             'nav.contact': 'تواصل معنا',
+            'nav.cta.quote': 'طلب عرض سعر',
+            'nav.cta.meeting': 'حجز اجتماع',
 
             // Hero
-            'hero.tagline': 'ليس مجرد تأمين، إنها ثقافة أعمال',
-            'hero.cta': 'احصل على عرض سعر',
+            'hero.headline': 'توقف عن دفع مبالغ زائدة لتأمين لا يحميك',
+            'hero.sub': 'نتفاوض للحصول على التغطية المناسبة بالسعر المناسب — حتى تركز على تنمية أعمالك.',
+            'hero.cta.quote': 'طلب عرض سعر',
+            'hero.cta.meeting': 'حجز اجتماع',
+            'hero.fra': 'مرخصة ومنظمة من الهيئة العامة للرقابة المالية — رقم القيد ٩١',
             'hero.fra.label': 'مرخصة ومنظمة من الهيئة العامة للرقابة المالية',
             'hero.fra.reg': 'رقم القيد <strong>٩١</strong>',
 
-            // Who We Are
-            'about.title': 'من نحن',
-            'about.lead': 'أوبتيموم بيرفورمنس هي شركة وساطة تأمينية رائدة مكرّسة لحماية ما يهمّك أكثر — عملك، وموظفيك، ومستقبلك.',
-            'about.p1': 'تأسست على إيمان راسخ بأن التغطية المناسبة تبدأ بالعلاقة الصحيحة، حيث نتشارك مع المؤسسات للتنقل بثقة في عالم التأمين المعقد. يضم فريقنا وسطاء ذوي خبرة واسعة تمتد لعقود في مختلف القطاعات، لتأمين تغطية مصممة خصيصاً توفر حماية حقيقية وراحة بال دائمة.',
-            'about.p2': 'نحن لا نكتفي بإصدار الوثائق — بل ننغمس في عملياتكم لفهم المخاطر الفريدة التي تواجهونها ونصمم برامج تأمينية شاملة وتنافسية ومبنية لتدوم. من الشركات الناشئة إلى المؤسسات الكبرى، أوبتيموم بيرفورمنس هي الوسيط الموثوق الذي يحوّل المخاطر إلى مرونة.',
+            // Pain points
+            'pain.1': 'تدفع أقساط زائدة؟',
+            'pain.2': 'مطالبات مرفوضة أو متأخرة؟',
+            'pain.3': 'ثغرات في الوثيقة لا تعلم عنها؟',
+            'pain.4': 'لا يوجد وسيط مخصص لدعمك؟',
+
+            // Services
+            'services.title': 'حلول تأمينية تناسبك',
+            'services.subtitle': 'سواء كنت تحمي عائلتك أو عملك، نحن نوفر لك التغطية',
+            'segment.individual': 'للأفراد',
+            'segment.corporate': 'للشركات',
+
+            // Individual services
+            'ind.1.title': 'التأمين الطبي',
+            'ind.1.text': 'خطط طبية شاملة لحمايتك أنت وعائلتك.',
+            'ind.2.title': 'تأمين المنزل',
+            'ind.2.text': 'احمِ منزلك وممتلكاتك ضد الحريق والسرقة والكوارث الطبيعية.',
+            'ind.3.title': 'تأمين السيارات',
+            'ind.3.text': 'تغطية شاملة وتأمين ضد الغير بأسعار تنافسية.',
+            'ind.4.title': 'تأمين السفر',
+            'ind.4.text': 'سافر براحة بال — تغطية الطوارئ الطبية وإلغاء الرحلة والأمتعة المفقودة.',
+            'ind.5.title': 'الحوادث الشخصية',
+            'ind.5.text': 'حماية مالية لك ولعائلتك في حالة الإصابة العرضية أو الإعاقة.',
+
+            // Corporate services
+            'corp.1.title': 'التأمين التجاري',
+            'corp.1.text': 'تغطية الممتلكات والمسؤولية وانقطاع الأعمال للحفاظ على استمرارية عملياتك.',
+            'corp.2.title': 'مزايا الموظفين',
+            'corp.2.text': 'استقطب واحتفظ بالكفاءات مع خطط طبية وأسنان وتأمين حياة وتقاعد جماعية.',
+            'corp.3.title': 'التأمين البحري والشحن',
+            'corp.3.text': 'احمِ البضائع أثناء النقل — تغطية كل مرحلة من سلسلة التوريد واللوجستيات.',
+            'corp.4.title': 'إدارة المخاطر',
+            'corp.4.text': 'نقيّم ونحدد ونخفف من تعرضك — نبني أطر عمل تقلل الخسائر.',
+            'corp.5.title': 'إدارة المطالبات',
+            'corp.5.text': 'فريق المطالبات المخصص لدينا يدافع عن تسويات سريعة وعادلة نيابة عنك.',
+            'corp.6.title': 'المسؤولية المهنية',
+            'corp.6.text': 'احمِ عملك من دعاوى الإهمال والأخطاء والسهو.',
+            'card.cta': 'احصل على عرض سعر ←',
+
+            // Why Us
+            'whyus.title': 'ما يُميّز أوبتيموم بيرفورمنس',
+            'whyus.1.title': 'توفير من خلال الاستقلالية',
+            'whyus.1.text': 'نقارن بين أكثر من 50 شركة تأمين لنحصل لك على أفضل سعر — وليس العرض الذي يدفع لنا أكثر.',
+            'whyus.2.title': 'دعم حقيقي عند الحاجة',
+            'whyus.2.text': 'عندما تكون المطالبة على المحك، فريقنا يقاتل من أجل تسوية كاملة وعادلة — وينجح في 98% من الحالات.',
+            'whyus.3.title': 'شريك وليس مجرد مزوّد خدمة',
+            'whyus.3.text': 'وسيط مخصص واحد، دعم على مدار العام. ندير محفظتك التأمينية حتى تركّز على أعمالك.',
+            'cinematic.text': 'أكثر من 50 شريك تأمين. وسيط واحد يعمل لمصلحتك.',
+
+            // How We Work
+            'process.title': 'كيف نعمل',
+            'process.subtitle': 'عملية مثبتة تضع حمايتك أولاً',
+            'process.1.title': 'تقييم المخاطر',
+            'process.1.text': 'نحلل عملياتك وأصولك وتعرضاتك لبناء ملف مخاطر شامل.',
+            'process.2.title': 'التسويق والتفاوض',
+            'process.2.text': 'نتواصل مع عدة شركات تأمين، نقارن الشروط، ونتفاوض للحصول على أفضل تغطية بأسعار تنافسية.',
+            'process.3.title': 'الإصدار والتفعيل',
+            'process.3.text': 'بعد موافقتك، ننهي ونفعّل وثيقتك — نتولى جميع المستندات والتنسيق.',
+            'process.4.title': 'الدعم المستمر',
+            'process.4.text': 'التجديدات والتعديلات والمناصرة في المطالبات — ندير محفظتك على مدار العام.',
+            'process.cta': 'مستعد للبدء؟ اطلب عرض سعر',
 
             // Stats
             'stat.1': 'سنوات الخبرة',
             'stat.2': 'وثيقة تأمين',
             'stat.3': 'شريك تأمين',
             'stat.4': 'نسبة نجاح المطالبات',
+
+            // Testimonials
+            'testimonials.title': 'ماذا يقول عملاؤنا',
+            'testimonials.subtitle': 'حماية حقيقية، شراكات حقيقية',
+            'testimonial.1.quote': '\u201Cأوبتيموم بيرفورمنس وفرت لنا 30% من أقساط التأمين التجاري مع تحسين التغطية فعلياً. معرفتهم بالسوق لا مثيل لها.\u201D',
+            'testimonial.1.name': 'أحمد حسن',
+            'testimonial.1.role': 'الرئيس التنفيذي، شركة تصنيع إقليمية',
+            'testimonial.2.quote': '\u201Cعندما تعرضنا لمطالبة حريق كبيرة، كان فريقهم في الموقع خلال ساعات. تولوا كل شيء مع شركة التأمين وحصلنا على التسوية الكاملة في وقت قياسي.\u201D',
+            'testimonial.2.name': 'سارة المصري',
+            'testimonial.2.role': 'المدير المالي، مجموعة ضيافة',
+            'testimonial.3.quote': '\u201Cصمموا حزمة مزايا موظفين ساعدتنا على استقطاب أفضل الكفاءات مع البقاء ضمن الميزانية. شريك حقيقي، وليس مجرد وسيط.\u201D',
+            'testimonial.3.name': 'محمد خليل',
+            'testimonial.3.role': 'مدير الموارد البشرية، مؤسسة لوجستية',
+            'testimonials.cta': 'انضم لأكثر من 200 شركة نحميها',
+
+            // Quote Form
+            'quote.title': 'احصل على عرض تأمين مجاني',
+            'quote.subtitle': 'أخبرنا بما تحتاج — سنرد عليك خلال 24 ساعة',
+            'form.name.label': 'الاسم الكامل',
+            'form.name.error': 'يرجى إدخال اسمك',
+            'form.email.label': 'البريد الإلكتروني',
+            'form.email.error': 'يرجى إدخال بريد إلكتروني صحيح',
+            'form.phone.label': 'الهاتف',
+            'form.phone.error': 'يرجى إدخال رقم هاتفك',
+            'form.clientType.label': 'أنا',
+            'form.clientType.error': 'يرجى اختيار نوع العميل',
+            'form.insuranceType.label': 'نوع التأمين',
+            'form.insuranceType.error': 'يرجى اختيار نوع التأمين',
+            'form.message.label': 'رسالة <span class="optional">(اختياري)</span>',
+            'form.submit': 'طلب عرض سعر',
+            'form.success.title': 'شكراً لك!',
+            'form.success.text': 'تم استلام طلبك وسنرد عليك خلال 24 ساعة.',
+
+            // Meeting
+            'meeting.title': 'تفضل التحدث؟',
+            'meeting.text': 'احجز استشارة مجانية مع أحد متخصصي التأمين لدينا. بدون التزام.',
+            'meeting.name.label': 'اسمك',
+            'meeting.phone.label': 'رقم الهاتف',
+            'meeting.time.label': 'الوقت المفضل',
+            'meeting.time.morning': 'صباحاً (9ص - 12م)',
+            'meeting.time.afternoon': 'ظهراً (12م - 4م)',
+            'meeting.time.evening': 'مساءً (4م - 7م)',
+            'meeting.submit': 'حجز اجتماع',
+
+            // Trust signals
+            'trust.1': 'مرخصة من الهيئة المالية — رقم ٩١',
+            'trust.2': 'الرد خلال 24 ساعة',
+            'trust.3': 'بدون التزام، عرض مجاني',
+
+            // Trusted By
+            'trusted.title': 'يثقون بنا',
+            'trusted.subtitle': 'شراكات مع مؤسسات رائدة في المنطقة',
+
+            // About accordion
+            'about.accordion.title': 'تعرف علينا أكثر',
+            'about.title': 'من نحن',
+            'about.lead': 'أوبتيموم بيرفورمنس هي شركة وساطة تأمينية رائدة مكرّسة لحماية ما يهمّك أكثر — عملك، وموظفيك، ومستقبلك.',
+            'about.p1': 'تأسست على إيمان راسخ بأن التغطية المناسبة تبدأ بالعلاقة الصحيحة، حيث نتشارك مع المؤسسات للتنقل بثقة في عالم التأمين المعقد. يضم فريقنا وسطاء ذوي خبرة واسعة تمتد لعقود في مختلف القطاعات، لتأمين تغطية مصممة خصيصاً توفر حماية حقيقية وراحة بال دائمة.',
+            'about.p2': 'نحن لا نكتفي بإصدار الوثائق — بل ننغمس في عملياتكم لفهم المخاطر الفريدة التي تواجهونها ونصمم برامج تأمينية شاملة وتنافسية ومبنية لتدوم. من الشركات الناشئة إلى المؤسسات الكبرى، أوبتيموم بيرفورمنس هي الوسيط الموثوق الذي يحوّل المخاطر إلى مرونة.',
 
             // Vision & Mission
             'vm.title': 'الرؤية والرسالة',
@@ -361,68 +589,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'value.6.title': 'التوجه نحو النتائج',
             'value.6.text': 'نقيس نجاحنا بالمطالبات التي نسوّيها والتوفيرات التي نحققها وراحة البال التي نوفرها لكل عميل.',
 
-            // Services
-            'services.title': 'خدماتنا',
-            'services.subtitle': 'تغطية شاملة مصممة لحماية أعمالك وموظفيك',
-            'service.1.title': 'التأمين التجاري',
-            'service.1.text': 'احمِ أعمالك بتغطية مخصصة للممتلكات والمسؤولية وانقطاع الأعمال مصممة للحفاظ على استمرارية عملياتك مهما حدث.',
-            'service.2.title': 'تأمين الحياة والصحة',
-            'service.2.text': 'اضمن رفاهية موظفيك مع خطط تأمين شاملة للحياة والصحة والتأمين الطبي من أبرز مقدمي الخدمات في المنطقة.',
-            'service.3.title': 'إدارة المخاطر',
-            'service.3.text': 'نقيّم ونحدد ونخفف من تعرضك للمخاطر — نبني أطر إدارة مخاطر تقلل الخسائر وتعزز مرونتك.',
-            'service.4.title': 'مزايا الموظفين',
-            'service.4.text': 'استقطب أفضل الكفاءات واحتفظ بها من خلال برامج تأمين جماعية تنافسية — من التأمين الطبي وطب الأسنان إلى التقاعد والرعاية الصحية.',
-            'service.5.title': 'التأمين البحري والشحن',
-            'service.5.text': 'احمِ بضائعك أثناء النقل مع حلول التأمين البحري والشحن واللوجستيات التي تغطي كل مرحلة من سلسلة التوريد.',
-            'service.6.title': 'إدارة المطالبات',
-            'service.6.text': 'عندما يكون الأمر أكثر أهمية، نقف بجانبك. فريق المطالبات المخصص لدينا يدافع عن تسويات سريعة وعادلة — حتى تتمكن من التركيز على عملك.',
-
-            // How We Work
-            'process.title': 'كيف نعمل',
-            'process.subtitle': 'عملية مثبتة تضع حمايتك أولاً',
-            'process.1.title': 'تقييم المخاطر',
-            'process.1.text': 'نحلل عملياتك وأصولك وتعرضاتك — نبني صورة شاملة لملف المخاطر الخاص بك من الأساس.',
-            'process.2.title': 'التسويق والتفاوض',
-            'process.2.text': 'نتواصل مع عدة شركات تأمين نيابة عنك، نقارن الشروط ونتفاوض للحصول على أفضل تغطية بأكثر الأقساط تنافسية.',
-            'process.3.title': 'الإصدار والتفعيل',
-            'process.3.text': 'بعد موافقتك، ننهي ونفعّل وثيقتك — نتولى جميع المستندات والملحقات والتنسيق مع شركات الاكتتاب.',
-            'process.4.title': 'الدعم المستمر',
-            'process.4.text': 'من التجديدات والتعديلات خلال فترة الوثيقة إلى المناصرة في المطالبات، ندير محفظتك على مدار العام لضمان حمايتك الدائمة.',
-
-            // Competitive Advantage
-            'advantage.title': 'ميزتنا التنافسية',
-            'advantage.subtitle': 'ما يميزنا في سوق التأمين',
-            'advantage.1.title': 'مستقلون وغير منحازين',
-            'advantage.1.text': 'لسنا مرتبطين بأي شركة تأمين واحدة. استقلاليتنا تعني أننا نوصي دائماً بالتغطية الأفضل لك — وليس لشركة التأمين.',
-            'advantage.2.title': 'تغطية مخصصة',
-            'advantage.2.text': 'لا تواجه شركتان نفس المخاطر. كل برنامج تأمين نصممه مبني خصيصاً لمعالجة تعرضاتك وأهدافك المحددة.',
-            'advantage.3.title': 'المناصرة في المطالبات',
-            'advantage.3.text': 'عندما تحتاج لتقديم مطالبة، لا نختفي. فريقنا يدافع عنك لضمان تسويات سريعة وعادلة وكاملة.',
-            'advantage.4.title': 'علاقات قوية مع شركات التأمين',
-            'advantage.4.text': 'شراكاتنا الطويلة مع كبرى شركات التأمين المحلية والدولية تمنحنا وصولاً لشروط حصرية وأسعار تنافسية.',
-            'advantage.5.title': 'خبرة متعددة القطاعات',
-            'advantage.5.text': 'من البناء إلى الرعاية الصحية إلى اللوجستيات، يتمتع وسطاؤنا بمعرفة عميقة بالقطاعات لتقييم المخاطر المتخصصة وتأمينها بدقة.',
-            'advantage.6.title': 'خدمة على مدار العام',
-            'advantage.6.text': 'التأمين لا يتوقف عند إصدار الوثيقة. ندير التجديدات والتعديلات ومراجعات المخاطر المستمرة للحفاظ على تغطيتك محدثة.',
-
-            // Testimonials
-            'testimonials.title': 'ماذا يقول عملاؤنا',
-            'testimonials.subtitle': 'حماية حقيقية، شراكات حقيقية',
-            'testimonial.1.quote': '\u201Cأوبتيموم بيرفورمنس وفرت لنا 30% من أقساط التأمين التجاري مع تحسين التغطية فعلياً. معرفتهم بالسوق لا مثيل لها.\u201D',
-            'testimonial.1.name': 'أحمد حسن',
-            'testimonial.1.role': 'الرئيس التنفيذي، شركة تصنيع إقليمية',
-            'testimonial.2.quote': '\u201Cعندما تعرضنا لمطالبة حريق كبيرة، كان فريقهم في الموقع خلال ساعات. تولوا كل شيء مع شركة التأمين وحصلنا على التسوية الكاملة في وقت قياسي.\u201D',
-            'testimonial.2.name': 'سارة المصري',
-            'testimonial.2.role': 'المدير المالي، مجموعة ضيافة',
-            'testimonial.3.quote': '\u201Cصمموا حزمة مزايا موظفين ساعدتنا على استقطاب أفضل الكفاءات مع البقاء ضمن الميزانية. شريك حقيقي، وليس مجرد وسيط.\u201D',
-            'testimonial.3.name': 'محمد خليل',
-            'testimonial.3.role': 'مدير الموارد البشرية، مؤسسة لوجستية',
-
-            // Trusted By
-            'trusted.title': 'يثقون بنا',
-            'trusted.subtitle': 'شراكات مع مؤسسات رائدة في المنطقة',
-
-            // CEO Message
+            // CEO
             'ceo.title': 'كلمة الرئيس التنفيذي',
             'ceo.p1': '\u201Cفي أوبتيموم بيرفورمنس، نؤمن بأن التأمين أكثر من مجرد وثيقة — إنه وعد. وعد مبني على الثقة والخبرة العميقة والالتزام الراسخ بحماية ما بناه عملاؤنا بجهد كبير.',
             'ceo.p2': 'فريقنا مدفوع بهدف واحد: أن نكون الوسيط الذي يمكنك الاعتماد عليه عندما يكون الأمر أكثر أهمية. نحن لا نكتفي بتوفير التغطية — نستمع وندافع ونقدم. كل خطر هو فرصة لإثبات قيمتنا، وكل عميل هو شريك نفخر بخدمته.',
@@ -442,11 +609,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Footer
             'footer.tagline': 'ليس مجرد تأمين،<br>إنها ثقافة أعمال',
             'footer.quicklinks': 'روابط سريعة',
-            'footer.link.about': 'من نحن',
-            'footer.link.vision': 'الرؤية والرسالة',
-            'footer.link.values': 'قيمنا الأساسية',
             'footer.link.services': 'خدماتنا',
-            'footer.link.advantage': 'لماذا نحن',
+            'footer.link.whyus': 'لماذا نحن',
+            'footer.link.process': 'كيف نعمل',
+            'footer.link.quote': 'طلب عرض سعر',
+            'footer.link.about': 'من نحن',
             'footer.getintouch': 'تواصل معنا',
             'footer.email': 'info@optimumperformance.com',
             'footer.phone': '+00 000 000 0000',
@@ -456,7 +623,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Store original English content
+    // Placeholder translations
+    const placeholderTranslations = {
+        ar: {
+            'form.name.placeholder': 'أدخل اسمك الكامل',
+            'form.email.placeholder': 'your@email.com',
+            'form.phone.placeholder': '+20 xxx xxx xxxx',
+            'form.clientType.placeholder': 'اختر نوع العميل',
+            'form.clientType.individual': 'فرد',
+            'form.clientType.corporate': 'شركة / مؤسسة',
+            'form.insuranceType.placeholder': 'اختر نوع التأمين',
+            'form.message.placeholder': 'أخبرنا عن احتياجاتك التأمينية...',
+            'meeting.name.placeholder': 'أدخل اسمك',
+            'meeting.phone.placeholder': '+20 xxx xxx xxxx',
+        }
+    };
+
+    // Store original content
     const originalContent = {};
 
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -466,6 +649,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('[data-i18n-html]').forEach(el => {
         const key = el.getAttribute('data-i18n-html');
         originalContent[key] = el.innerHTML;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        originalContent[key] = el.getAttribute('placeholder');
     });
 
     let currentLang = 'en';
@@ -490,6 +677,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.innerHTML = translations.ar[key];
                 }
             });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (placeholderTranslations.ar[key]) {
+                    el.setAttribute('placeholder', placeholderTranslations.ar[key]);
+                }
+            });
+
+            // Update select options
+            document.querySelectorAll('select option[data-i18n]').forEach(opt => {
+                const key = opt.getAttribute('data-i18n');
+                if (translations.ar[key]) {
+                    opt.textContent = translations.ar[key];
+                }
+            });
         } else {
             htmlEl.setAttribute('lang', 'en');
             htmlEl.setAttribute('dir', 'ltr');
@@ -507,24 +708,42 @@ document.addEventListener('DOMContentLoaded', () => {
                     el.innerHTML = originalContent[key];
                 }
             });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (originalContent[key]) {
+                    el.setAttribute('placeholder', originalContent[key]);
+                }
+            });
+
+            document.querySelectorAll('select option[data-i18n]').forEach(opt => {
+                const key = opt.getAttribute('data-i18n');
+                if (originalContent[key]) {
+                    opt.textContent = originalContent[key];
+                }
+            });
         }
 
         // Re-initialize word reveal for translated titles
         document.querySelectorAll('[data-word-reveal]').forEach(title => {
-            // Clear existing word spans
             const text = title.textContent.trim();
             title.innerHTML = '';
             text.split(/\s+/).forEach((word, i) => {
                 const span = document.createElement('span');
                 span.classList.add('word', 'word-visible');
                 span.textContent = word;
-                span.style.transitionDelay = (i * 0.12) + 's';
+                span.style.transitionDelay = (i * 0.1) + 's';
                 title.appendChild(span);
                 if (i < text.split(/\s+/).length - 1) {
                     title.appendChild(document.createTextNode('\u00A0'));
                 }
             });
         });
+
+        // Re-populate insurance dropdown if client type is selected
+        const checkedRadio = document.querySelector('input[name="clientType"]:checked');
+        if (checkedRadio) {
+            checkedRadio.dispatchEvent(new Event('change'));
+        }
 
         currentLang = lang;
     };
