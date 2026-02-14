@@ -12,50 +12,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const revealElements = document.querySelectorAll('.reveal');
     const scrollProgress = document.getElementById('scrollProgress');
 
-    // --- Scroll Progress Bar ---
-    const updateScrollProgress = () => {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        scrollProgress.style.width = progress + '%';
-    };
-
-    window.addEventListener('scroll', updateScrollProgress, { passive: true });
-
-    // --- Sticky Navbar ---
-    const handleScroll = () => {
-        if (window.scrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-
-    // --- Active Nav Highlighting ---
+    // --- Combined Scroll Handler (RAF-throttled) ---
     const sections = document.querySelectorAll('section[id]');
+    let scrollTicking = false;
 
-    const updateActiveNav = () => {
-        const scrollY = window.scrollY + 120;
-        sections.forEach(section => {
-            const top = section.offsetTop;
-            const height = section.offsetHeight;
-            const id = section.getAttribute('id');
-            const link = navLinks.querySelector(`a[href="#${id}"]`);
-            if (link) {
-                if (scrollY >= top && scrollY < top + height) {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
+    const onScroll = () => {
+        if (scrollTicking) return;
+        scrollTicking = true;
+        requestAnimationFrame(() => {
+            const scrollTop = window.scrollY;
+
+            // Progress bar
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+
+            // Sticky navbar
+            navbar.classList.toggle('scrolled', scrollTop > 100);
+
+            // Active nav highlighting
+            const scrollY = scrollTop + 120;
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const height = section.offsetHeight;
+                const id = section.getAttribute('id');
+                const link = navLinks.querySelector(`a[href="#${id}"]`);
+                if (link) {
+                    link.classList.toggle('active', scrollY >= top && scrollY < top + height);
                 }
-            }
+            });
+
+            scrollTicking = false;
         });
     };
 
-    window.addEventListener('scroll', updateActiveNav, { passive: true });
-    updateActiveNav();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
     // --- Mobile Menu Toggle ---
     navToggle.addEventListener('click', () => {
@@ -81,15 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const initWordReveal = () => {
         document.querySelectorAll('[data-word-reveal]').forEach(title => {
             if (title.querySelector('.word')) return;
-            const text = title.textContent.trim();
+            const words = title.textContent.trim().split(/\s+/);
             title.textContent = '';
-            text.split(/\s+/).forEach((word, i) => {
+            words.forEach((word, i) => {
                 const span = document.createElement('span');
                 span.classList.add('word');
                 span.textContent = word;
                 span.style.transitionDelay = (i * 0.1) + 's';
                 title.appendChild(span);
-                if (i < text.split(/\s+/).length - 1) {
+                if (i < words.length - 1) {
                     title.appendChild(document.createTextNode('\u00A0'));
                 }
             });
@@ -153,7 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Hero Particles ---
     const particleContainer = document.getElementById('particles');
     if (particleContainer) {
-        for (let i = 0; i < 30; i++) {
+        const particleCount = window.innerWidth < 768 ? 10 : 30;
+        for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
             particle.classList.add('particle');
             particle.style.left = Math.random() * 100 + '%';
@@ -167,8 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Section Ambient Shapes ---
+    const isMobile = window.innerWidth < 768;
     document.querySelectorAll('.section-shapes').forEach(container => {
-        const count = 4 + Math.floor(Math.random() * 3);
+        const count = isMobile ? 2 : 4 + Math.floor(Math.random() * 3);
         for (let i = 0; i < count; i++) {
             const shape = document.createElement('div');
             shape.classList.add('shape');
@@ -725,15 +718,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Re-initialize word reveal for translated titles
         document.querySelectorAll('[data-word-reveal]').forEach(title => {
-            const text = title.textContent.trim();
+            const words = title.textContent.trim().split(/\s+/);
             title.innerHTML = '';
-            text.split(/\s+/).forEach((word, i) => {
+            words.forEach((word, i) => {
                 const span = document.createElement('span');
                 span.classList.add('word', 'word-visible');
                 span.textContent = word;
                 span.style.transitionDelay = (i * 0.1) + 's';
                 title.appendChild(span);
-                if (i < text.split(/\s+/).length - 1) {
+                if (i < words.length - 1) {
                     title.appendChild(document.createTextNode('\u00A0'));
                 }
             });
