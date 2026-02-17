@@ -79,7 +79,7 @@
                     </div>
                 </div>
                 <div class="hero-image reveal">
-                    <img src="static/pexels-mix-and-match-studio-2662809-4227112.jpg" alt="Professional business consultation" class="hero-photo hero-photo--angled">
+                    <img src="static/father_son_green_field.jpeg" alt="Professional business consultation" class="hero-photo hero-photo--angled">
                 </div>
             </div>
         </div>
@@ -463,13 +463,14 @@
                                     <span class="radio-label" data-i18n="form.clientType.corporate">A Business / Corporate</span>
                                 </label>
                             </div>
+                            <span class="form-error" id="clientType-error" role="alert" aria-live="polite" data-i18n="form.clientType.error">Please select a client type</span>
                         </div>
                         <div class="form-group">
-                            <label for="message" data-i18n="form.message.label">Message <span
-                                    class="optional">(optional)</span></label>
-                            <textarea id="message" name="message" rows="4"
-                                data-i18n-placeholder="form.message.placeholder"
-                                placeholder="Tell us about your insurance needs..."></textarea>
+                            <label for="insuranceType" data-i18n="form.insuranceType.label">Insurance Type <span class="required" aria-label="required">*</span></label>
+                            <select id="insuranceType" name="insuranceType" required aria-describedby="insuranceType-error">
+                                <option value="" disabled selected data-i18n="form.insuranceType.placeholder">Select insurance type</option>
+                            </select>
+                            <span class="form-error" id="insuranceType-error" role="alert" aria-live="polite" data-i18n="form.insuranceType.error">Please select an insurance type</span>
                         </div>
                     </div>
                     <div class="form-group">
