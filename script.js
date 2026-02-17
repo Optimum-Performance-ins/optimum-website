@@ -254,9 +254,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { value: 'commercial', label: 'Commercial Insurance' },
             { value: 'employee-benefits', label: 'Employee Benefits' },
             { value: 'marine-cargo', label: 'Marine & Cargo Insurance' },
-            { value: 'risk-management', label: 'Risk Management' },
-            { value: 'claims-management', label: 'Claims Management' },
-            { value: 'professional-liability', label: 'Professional Liability' }
+            { value: 'liability', label: 'Liability' },
+            { value: 'cybersecurity', label: 'Cybersecurity Insurance' }
         ]
     };
 
@@ -270,9 +269,8 @@ document.addEventListener('DOMContentLoaded', () => {
             { value: 'commercial', label: 'التأمين التجاري' },
             { value: 'employee-benefits', label: 'مزايا الموظفين' },
             { value: 'marine-cargo', label: 'التأمين البحري والشحن' },
-            { value: 'risk-management', label: 'إدارة المخاطر' },
-            { value: 'claims-management', label: 'إدارة المطالبات' },
-            { value: 'professional-liability', label: 'المسؤولية المهنية' }
+            { value: 'liability', label: 'المسؤولية' },
+            { value: 'cybersecurity', label: 'التأمين السيبراني' }
         ]
     };
 
@@ -468,8 +466,10 @@ document.addEventListener('DOMContentLoaded', () => {
             'corp.4.text': 'نقيّم ونحدد ونخفف من تعرضك — نبني أطر عمل تقلل الخسائر.',
             'corp.5.title': 'إدارة المطالبات',
             'corp.5.text': 'فريق المطالبات المخصص لدينا يدافع عن تسويات سريعة وعادلة نيابة عنك.',
-            'corp.6.title': 'المسؤولية المهنية',
-            'corp.6.text': 'احمِ عملك من دعاوى الإهمال والأخطاء والسهو.',
+            'corp.6.title': 'المسؤولية',
+            'corp.6.text': 'احمِ عملك من مطالبات الطرف الثالث بشأن الإصابة البدنية والأضرار في الممتلكات والمسؤولية القانونية.',
+            'corp.7.title': 'التأمين السيبراني',
+            'corp.7.text': 'احمِ عملك من اختراقات البيانات وهجمات الفدية والمسؤولية السيبرانية بحماية رقمية شاملة.',
             'card.cta': 'احصل على عرض سعر ←',
 
             // Why Us

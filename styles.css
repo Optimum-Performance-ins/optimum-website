@@ -979,9 +979,10 @@ textarea:focus-visible {
 .stat-label {
     display: block;
     margin-top: 0.75rem;
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.7);
-    letter-spacing: 0.03em;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    letter-spacing: 0.05em;
 }
 
 /* --- Testimonials --- */
@@ -1862,18 +1863,17 @@ textarea:focus-visible {
     overflow: hidden;
 }
 
-.cinematic-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.cinematic-strip--parallax {
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .cinematic-overlay {
     position: absolute;
     inset: 0;
     background: rgba(15, 31, 60, 0.82);
+    z-index: 0;
 }
 
 .cinematic-strip .container {
@@ -1900,10 +1900,13 @@ textarea:focus-visible {
 }
 
 .cinematic-text {
-    font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
     font-style: italic;
     max-width: 500px;
+    letter-spacing: 0.05em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* --- Why Us: Cards + Offset Image Layout --- */
@@ -2036,11 +2039,13 @@ textarea:focus-visible {
     }
 
     .cinematic-text {
-        font-size: 1rem;
+        font-size: 1.3rem;
+        font-weight: 600;
         padding: 0 1rem;
     }
 
-    .section--parallax {
+    .section--parallax,
+    .cinematic-strip--parallax {
         background-attachment: scroll;
     }
 
