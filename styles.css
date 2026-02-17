@@ -143,6 +143,60 @@ ul {
     width: 100%;
 }
 
+/* ==========================================================================
+   Accessibility Enhancements
+   ========================================================================== */
+
+/* --- Skip Link --- */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: var(--color-accent);
+    color: var(--color-white);
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    z-index: 10000;
+    font-weight: 600;
+    border-radius: 0 0 4px 0;
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* --- Focus Indicators --- */
+*:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* Override for form inputs to use primary color */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline-color: var(--color-primary);
+}
+
+/* --- Required Field Indicator --- */
+.required {
+    color: #c0392b;
+    font-weight: 700;
+    margin-left: 0.2rem;
+}
+
 /* --- Navigation --- */
 .navbar {
     position: fixed;
