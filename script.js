@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'nav.cta.meeting': 'حجز اجتماع',
 
             // Hero
-            'hero.headline': 'توقف عن دفع مبالغ زائدة لتأمين لا يحميك',
+            'hero.headline': 'ثقة، أمان، أداء.',
             'hero.sub': 'نتفاوض للحصول على التغطية المناسبة بالسعر المناسب — حتى تركز على تنمية أعمالك.',
             'hero.cta.quote': 'طلب عرض سعر',
             'hero.cta.meeting': 'حجز اجتماع',
@@ -600,7 +600,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'fra.reg.date.ar': 'Issued on: October 2019',
 
             // Footer
-            'footer.tagline': 'ليس مجرد تأمين،<br>إنها ثقافة أعمال',
+            'footer.tagline': 'ثقة، أمان،<br>أداء.',
             'footer.quicklinks': 'روابط سريعة',
             'footer.link.services': 'خدماتنا',
             'footer.link.whyus': 'لماذا نحن',

@@ -561,19 +561,32 @@ textarea:focus-visible {
 
 /* --- Service Card Logo Banner --- */
 .card-logo-banner {
-    height: 120px;
+    height: 160px;
     background: var(--color-bg-gray);
     border-radius: 4px 4px 0 0;
     margin: -2rem -2rem 1.5rem -2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .card-logo-img {
     width: 80px;
     height: auto;
     opacity: 0.15;
+}
+
+.card-banner-photo {
+    height: 160px;
+    overflow: hidden;
+}
+
+.card-banner-photo .card-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
 }
 
 /* --- Pain Points Strip --- */
@@ -803,6 +816,12 @@ textarea:focus-visible {
     border: 1px solid var(--color-border);
     border-radius: 4px;
     transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card .card-cta {
+    margin-top: auto;
 }
 
 .service-card:hover {
