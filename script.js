@@ -250,7 +250,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const serviceValue = card.dataset.service;
             const clientType = card.dataset.clientType; // 'individual' or 'corporate'
-            const serviceName = card.querySelector('h4').textContent;
 
             // 1. Select client type radio
             const radio = document.querySelector(`input[name="clientType"][value="${clientType}"]`);
@@ -267,23 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }, 50);
 
-            // 3. Add a message in the "Prefer to Talk?" section
-            const meetingCard = document.querySelector('.meeting-card');
-            if (meetingCard) {
-                // Remove any previous service message
-                const existing = meetingCard.querySelector('.service-prefill-msg');
-                if (existing) existing.remove();
-
-                const msg = document.createElement('p');
-                msg.className = 'service-prefill-msg';
-                msg.style.cssText = 'background: rgba(42,122,181,0.12); border-left: 3px solid #2a7ab5; padding: 0.6rem 0.8rem; border-radius: 4px; margin-top: 0.75rem; font-size: 0.9rem; color: #c8962e;';
-                msg.textContent = currentLang === 'ar'
-                    ? `مهتم بـ: ${serviceName}`
-                    : `Interested in: ${serviceName}`;
-                meetingCard.querySelector('p').after(msg);
-            }
-
-            // 4. Scroll to quote section
+            // 3. Scroll to quote section
             const quoteSection = document.getElementById('quote');
             if (quoteSection) {
                 const navHeight = navbar.offsetHeight;
