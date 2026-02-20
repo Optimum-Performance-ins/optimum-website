@@ -5,6 +5,15 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    // --- Device Capability Detection ---
+    const isLowEnd = (navigator.deviceMemory && navigator.deviceMemory < 2) ||
+                     (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2) ||
+                     (navigator.connection && navigator.connection.effectiveType === '2g');
+
+    if (isLowEnd) {
+        document.body.classList.add('low-end-device');
+    }
+
     const navbar = document.getElementById('navbar');
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
@@ -151,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Hero Particles ---
     const particleContainer = document.getElementById('particles');
-    if (particleContainer) {
+    if (particleContainer && !isLowEnd) {
         const particleCount = window.innerWidth < 768 ? 10 : 30;
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
@@ -169,7 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Section Ambient Shapes ---
     const isMobile = window.innerWidth < 768;
     document.querySelectorAll('.section-shapes').forEach(container => {
-        const count = isMobile ? 2 : 4 + Math.floor(Math.random() * 3);
+        const count = isLowEnd ? 0 : (isMobile ? 2 : 4 + Math.floor(Math.random() * 3));
         for (let i = 0; i < count; i++) {
             const shape = document.createElement('div');
             shape.classList.add('shape');
