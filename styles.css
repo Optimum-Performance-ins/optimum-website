@@ -2133,11 +2133,11 @@ textarea:focus-visible {
 }
 
 .lang-ar .hero-trust {
-    flex-direction: row-reverse;
+    direction: rtl;
 }
 
 .lang-ar .hero-ctas {
-    flex-direction: row-reverse;
+    direction: rtl;
 }
 
 /* Pain strip RTL */
