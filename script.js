@@ -239,6 +239,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Service Card → Quote Form Pre-fill ---
+    document.querySelectorAll('.service-card[data-service]').forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', (e) => {
+            // Don't double-handle if the CTA link itself was clicked (it already navigates)
+            if (e.target.closest('.card-cta')) {
+                e.preventDefault();
+            }
+
+            const serviceValue = card.dataset.service;
+            const clientType = card.dataset.clientType; // 'individual' or 'corporate'
+            const serviceName = card.querySelector('h4').textContent;
+
+            // 1. Select client type radio
+            const radio = document.querySelector(`input[name="clientType"][value="${clientType}"]`);
+            if (radio) {
+                radio.checked = true;
+                radio.dispatchEvent(new Event('change', { bubbles: true }));
+            }
+
+            // 2. After dropdown populates, select the insurance type
+            setTimeout(() => {
+                const insuranceSelect = document.getElementById('insuranceType');
+                if (insuranceSelect) {
+                    insuranceSelect.value = serviceValue;
+                }
+            }, 50);
+
+            // 3. Add a message in the "Prefer to Talk?" section
+            const meetingCard = document.querySelector('.meeting-card');
+            if (meetingCard) {
+                // Remove any previous service message
+                const existing = meetingCard.querySelector('.service-prefill-msg');
+                if (existing) existing.remove();
+
+                const msg = document.createElement('p');
+                msg.className = 'service-prefill-msg';
+                msg.style.cssText = 'background: rgba(42,122,181,0.12); border-left: 3px solid #2a7ab5; padding: 0.6rem 0.8rem; border-radius: 4px; margin-top: 0.75rem; font-size: 0.9rem; color: #c8962e;';
+                msg.textContent = currentLang === 'ar'
+                    ? `مهتم بـ: ${serviceName}`
+                    : `Interested in: ${serviceName}`;
+                meetingCard.querySelector('p').after(msg);
+            }
+
+            // 4. Scroll to quote section
+            const quoteSection = document.getElementById('quote');
+            if (quoteSection) {
+                const navHeight = navbar.offsetHeight;
+                const targetPosition = quoteSection.getBoundingClientRect().top + window.scrollY - navHeight;
+                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+            }
+        });
+    });
+
     // --- Dynamic Insurance Type Dropdown ---
     const clientTypeRadios = document.querySelectorAll('input[name="clientType"]');
     const insuranceTypeSelect = document.getElementById('insuranceType');
