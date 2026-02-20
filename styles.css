@@ -314,6 +314,8 @@ textarea:focus-visible {
     cursor: pointer;
     font-family: var(--font-serif);
     font-size: 0.8rem;
+    text-decoration: none;
+    color: inherit;
     transition: border-color var(--transition), background var(--transition);
 }
 
