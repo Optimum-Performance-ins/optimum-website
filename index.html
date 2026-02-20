@@ -236,50 +236,8 @@
             </div>
         </section>
 
-    <!-- Why Us -->
-    <section class="section section--gray" id="why-us">
-        <div class="section-shapes" aria-hidden="true"></div>
-        <div class="container">
-            <h2 class="section-title reveal" data-word-reveal data-i18n="whyus.title">The Optimum Difference</h2>
-            <div class="whyus-layout">
-                <div class="whyus-cards-col">
-                    <div class="whyus-card reveal stagger">
-                        <div class="whyus-icon">
-                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="24" r="18"/><path d="M24 14v10l7 7"/></svg>
-                        </div>
-                        <div>
-                            <h4 data-i18n="whyus.1.title">Savings Through Independence</h4>
-                            <p data-i18n="whyus.1.text">We compare 50+ insurers so you get the best deal — not the one that pays us the most.</p>
-                        </div>
-                    </div>
-                    <div class="whyus-card reveal stagger">
-                        <div class="whyus-icon">
-                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 24l8 8 16-16"/><circle cx="24" cy="24" r="20"/></svg>
-                        </div>
-                        <div>
-                            <h4 data-i18n="whyus.2.title">Advocacy When It Matters</h4>
-                            <p data-i18n="whyus.2.text">When a claim is on the line, our team fights for full, fair settlement — and wins 98% of the time.</p>
-                        </div>
-                    </div>
-                    <div class="whyus-card reveal stagger">
-                        <div class="whyus-icon">
-                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="24" cy="16" r="8"/><path d="M10 42c0-8 6-14 14-14s14 6 14 14"/></svg>
-                        </div>
-                        <div>
-                            <h4 data-i18n="whyus.3.title">A Partner, Not a Vendor</h4>
-                            <p data-i18n="whyus.3.text">One dedicated broker, year-round support. We manage your portfolio so you can focus on your business.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="whyus-image-col reveal">
-                    <img src="static/pexels-zhuhehuai-691595.jpg" alt="Business partnership" class="whyus-offset-img" loading="lazy">
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- How We Work -->
-    <section class="section section--white" id="how-we-work">
+    <section class="section section--gray" id="how-we-work">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
             <h2 class="section-title reveal" data-word-reveal data-i18n="process.title">How We Work</h2>
@@ -320,6 +278,44 @@
             </div>
             <div class="section-cta reveal">
                 <a href="#quote" class="btn btn-primary btn-lg" data-i18n="process.cta">Ready to get started? Request a Quote</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us -->
+    <section class="section section--gray" id="why-us">
+        <div class="whyus-f-bg">
+            <div class="container">
+                <div class="whyus-f-layout">
+                    <div class="whyus-f-hero reveal">
+                        <h2 class="whyus-f-title" data-word-reveal data-i18n="whyus.title">Why Optimum Performance</h2>
+                        <div class="whyus-f-big-stat">
+                            <span class="whyus-f-number">25+</span>
+                            <span class="whyus-f-label">Years Protecting<br>Egyptian Businesses</span>
+                        </div>
+                        <div class="whyus-f-accent-line"></div>
+                    </div>
+                    <div class="whyus-f-cards">
+                        <div class="whyus-f-card reveal stagger">
+                            <div class="whyus-f-card-header">
+                                <h4 data-i18n="whyus.1.title">Customer Focus</h4>
+                            </div>
+                            <p data-i18n="whyus.1.text">Placing our clients' needs at the core of all our services.</p>
+                        </div>
+                        <div class="whyus-f-card reveal stagger">
+                            <div class="whyus-f-card-header">
+                                <h4 data-i18n="whyus.2.title">Integrity</h4>
+                            </div>
+                            <p data-i18n="whyus.2.text">Upholding the highest standards of honesty and transparency in every transaction.</p>
+                        </div>
+                        <div class="whyus-f-card reveal stagger">
+                            <div class="whyus-f-card-header">
+                                <h4 data-i18n="whyus.3.title">A Partner, Not a Vendor</h4>
+                            </div>
+                            <p data-i18n="whyus.3.text">One dedicated broker, 24/7 year-round support. We manage your portfolio so you can focus on your business.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -467,11 +463,11 @@
                             <span class="form-error" id="clientType-error" role="alert" aria-live="polite" data-i18n="form.clientType.error">Please select a client type</span>
                         </div>
                         <div class="form-group">
-                            <label for="message" data-i18n="form.message.label">Message <span
-                                    class="optional">(optional)</span></label>
-                            <textarea id="message" name="message" rows="4"
-                                data-i18n-placeholder="form.message.placeholder"
-                                placeholder="Tell us about your insurance needs..."></textarea>
+                            <label for="insuranceType" data-i18n="form.insuranceType.label">Insurance Type <span class="required" aria-label="required">*</span></label>
+                            <select id="insuranceType" name="insuranceType" required aria-describedby="insuranceType-error">
+                                <option value="" disabled selected data-i18n="form.insuranceType.placeholder">Select client type first</option>
+                            </select>
+                            <span class="form-error" id="insuranceType-error" role="alert" aria-live="polite" data-i18n="form.insuranceType.error">Please select an insurance type</span>
                         </div>
                     </div>
                     <div class="form-group">
