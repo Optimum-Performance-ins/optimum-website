@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { value: 'personal-accident', label: 'Personal Accident' }
         ],
         corporate: [
-            { value: 'commercial', label: 'Commercial Insurance' },
+            { value: 'property', label: 'Property Insurance' },
             { value: 'employee-benefits', label: 'Employee Benefits' },
             { value: 'marine-cargo', label: 'Marine & Cargo Insurance' },
             { value: 'liability', label: 'Liability' },
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { value: 'personal-accident', label: 'الحوادث الشخصية' }
         ],
         corporate: [
-            { value: 'commercial', label: 'التأمين التجاري' },
+            { value: 'property', label: 'تأمين الممتلكات' },
             { value: 'employee-benefits', label: 'مزايا الموظفين' },
             { value: 'marine-cargo', label: 'التأمين البحري والشحن' },
             { value: 'liability', label: 'المسؤولية' },
@@ -456,7 +456,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'ind.5.text': 'حماية مالية لك ولعائلتك في حالة الإصابة العرضية أو الإعاقة.',
 
             // Corporate services
-            'corp.1.title': 'التأمين التجاري',
+            'corp.1.title': 'تأمين الممتلكات',
             'corp.1.text': 'تغطية الممتلكات والمسؤولية وانقطاع الأعمال للحفاظ على استمرارية عملياتك.',
             'corp.2.title': 'مزايا الموظفين',
             'corp.2.text': 'استقطب واحتفظ بالكفاءات مع خطط طبية وأسنان وتأمين حياة وتقاعد جماعية.',
