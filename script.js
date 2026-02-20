@@ -72,17 +72,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const initWordReveal = () => {
         document.querySelectorAll('[data-word-reveal]').forEach(title => {
             if (title.querySelector('.word')) return;
-            const words = title.textContent.trim().split(/\s+/);
+            const nodes = [...title.childNodes];
             title.textContent = '';
-            words.forEach((word, i) => {
-                const span = document.createElement('span');
-                span.classList.add('word');
-                span.textContent = word;
-                span.style.transitionDelay = (i * 0.1) + 's';
-                title.appendChild(span);
-                if (i < words.length - 1) {
-                    title.appendChild(document.createTextNode('\u00A0'));
+            let wordIndex = 0;
+            nodes.forEach(node => {
+                if (node.nodeName === 'BR') {
+                    title.appendChild(document.createElement('br'));
+                    return;
                 }
+                const words = node.textContent.trim().split(/\s+/);
+                words.forEach((word) => {
+                    if (!word) return;
+                    const span = document.createElement('span');
+                    span.classList.add('word');
+                    span.textContent = word;
+                    span.style.transitionDelay = (wordIndex * 0.1) + 's';
+                    title.appendChild(span);
+                    title.appendChild(document.createTextNode('\u00A0'));
+                    wordIndex++;
+                });
             });
         });
     };
