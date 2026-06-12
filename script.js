@@ -232,6 +232,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     statNumbers.forEach(el => counterObserver.observe(el));
 
+    // --- Pause logo marquees while off-screen ---
+    const marquees = document.querySelectorAll('.logo-marquee');
+    if (marquees.length) {
+        const marqueeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                entry.target.classList.toggle('is-paused', !entry.isIntersecting);
+            });
+        }, { rootMargin: '100px 0px' });
+
+        marquees.forEach(el => marqueeObserver.observe(el));
+    }
+
     // --- Segment Tab Switching ---
     const segmentTabs = document.querySelectorAll('.segment-tab');
     const segmentContents = document.querySelectorAll('.segment-content');
