@@ -59,12 +59,15 @@
         }
     };
 
-    // Primary trigger: timer matching the CSS timeline (wordmark done ~2.8s + 300ms hold).
-    // animationend accelerates it if the timeline ran late relative to this script.
-    setTimeout(glide, 3100);
+    // Primary trigger: timer matching the CSS timeline (wordmark write-on done ~3.2s + hold).
+    // The group's own glow animationend accelerates it if the timeline ran late relative
+    // to this script (letter animations bubble up too, so filter by target).
+    setTimeout(glide, 3500);
     const wordmark = overlay.querySelector('.wordmark');
     if (wordmark) {
-        wordmark.addEventListener('animationend', () => setTimeout(glide, 300), { once: true });
+        wordmark.addEventListener('animationend', (e) => {
+            if (e.target === wordmark) setTimeout(glide, 300);
+        });
     }
 
     setTimeout(finish, 6000);                          // absolute safety net

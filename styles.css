@@ -500,30 +500,58 @@ textarea:focus-visible {
 }
 
 .hero-fra-logo {
-    width: 36px;
-    height: 36px;
+    width: 46px;
+    height: 46px;
     object-fit: contain;
     border-radius: 50%;
     background: #0f1f3c;
-    box-shadow: 0 0 0 2px rgba(200, 150, 46, 0.3);
+    box-shadow: 0 0 0 2px rgba(200, 150, 46, 0.45);
+    flex-shrink: 0;
 }
 
 .hero-fra-link {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 1rem 0.5rem 0.65rem;
-    border: 1px solid rgba(200, 150, 46, 0.25);
+    gap: 0.85rem;
+    padding-block: 0.55rem;
+    padding-inline: 0.65rem 1.25rem;
+    border: 1px solid rgba(200, 150, 46, 0.45);
     border-radius: 999px;
-    background: rgba(200, 150, 46, 0.06);
-    transition: background var(--transition), border-color var(--transition), transform var(--transition);
+    background: linear-gradient(135deg, rgba(200, 150, 46, 0.13), rgba(200, 150, 46, 0.05));
+    transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
     cursor: pointer;
+    overflow: hidden;
+}
+
+/* one-time gold glint sweep, fires after the intro releases the page */
+.hero-fra-link::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(105deg, transparent, rgba(200, 150, 46, 0.3), transparent);
+    transform: translateX(-130%) skewX(-18deg);
+    pointer-events: none;
+}
+
+html:not(.intro-play) .hero-fra-link::after {
+    animation: fra-glint 1.3s ease-out 2.2s 1 both;
+}
+
+@keyframes fra-glint {
+    to {
+        transform: translateX(300%) skewX(-18deg);
+    }
 }
 
 .hero-fra-link:hover {
-    background: rgba(200, 150, 46, 0.12);
-    border-color: rgba(200, 150, 46, 0.45);
-    transform: translateY(-1px);
+    background: linear-gradient(135deg, rgba(200, 150, 46, 0.2), rgba(200, 150, 46, 0.08));
+    border-color: rgba(200, 150, 46, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(26, 58, 92, 0.15);
 }
 
 .hero-fra-link:hover .hero-fra-arrow {
@@ -531,8 +559,24 @@ textarea:focus-visible {
 }
 
 .hero-fra-text {
-    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.hero-fra-main {
+    font-size: 0.875rem;
     color: #0f1f3c;
+}
+
+.hero-fra-verify {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-accent);
 }
 
 .hero-fra-arrow {
@@ -1581,98 +1625,187 @@ textarea:focus-visible {
 
 /* --- FRA Strip --- */
 .fra-strip {
-    background: linear-gradient(180deg, #0f1f3c 0%, #0a1628 100%);
-    border-top: 1px solid rgba(200, 150, 46, 0.15);
-    border-bottom: 1px solid rgba(200, 150, 46, 0.15);
-    padding: 2.5rem 0;
+    position: relative;
+    background:
+        radial-gradient(ellipse 70% 130% at 50% 50%, rgba(200, 150, 46, 0.07), transparent 70%),
+        linear-gradient(180deg, #0f1f3c 0%, #0a1628 100%);
+    border-top: 1px solid rgba(200, 150, 46, 0.25);
+    border-bottom: 1px solid rgba(200, 150, 46, 0.25);
+    padding: 3.5rem 0;
     overflow: hidden;
 }
 
-.fra-content {
+/* oversized faded seal behind the card */
+.fra-watermark {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 3%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    opacity: 0.06;
+    filter: grayscale(40%);
+    pointer-events: none;
+}
+
+.fra-card {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 2.25rem;
     flex-wrap: wrap;
+    text-decoration: none;
 }
 
-.fra-badge {
-    width: 56px;
-    height: 56px;
-    flex-shrink: 0;
+/* oversized registration number — the focal point */
+.fra-regblock {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.fra-card.visible .fra-regblock {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fra-regnum {
+    display: block;
+    font-size: 4.2rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+}
+
+.fra-reglabel {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: #8aa0c0;
+    white-space: nowrap;
+}
+
+/* hairline dividers grow in on reveal */
+.fra-vline {
+    width: 1px;
+    height: 84px;
+    background: linear-gradient(180deg, transparent, rgba(200, 150, 46, 0.5), transparent);
+    transform: scaleY(0);
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+}
+
+.fra-card.visible .fra-vline {
+    transform: scaleY(1);
+}
+
+/* hide hairlines once the row starts wrapping */
+@media (max-width: 1100px) {
+    .fra-vline {
+        display: none;
+    }
+}
+
+.fra-mid {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.fra-card.visible .fra-mid {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .fra-logo-img {
-    width: 100%;
-    height: 100%;
+    width: 72px;
+    height: 72px;
     object-fit: contain;
-    filter: drop-shadow(0 0 8px rgba(200, 150, 46, 0.15));
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 10px rgba(200, 150, 46, 0.25));
+    transform: scale(0.7);
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.fra-card.visible .fra-logo-img {
+    transform: scale(1);
 }
 
 .fra-text {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
+    gap: 0.1rem;
     text-align: left;
 }
 
 .fra-label {
     font-size: 0.8rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
 .fra-authority {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-white);
     letter-spacing: 0.02em;
+    line-height: 1.3;
 }
 
 .fra-authority-ar {
-    font-size: 1rem;
-    color: var(--color-accent);
-    font-weight: 600;
-    direction: rtl;
-}
-
-.fra-details-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.35rem;
-}
-
-.fra-details {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-}
-
-.fra-reg {
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-}
-
-.fra-reg strong {
-    color: var(--color-white);
-}
-
-.fra-details-ar {
-    direction: rtl;
     font-size: 0.9rem;
-    width: 100%;
-    justify-content: center;
+    color: #8aa0c0;
+    font-weight: 600;
 }
 
-.fra-divider-dot {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
+.fra-verify {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid rgba(200, 150, 46, 0.5);
+    border-radius: 999px;
+    color: var(--color-accent);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s,
+        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        color 0.3s ease;
+}
+
+.fra-card.visible .fra-verify {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fra-card:hover .fra-verify {
     background: var(--color-accent);
-    opacity: 0.5;
+    border-color: var(--color-accent);
+    color: #0f1f3c;
+}
+
+.fra-verify-arrow {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.fra-card:hover .fra-verify-arrow {
+    transform: translate(2px, -2px);
 }
 
 /* --- Footer --- */
@@ -1897,17 +2030,23 @@ textarea:focus-visible {
         grid-template-columns: 1fr;
     }
 
-    .fra-content {
+    .fra-card {
         flex-direction: column;
         text-align: center;
+        gap: 1.5rem;
     }
 
     .fra-text {
         text-align: center;
     }
 
-    .fra-details {
-        justify-content: center;
+    .fra-mid {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .fra-vline {
+        display: none;
     }
 }
 
@@ -2182,6 +2321,26 @@ textarea:focus-visible {
     direction: rtl;
 }
 
+.lang-ar .hero-fra-link::after {
+    left: auto;
+    right: 0;
+    transform: translateX(130%) skewX(18deg);
+}
+
+html:not(.intro-play) .lang-ar .hero-fra-link::after {
+    animation-name: fra-glint-rtl;
+}
+
+@keyframes fra-glint-rtl {
+    to {
+        transform: translateX(-300%) skewX(18deg);
+    }
+}
+
+.lang-ar .hero-fra-link:hover .hero-fra-arrow {
+    transform: translate(-2px, -2px);
+}
+
 .lang-ar .hero-ctas {
     direction: rtl;
 }
@@ -2215,13 +2374,13 @@ textarea:focus-visible {
     flex-direction: row-reverse;
 }
 
-/* FRA Strip RTL */
-.lang-ar .fra-content {
-    flex-direction: row-reverse;
-}
-
+/* FRA Strip RTL — dir="rtl" already flows the row right-to-left */
 .lang-ar .fra-text {
     text-align: right;
+}
+
+.lang-ar .fra-card:hover .fra-verify-arrow {
+    transform: translate(-2px, -2px);
 }
 
 /* Trust signals RTL */
@@ -2257,7 +2416,7 @@ textarea:focus-visible {
         flex-direction: column;
     }
 
-    .lang-ar .fra-content {
+    .lang-ar .fra-card {
         flex-direction: column;
     }
 
@@ -2417,16 +2576,47 @@ html.intro-play .nav-logo img {
     to { fill-opacity: 1; stroke-opacity: 0; }
 }
 
-/* Phase 3: wordmark fade + rise (2.3-2.8s) */
+/* Phase 3: wordmark writes on letter by letter with a silver trace + glow (1.6-3.4s) */
 #intro .wordmark {
-    opacity: 0;
-    transform: translateY(8px);
-    animation: introWordmark 0.5s ease 2.3s forwards;
+    animation: introWordGlow 3.6s ease forwards;
 }
 
-@keyframes introWordmark {
-    to { opacity: 1; transform: none; }
+@keyframes introWordGlow {
+    0%, 40% { filter: drop-shadow(0 0 0 rgba(222, 228, 236, 0)); }
+    55%     { filter: drop-shadow(0 0 4px rgba(222, 228, 236, 0.85)); }
+    80%     { filter: drop-shadow(0 0 3px rgba(222, 228, 236, 0.55)); }
+    100%    { filter: drop-shadow(0 0 0 rgba(222, 228, 236, 0)); }
 }
+
+#intro .wordmark path {
+    fill-opacity: 0;
+    stroke: #dee4ec; /* silver counterpart to the emblem's gold */
+    stroke-width: 0.45;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: introDraw 0.7s ease-in-out forwards,
+               introFill 0.45s ease forwards;
+}
+
+/* Left-to-right write-on stagger (7 letters OPTIMUM, 11 PERFORMANCE) */
+#intro .wordmark path:nth-of-type(1)  { animation-delay: 1.60s, 2.10s; }
+#intro .wordmark path:nth-of-type(2)  { animation-delay: 1.65s, 2.15s; }
+#intro .wordmark path:nth-of-type(3)  { animation-delay: 1.70s, 2.20s; }
+#intro .wordmark path:nth-of-type(4)  { animation-delay: 1.75s, 2.25s; }
+#intro .wordmark path:nth-of-type(5)  { animation-delay: 1.80s, 2.30s; }
+#intro .wordmark path:nth-of-type(6)  { animation-delay: 1.85s, 2.35s; }
+#intro .wordmark path:nth-of-type(7)  { animation-delay: 1.90s, 2.40s; }
+#intro .wordmark path:nth-of-type(8)  { animation-delay: 2.00s, 2.50s; }
+#intro .wordmark path:nth-of-type(9)  { animation-delay: 2.05s, 2.55s; }
+#intro .wordmark path:nth-of-type(10) { animation-delay: 2.10s, 2.60s; }
+#intro .wordmark path:nth-of-type(11) { animation-delay: 2.15s, 2.65s; }
+#intro .wordmark path:nth-of-type(12) { animation-delay: 2.20s, 2.70s; }
+#intro .wordmark path:nth-of-type(13) { animation-delay: 2.25s, 2.75s; }
+#intro .wordmark path:nth-of-type(14) { animation-delay: 2.30s, 2.80s; }
+#intro .wordmark path:nth-of-type(15) { animation-delay: 2.35s, 2.85s; }
+#intro .wordmark path:nth-of-type(16) { animation-delay: 2.40s, 2.90s; }
+#intro .wordmark path:nth-of-type(17) { animation-delay: 2.45s, 2.95s; }
+#intro .wordmark path:nth-of-type(18) { animation-delay: 2.50s, 3.00s; }
 
 /* End states driven by JS */
 #intro.intro-gliding::before {
