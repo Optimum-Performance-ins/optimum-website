@@ -2551,6 +2551,7 @@ html.intro-play .nav-logo img {
     height: auto;
     position: relative; /* paints above ::before */
     will-change: transform;
+    overflow: visible; /* viewBox is tight-cropped; lets the wordmark glow paint past the edges */
 }
 
 /* Phase 1+2: gold trace (0-1.9s, staggered), then brand fill / stroke fade (1.7-2.4s) */
