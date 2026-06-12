@@ -3,6 +3,73 @@
    Tabs, accordion, form validation, scroll effects, translation
    ========================================================================== */
 
+// --- Logo Intro Controller ---
+// Plays only when the <head> pre-paint script added .intro-play (refresh / first open).
+(function initIntro() {
+    const root = document.documentElement;
+    const overlay = document.getElementById('intro');
+    if (!root.classList.contains('intro-play')) return;
+    if (!overlay) { root.classList.remove('intro-play'); return; }
+
+    let finished = false;
+    const finish = () => {
+        if (finished) return;
+        finished = true;
+        root.classList.remove('intro-play');          // unlock scroll, reveal nav logo
+        overlay.remove();
+        document.dispatchEvent(new CustomEvent('intro:done'));
+    };
+
+    const skip = () => {
+        if (finished) return;
+        overlay.classList.add('intro-skipped');        // 200ms opacity fade (CSS)
+        setTimeout(finish, 200);
+    };
+
+    // Skip inputs: click/tap, scroll attempt, Escape
+    overlay.addEventListener('click', skip);
+    window.addEventListener('wheel', skip, { passive: true, once: true });
+    window.addEventListener('touchmove', skip, { passive: true, once: true });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') skip(); });
+
+    // Final phase: FLIP glide into the nav logo (starts after the wordmark animation + hold)
+    let glideStarted = false;
+    const glide = () => {
+        if (finished || glideStarted) return;
+        glideStarted = true;
+        try {
+            const logo = overlay.querySelector('.intro-logo');
+            const target = document.querySelector('.nav-logo img');
+            const from = logo.getBoundingClientRect();
+            const to = target.getBoundingClientRect();
+            if (!to.width || !from.width) throw new Error('unmeasurable');
+            const scale = to.height / from.height;
+            logo.style.transformOrigin = 'top left';
+            logo.style.transition = 'transform 0.8s cubic-bezier(0.65, 0.05, 0.36, 1)';
+            logo.style.transform =
+                'translate(' + (to.left - from.left) + 'px,' + (to.top - from.top) + 'px) ' +
+                'scale(' + scale + ')';
+            overlay.classList.add('intro-gliding');    // fades ::before bg (CSS, 0.3s delay)
+            logo.addEventListener('transitionend', finish, { once: true });
+            setTimeout(finish, 1200);                  // transitionend fallback
+        } catch (e) {
+            // Fallback: simple fade instead of glide
+            overlay.classList.add('intro-skipped');
+            setTimeout(finish, 250);
+        }
+    };
+
+    // Primary trigger: timer matching the CSS timeline (wordmark done ~2.8s + 300ms hold).
+    // animationend accelerates it if the timeline ran late relative to this script.
+    setTimeout(glide, 3100);
+    const wordmark = overlay.querySelector('.wordmark');
+    if (wordmark) {
+        wordmark.addEventListener('animationend', () => setTimeout(glide, 300), { once: true });
+    }
+
+    setTimeout(finish, 6000);                          // absolute safety net
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Device Capability Detection ---
@@ -20,6 +87,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const navAnchors = navLinks.querySelectorAll('a');
     const revealElements = document.querySelectorAll('.reveal');
     const scrollProgress = document.getElementById('scrollProgress');
+
+    // Defer entrance animations while the logo intro is playing
+    const whenIntroDone = (fn) => {
+        if (document.documentElement.classList.contains('intro-play')) {
+            document.addEventListener('intro:done', fn, { once: true });
+        } else {
+            fn();
+        }
+    };
 
     // --- Combined Scroll Handler (RAF-throttled) ---
     const sections = document.querySelectorAll('section[id]');
@@ -140,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.1
     });
 
-    revealElements.forEach(el => revealObserver.observe(el));
+    whenIntroDone(() => revealElements.forEach(el => revealObserver.observe(el)));
 
     // Word reveal for non-.reveal titles
     const wordTitleObserver = new IntersectionObserver((entries) => {
@@ -154,25 +230,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
 
-    document.querySelectorAll('[data-word-reveal]:not(.reveal)').forEach(el => {
-        wordTitleObserver.observe(el);
+    whenIntroDone(() => {
+        document.querySelectorAll('[data-word-reveal]:not(.reveal)').forEach(el => {
+            wordTitleObserver.observe(el);
+        });
     });
 
     // --- Hero Particles ---
     const particleContainer = document.getElementById('particles');
     if (particleContainer && !isLowEnd) {
-        const particleCount = window.innerWidth < 768 ? 10 : 30;
-        for (let i = 0; i < particleCount; i++) {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
-            particle.style.left = Math.random() * 100 + '%';
-            particle.style.top = (50 + Math.random() * 50) + '%';
-            particle.style.width = (2 + Math.random() * 3) + 'px';
-            particle.style.height = particle.style.width;
-            particle.style.animationDelay = Math.random() * 6 + 's';
-            particle.style.animationDuration = (4 + Math.random() * 4) + 's';
-            particleContainer.appendChild(particle);
-        }
+        whenIntroDone(() => {
+            const particleCount = window.innerWidth < 768 ? 10 : 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = (50 + Math.random() * 50) + '%';
+                particle.style.width = (2 + Math.random() * 3) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (4 + Math.random() * 4) + 's';
+                particleContainer.appendChild(particle);
+            }
+        });
     }
 
     // --- Section Ambient Shapes ---
