@@ -2048,8 +2048,8 @@ textarea:focus-visible {
 .testimonial-accent-photo {
     position: absolute;
     border-radius: 50%;
-    object-fit: cover;
-    opacity: 0.1;
+    object-fit: contain;
+    opacity: 0.04;
     pointer-events: none;
     z-index: 0;
 }
@@ -2062,10 +2062,10 @@ textarea:focus-visible {
 }
 
 .testimonial-accent-photo--2 {
-    width: 100px;
-    height: 100px;
-    bottom: 4rem;
-    left: 2rem;
+    width: 450px;
+    height: 450px;
+    bottom: -8%;
+    left: -5%;
 }
 
 /* --- CEO Shield Photo --- */
