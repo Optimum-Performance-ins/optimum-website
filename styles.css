@@ -496,13 +496,14 @@ textarea:focus-visible {
 
 .hero-trust {
     display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
 }
 
 .hero-fra-logo {
-    width: 46px;
-    height: 46px;
+    width: 42px;
+    height: 42px;
     object-fit: contain;
     border-radius: 50%;
     background: #0f1f3c;
@@ -510,35 +511,49 @@ textarea:focus-visible {
     flex-shrink: 0;
 }
 
-.hero-fra-link {
+/* static proof badge — not clickable */
+.hero-fra-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.875rem;
+    color: #0f1f3c;
+}
+
+/* standalone "verify" button — the clear call-to-action */
+.hero-fra-btn {
     position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 0.85rem;
-    padding-block: 0.55rem;
-    padding-inline: 0.65rem 1.25rem;
-    border: 1px solid rgba(200, 150, 46, 0.45);
+    gap: 0.4rem;
+    padding: 0.5rem 1.05rem;
     border-radius: 999px;
-    background: linear-gradient(135deg, rgba(200, 150, 46, 0.13), rgba(200, 150, 46, 0.05));
-    transition: background var(--transition), border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #0f1f3c;
+    text-decoration: none;
     cursor: pointer;
+    background: linear-gradient(135deg, #e7ba4c, #c8962e);
+    box-shadow: 0 4px 14px rgba(200, 150, 46, 0.45);
+    transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
     overflow: hidden;
 }
 
 /* one-time gold glint sweep, fires after the intro releases the page */
-.hero-fra-link::after {
+.hero-fra-btn::after {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 55%;
     height: 100%;
-    background: linear-gradient(105deg, transparent, rgba(200, 150, 46, 0.3), transparent);
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.45), transparent);
     transform: translateX(-130%) skewX(-18deg);
     pointer-events: none;
 }
 
-html:not(.intro-play) .hero-fra-link::after {
+html:not(.intro-play) .hero-fra-btn::after {
     animation: fra-glint 1.3s ease-out 2.2s 1 both;
 }
 
@@ -548,40 +563,18 @@ html:not(.intro-play) .hero-fra-link::after {
     }
 }
 
-.hero-fra-link:hover {
-    background: linear-gradient(135deg, rgba(200, 150, 46, 0.2), rgba(200, 150, 46, 0.08));
-    border-color: rgba(200, 150, 46, 0.7);
+.hero-fra-btn:hover {
+    background: linear-gradient(135deg, #f2cb63, #d6a338);
     transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(26, 58, 92, 0.15);
+    box-shadow: 0 9px 20px rgba(200, 150, 46, 0.55);
 }
 
-.hero-fra-link:hover .hero-fra-arrow {
-    transform: translate(2px, -2px);
-}
-
-.hero-fra-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-}
-
-.hero-fra-main {
-    font-size: 0.875rem;
-    color: #0f1f3c;
-}
-
-.hero-fra-verify {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--color-accent);
+.hero-fra-btn:hover .hero-fra-arrow {
+    transform: translateX(3px);
 }
 
 .hero-fra-arrow {
-    color: var(--color-accent);
+    color: #0f1f3c;
     flex-shrink: 0;
     transition: transform var(--transition);
 }
@@ -2322,13 +2315,13 @@ html:not(.intro-play) .hero-fra-link::after {
     direction: rtl;
 }
 
-.lang-ar .hero-fra-link::after {
+.lang-ar .hero-fra-btn::after {
     left: auto;
     right: 0;
     transform: translateX(130%) skewX(18deg);
 }
 
-html:not(.intro-play) .lang-ar .hero-fra-link::after {
+html:not(.intro-play) .lang-ar .hero-fra-btn::after {
     animation-name: fra-glint-rtl;
 }
 
@@ -2338,8 +2331,8 @@ html:not(.intro-play) .lang-ar .hero-fra-link::after {
     }
 }
 
-.lang-ar .hero-fra-link:hover .hero-fra-arrow {
-    transform: translate(-2px, -2px);
+.lang-ar .hero-fra-btn:hover .hero-fra-arrow {
+    transform: translateX(-3px);
 }
 
 .lang-ar .hero-ctas {
