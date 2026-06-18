@@ -52,6 +52,7 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     overflow-x: hidden;
+    scrollbar-gutter: stable; /* reserve scrollbar space so the intro scroll-lock doesn't shift the centered nav */
 }
 
 body {
