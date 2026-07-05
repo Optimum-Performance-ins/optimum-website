@@ -1103,25 +1103,34 @@ textarea:focus-visible {
   display: flex;
   align-items: center;
   padding: 100px 0;
+  overflow: hidden; /* ضروري جداً عشان البلور ميتخطاش حدود الصورة */
+}
 
-  background-image: url("static/OP_Team.jpeg");
+/* طبقة الصورة والبلور */
+#who-us::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background-image: url("static/team.png");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
+  filter: blur(3px); /* هنا قوة البلور، زود الرقم لو عايزها أكتر */
+  z-index: -1;
 }
 
-#who-us::before {
+/* طبقة التغميق عشان الكلام يظهر */
+#who-us::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(10, 25, 47, 0.95),
-    rgba(10, 25, 47, 0.7)
-  );
+  background: rgba(10, 25, 47, 0.6); /* لون غامق شفاف */
   z-index: 0;
 }
 
@@ -1329,17 +1338,31 @@ textarea:focus-visible {
 }
 
 .testimonial-avatar {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: var(--color-primary);
+  overflow: hidden; /* ضروري جداً عشان الصورة متخرجش بره حدود الدايرة */
+  border: 2px solid #ddd;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--color-white);
-  flex-shrink: 0;
+  background-color: #fff; /* خلفية بيضاء عشان اللوجو يظهر بوضوح */
+}
+
+.testimonial-avatar .avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* ده اللي هيخلي الصورة تظهر بالكامل جوه الدايرة */
+  padding: 5px; /* اختيارياً: سيب مسافة بسيطة عشان اللوجو ميبقاش لازق في الحواف */
+}
+
+.testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  /* إذا وجدت فراغاً كبيراً داخل الدائرة، يمكنك تقليل العرض قليلاً */
+  padding: 5px;
 }
 
 .testimonial-name {
@@ -1770,98 +1793,199 @@ textarea:focus-visible {
 
 /* --- FRA Strip --- */
 .fra-strip {
-  background: linear-gradient(180deg, #0f1f3c 0%, #0a1628 100%);
-  border-top: 1px solid rgba(200, 150, 46, 0.15);
-  border-bottom: 1px solid rgba(200, 150, 46, 0.15);
-  padding: 2.5rem 0;
+  position: relative;
+  background:
+    radial-gradient(
+      ellipse 70% 130% at 50% 50%,
+      rgba(200, 150, 46, 0.07),
+      transparent 70%
+    ),
+    linear-gradient(180deg, #0f1f3c 0%, #0a1628 100%);
+  border-top: 1px solid rgba(200, 150, 46, 0.25);
+  border-bottom: 1px solid rgba(200, 150, 46, 0.25);
+  padding: 3.5rem 0;
   overflow: hidden;
 }
 
-.fra-content {
+/* oversized faded seal behind the card */
+.fra-watermark {
+  position: absolute;
+  top: 50%;
+  inset-inline-start: 3%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+  opacity: 0.06;
+  filter: grayscale(40%);
+  pointer-events: none;
+}
+
+.fra-card {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 2.25rem;
   flex-wrap: wrap;
+  text-decoration: none;
 }
 
-.fra-badge {
-  width: 56px;
-  height: 56px;
-  flex-shrink: 0;
+/* oversized registration number — the focal point */
+.fra-regblock {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.fra-card.visible .fra-regblock {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fra-regnum {
+  display: block;
+  font-size: 4.2rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.fra-reglabel {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: #8aa0c0;
+  white-space: nowrap;
+}
+
+/* hairline dividers grow in on reveal */
+.fra-vline {
+  width: 1px;
+  height: 84px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(200, 150, 46, 0.5),
+    transparent
+  );
+  transform: scaleY(0);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s;
+}
+
+.fra-card.visible .fra-vline {
+  transform: scaleY(1);
+}
+
+/* hide hairlines once the row starts wrapping */
+@media (max-width: 1100px) {
+  .fra-vline {
+    display: none;
+  }
+}
+
+.fra-mid {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.fra-card.visible .fra-mid {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .fra-logo-img {
-  width: 100%;
-  height: 100%;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(200, 150, 46, 0.15));
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(200, 150, 46, 0.25));
+  transform: scale(0.7);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.fra-card.visible .fra-logo-img {
+  transform: scale(1);
 }
 
 .fra-text {
   display: flex;
   flex-direction: column;
-  gap: 0.15rem;
+  gap: 0.1rem;
   text-align: left;
 }
 
 .fra-label {
   font-size: 0.8rem;
-  color: var(--color-white);
-  letter-spacing: 0.06em;
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 .fra-authority {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--color-white);
   letter-spacing: 0.02em;
+  line-height: 1.3;
 }
 
 .fra-authority-ar {
-  font-size: 1rem;
-  color: var(--color-accent);
-  font-weight: 600;
-  direction: rtl;
-}
-
-.fra-details-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.fra-details {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.fra-reg {
-  font-size: 0.85rem;
-  color: var(--color-white);
-}
-
-.fra-reg strong {
-  color: var(--color-white);
-}
-
-.fra-details-ar {
-  direction: rtl;
   font-size: 0.9rem;
-  width: 100%;
-  justify-content: center;
+  color: #8aa0c0;
+  font-weight: 600;
 }
 
-.fra-divider-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
+.fra-verify {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border: 1px solid rgba(200, 150, 46, 0.5);
+  border-radius: 999px;
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.45s,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.fra-card.visible .fra-verify {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fra-card:hover .fra-verify {
   background: var(--color-accent);
-  opacity: 0.5;
+  border-color: var(--color-accent);
+  color: #0f1f3c;
+}
+
+.fra-verify-arrow {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.fra-card:hover .fra-verify-arrow {
+  transform: translate(2px, -2px);
 }
 
 /* --- Footer --- */
@@ -2544,6 +2668,75 @@ textarea:focus-visible {
   background-color: #ffffff;
   overflow: hidden;
 }
+
+/* --- Logo Marquees (insurance partners + trusted clients) --- */
+.logo-marquee {
+  overflow: hidden;
+  direction: ltr;
+  /* -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); */
+}
+
+.logo-marquee + .logo-marquee {
+  margin-top: 2rem;
+}
+
+.logo-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: logo-scroll 40s linear infinite;
+  will-change: transform;
+}
+
+.logo-marquee--clients .logo-marquee-track {
+  animation-duration: 55s;
+}
+
+.logo-marquee--reverse .logo-marquee-track {
+  animation-direction: reverse;
+}
+
+.logo-marquee:hover .logo-marquee-track,
+.logo-marquee.is-paused .logo-marquee-track {
+  animation-play-state: paused;
+}
+
+.logo-marquee-group {
+  display: flex;
+  align-items: center;
+}
+
+.logo-cell {
+  width: 150px;
+  height: 70px;
+  margin: 0 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-cell img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* filter: grayscale(1) opacity(0.6); */
+  transition: filter var(--transition);
+}
+
+.logo-cell:hover img {
+  filter: none;
+}
+
+@keyframes logo-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
 .marquee-container {
   width: 100%;
   overflow: hidden;
@@ -3036,4 +3229,191 @@ body.loading {
   font-weight: bold;
   transition: all 0.3s ease;
   margin-top: 15px;
+}
+
+/* ==========================================================================
+   Logo Intro Animation
+   ========================================================================== */
+
+html.intro-play {
+  overflow: hidden;
+}
+
+#intro {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000; /* above .navbar (1000) and .nav-toggle (1001) */
+  align-items: center;
+  justify-content: center;
+}
+
+#intro::before {
+  /* background on a pseudo-element so it can fade out under the gliding logo */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #0f1f3c, #1a3a5c);
+  transition: opacity 0.5s ease;
+}
+
+html.intro-play #intro {
+  display: flex;
+}
+
+html.intro-play .nav-logo img {
+  visibility: hidden; /* keeps layout + measurable rect, invisible until handoff */
+}
+
+#intro .intro-logo {
+  width: min(50vw, 220px);
+  height: auto;
+  position: relative; /* paints above ::before */
+  will-change: transform;
+  overflow: visible; /* viewBox is tight-cropped; lets the wordmark glow paint past the edges */
+}
+
+/* Phase 1+2: gold trace (0-1.9s, staggered), then brand fill / stroke fade (1.7-2.4s) */
+#intro .emblem path {
+  fill-opacity: 0;
+  stroke: #c8962e;
+  stroke-width: 0.9;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    introDraw 1.6s ease-in-out forwards,
+    introFill 0.7s ease forwards;
+  animation-delay: 0s, 1.7s;
+}
+
+#intro .emblem path:nth-of-type(2) {
+  animation-delay: 0.15s, 1.7s;
+}
+#intro .emblem path:nth-of-type(3) {
+  animation-delay: 0.3s, 1.7s;
+}
+
+@keyframes introDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes introFill {
+  to {
+    fill-opacity: 1;
+    stroke-opacity: 0;
+  }
+}
+
+/* Phase 3: wordmark writes on letter by letter with a silver trace + glow (1.6-3.4s) */
+#intro .wordmark {
+  animation: introWordGlow 3.6s ease forwards;
+}
+
+@keyframes introWordGlow {
+  0%,
+  40% {
+    filter: drop-shadow(0 0 0 rgba(222, 228, 236, 0));
+  }
+  55% {
+    filter: drop-shadow(0 0 4px rgba(222, 228, 236, 0.85));
+  }
+  80% {
+    filter: drop-shadow(0 0 3px rgba(222, 228, 236, 0.55));
+  }
+  100% {
+    filter: drop-shadow(0 0 0 rgba(222, 228, 236, 0));
+  }
+}
+
+#intro .wordmark path {
+  fill-opacity: 0;
+  stroke: #dee4ec; /* silver counterpart to the emblem's gold */
+  stroke-width: 0.45;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation:
+    introDraw 0.7s ease-in-out forwards,
+    introFill 0.45s ease forwards;
+}
+
+/* Left-to-right write-on stagger (7 letters OPTIMUM, 11 PERFORMANCE) */
+#intro .wordmark path:nth-of-type(1) {
+  animation-delay: 1.6s, 2.1s;
+}
+#intro .wordmark path:nth-of-type(2) {
+  animation-delay: 1.65s, 2.15s;
+}
+#intro .wordmark path:nth-of-type(3) {
+  animation-delay: 1.7s, 2.2s;
+}
+#intro .wordmark path:nth-of-type(4) {
+  animation-delay: 1.75s, 2.25s;
+}
+#intro .wordmark path:nth-of-type(5) {
+  animation-delay: 1.8s, 2.3s;
+}
+#intro .wordmark path:nth-of-type(6) {
+  animation-delay: 1.85s, 2.35s;
+}
+#intro .wordmark path:nth-of-type(7) {
+  animation-delay: 1.9s, 2.4s;
+}
+#intro .wordmark path:nth-of-type(8) {
+  animation-delay: 2s, 2.5s;
+}
+#intro .wordmark path:nth-of-type(9) {
+  animation-delay: 2.05s, 2.55s;
+}
+#intro .wordmark path:nth-of-type(10) {
+  animation-delay: 2.1s, 2.6s;
+}
+#intro .wordmark path:nth-of-type(11) {
+  animation-delay: 2.15s, 2.65s;
+}
+#intro .wordmark path:nth-of-type(12) {
+  animation-delay: 2.2s, 2.7s;
+}
+#intro .wordmark path:nth-of-type(13) {
+  animation-delay: 2.25s, 2.75s;
+}
+#intro .wordmark path:nth-of-type(14) {
+  animation-delay: 2.3s, 2.8s;
+}
+#intro .wordmark path:nth-of-type(15) {
+  animation-delay: 2.35s, 2.85s;
+}
+#intro .wordmark path:nth-of-type(16) {
+  animation-delay: 2.4s, 2.9s;
+}
+#intro .wordmark path:nth-of-type(17) {
+  animation-delay: 2.45s, 2.95s;
+}
+#intro .wordmark path:nth-of-type(18) {
+  animation-delay: 2.5s, 3s;
+}
+
+/* End states driven by JS */
+#intro.intro-gliding::before {
+  opacity: 0;
+  transition-delay: 0.3s;
+}
+
+#intro.intro-skipped {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Belt and braces: the pre-paint head script already skips for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  html.intro-play #intro {
+    display: none;
+  }
+  html.intro-play {
+    overflow: auto;
+  }
+  html.intro-play .nav-logo img {
+    visibility: visible;
+  }
 }

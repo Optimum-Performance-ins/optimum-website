@@ -3,6 +3,88 @@
    Tabs, accordion, form validation, scroll effects, translation
    ========================================================================== */
 
+// --- Logo Intro Controller ---
+// Plays only when the <head> pre-paint script added .intro-play (refresh / first open).
+(function initIntro() {
+  const root = document.documentElement;
+  const overlay = document.getElementById("intro");
+  if (!root.classList.contains("intro-play")) return;
+  if (!overlay) {
+    root.classList.remove("intro-play");
+    return;
+  }
+
+  let finished = false;
+  const finish = () => {
+    if (finished) return;
+    finished = true;
+    root.classList.remove("intro-play"); // unlock scroll, reveal nav logo
+    overlay.remove();
+    document.dispatchEvent(new CustomEvent("intro:done"));
+  };
+
+  const skip = () => {
+    if (finished) return;
+    overlay.classList.add("intro-skipped"); // 200ms opacity fade (CSS)
+    setTimeout(finish, 200);
+  };
+
+  // Skip inputs: click/tap, scroll attempt, Escape
+  overlay.addEventListener("click", skip);
+  window.addEventListener("wheel", skip, { passive: true, once: true });
+  window.addEventListener("touchmove", skip, { passive: true, once: true });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") skip();
+  });
+
+  // Final phase: FLIP glide into the nav logo (starts after the wordmark animation + hold)
+  let glideStarted = false;
+  const glide = () => {
+    if (finished || glideStarted) return;
+    glideStarted = true;
+    try {
+      const logo = overlay.querySelector(".intro-logo");
+      const target = document.querySelector(".nav-logo img");
+      const from = logo.getBoundingClientRect();
+      const to = target.getBoundingClientRect();
+      if (!to.width || !from.width) throw new Error("unmeasurable");
+      const scale = to.height / from.height;
+      logo.style.transformOrigin = "top left";
+      logo.style.transition =
+        "transform 0.8s cubic-bezier(0.65, 0.05, 0.36, 1)";
+      logo.style.transform =
+        "translate(" +
+        (to.left - from.left) +
+        "px," +
+        (to.top - from.top) +
+        "px) " +
+        "scale(" +
+        scale +
+        ")";
+      overlay.classList.add("intro-gliding"); // fades ::before bg (CSS, 0.3s delay)
+      logo.addEventListener("transitionend", finish, { once: true });
+      setTimeout(finish, 1200); // transitionend fallback
+    } catch (e) {
+      // Fallback: simple fade instead of glide
+      overlay.classList.add("intro-skipped");
+      setTimeout(finish, 250);
+    }
+  };
+
+  // Primary trigger: timer matching the CSS timeline (wordmark write-on done ~3.2s + hold).
+  // The group's own glow animationend accelerates it if the timeline ran late relative
+  // to this script (letter animations bubble up too, so filter by target).
+  setTimeout(glide, 3500);
+  const wordmark = overlay.querySelector(".wordmark");
+  if (wordmark) {
+    wordmark.addEventListener("animationend", (e) => {
+      if (e.target === wordmark) setTimeout(glide, 300);
+    });
+  }
+
+  setTimeout(finish, 6000); // absolute safety net
+})();
+
 document.addEventListener("DOMContentLoaded", () => {
   // --- Device Capability Detection ---
   const isLowEnd =
@@ -20,6 +102,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const navAnchors = navLinks.querySelectorAll("a");
   const revealElements = document.querySelectorAll(".reveal");
   const scrollProgress = document.getElementById("scrollProgress");
+
+  // Defer entrance animations while the logo intro is playing
+  const whenIntroDone = (fn) => {
+    if (document.documentElement.classList.contains("intro-play")) {
+      document.addEventListener("intro:done", fn, { once: true });
+    } else {
+      fn();
+    }
+  };
 
   // --- Combined Scroll Handler (RAF-throttled) ---
   const sections = document.querySelectorAll("section[id]");
@@ -148,7 +239,9 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   );
 
-  revealElements.forEach((el) => revealObserver.observe(el));
+  whenIntroDone(() =>
+    revealElements.forEach((el) => revealObserver.observe(el)),
+  );
 
   // Word reveal for non-.reveal titles
   const wordTitleObserver = new IntersectionObserver(
@@ -165,25 +258,31 @@ document.addEventListener("DOMContentLoaded", () => {
     { rootMargin: "0px 0px -60px 0px", threshold: 0.1 },
   );
 
-  document.querySelectorAll("[data-word-reveal]:not(.reveal)").forEach((el) => {
-    wordTitleObserver.observe(el);
+  whenIntroDone(() => {
+    document
+      .querySelectorAll("[data-word-reveal]:not(.reveal)")
+      .forEach((el) => {
+        wordTitleObserver.observe(el);
+      });
   });
 
   // --- Hero Particles ---
   const particleContainer = document.getElementById("particles");
   if (particleContainer && !isLowEnd) {
-    const particleCount = window.innerWidth < 768 ? 10 : 30;
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement("div");
-      particle.classList.add("particle");
-      particle.style.left = Math.random() * 100 + "%";
-      particle.style.top = 50 + Math.random() * 50 + "%";
-      particle.style.width = 2 + Math.random() * 3 + "px";
-      particle.style.height = particle.style.width;
-      particle.style.animationDelay = Math.random() * 6 + "s";
-      particle.style.animationDuration = 4 + Math.random() * 4 + "s";
-      particleContainer.appendChild(particle);
-    }
+    whenIntroDone(() => {
+      const particleCount = window.innerWidth < 768 ? 10 : 30;
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+        particle.style.left = Math.random() * 100 + "%";
+        particle.style.top = 50 + Math.random() * 50 + "%";
+        particle.style.width = 2 + Math.random() * 3 + "px";
+        particle.style.height = particle.style.width;
+        particle.style.animationDelay = Math.random() * 6 + "s";
+        particle.style.animationDuration = 4 + Math.random() * 4 + "s";
+        particleContainer.appendChild(particle);
+      }
+    });
   }
 
   // --- Section Ambient Shapes ---
@@ -249,6 +348,21 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
   statNumbers.forEach((el) => counterObserver.observe(el));
+
+  // --- Pause logo marquees while off-screen ---
+  const marquees = document.querySelectorAll(".logo-marquee");
+  if (marquees.length) {
+    const marqueeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-paused", !entry.isIntersecting);
+        });
+      },
+      { rootMargin: "100px 0px" },
+    );
+
+    marquees.forEach((el) => marqueeObserver.observe(el));
+  }
 
   // --- Segment Tab Switching ---
   const segmentTabs = document.querySelectorAll(".segment-tab");
@@ -385,47 +499,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- Accordion ---
-  // كود شامل يعمل مع أي أكورديون في الموقع (العربي أو الإنجليزي)
-  document.addEventListener("click", (e) => {
-    // التأكد من أن العنصر الذي تم الضغط عليه هو هيدر لأكورديون
-    const header = e.target.closest(
-      ".accordion-header, .card-accordion-header",
-    );
+  document.querySelectorAll(".accordion-header").forEach((header) => {
+    header.addEventListener("click", () => {
+      const item = header.parentElement;
+      const body = item.querySelector(".accordion-body");
+      const isOpen = item.classList.contains("open");
 
-    if (!header) return;
+      // Close all
+      document.querySelectorAll(".accordion-item").forEach((i) => {
+        i.classList.remove("open");
+        i.querySelector(".accordion-header").setAttribute(
+          "aria-expanded",
+          "false",
+        );
+        i.querySelector(".accordion-body").style.maxHeight = null;
+      });
 
-    e.preventDefault();
-    e.stopPropagation();
-
-    // تحديد العنصر الأب والـ Body الخاص به
-    const item = header.parentElement;
-    const body = item.querySelector(".accordion-body, .card-accordion-body");
-    const isOpen = item.classList.contains("open");
-
-    // إغلاق أي عناصر مفتوحة أخرى (اختياري)
-    const container = item.closest(".accordion, .card-accordion");
-    if (container) {
-      container
-        .querySelectorAll(".accordion-item, .card-accordion-item")
-        .forEach((i) => {
-          if (i !== item) {
-            i.classList.remove("open");
-            const b = i.querySelector(".accordion-body, .card-accordion-body");
-            if (b) b.style.maxHeight = null;
-          }
-        });
-    }
-
-    // فتح أو إغلاق العنصر الحالي
-    if (!isOpen) {
-      item.classList.add("open");
-      header.setAttribute("aria-expanded", "true");
-      if (body) body.style.maxHeight = body.scrollHeight + "px";
-    } else {
-      item.classList.remove("open");
-      header.setAttribute("aria-expanded", "false");
-      if (body) body.style.maxHeight = null;
-    }
+      // Open clicked if it wasn't open
+      if (!isOpen) {
+        item.classList.add("open");
+        header.setAttribute("aria-expanded", "true");
+        body.style.maxHeight = body.scrollHeight + "px";
+      }
+    });
   });
 
   // --- Form Validation ---
@@ -521,56 +617,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // // --- Smooth Scroll ---
-  // document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  //   anchor.addEventListener("click", (e) => {
-  //     const href = anchor.getAttribute("href");
-  //     const target = document.querySelector(href);
-  //     if (target) {
-  //       e.preventDefault();
-  //       const navHeight = navbar.offsetHeight;
-  //       const targetPosition =
-  //         target.getBoundingClientRect().top + window.scrollY - navHeight;
-  //       window.scrollTo({ top: targetPosition, behavior: "smooth" });
-  //     }
-  //   });
-  // });
-  window.addEventListener("load", () => {
-    const preloader = document.getElementById("preloader");
-    const curtain = document.getElementById("transition-curtain");
-
-    setTimeout(() => {
-      curtain.style.transform = "translateY(0%)";
-
-      setTimeout(() => {
-        preloader.style.opacity = "0";
-        preloader.style.visibility = "hidden";
-      }, 500);
-
-      setTimeout(() => {
-        curtain.style.transform = "translateY(-100%)";
-        setTimeout(() => {
-          preloader.remove();
-          curtain.remove();
-        }, 800);
-      }, 1200);
-    }, 1500);
-  });
-  window.addEventListener("load", () => {
-    const track = document.querySelector("#trusted .marquee-track");
-    if (!track) return;
-
-    const originalContent = track.innerHTML;
-    track.innerHTML += originalContent;
-
-    setTimeout(() => {
-      const singleWidth = track.scrollWidth / 2;
-
-      const speedFactor = 50;
-      const duration = singleWidth / speedFactor;
-
-      track.style.setProperty("--scroll-width", `-${singleWidth}px`);
-      track.style.animation = `marquee-scroll ${duration}s linear infinite`;
-    }, 100);
+  // --- Smooth Scroll ---
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", (e) => {
+      const href = anchor.getAttribute("href");
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const navHeight = navbar.offsetHeight;
+        const targetPosition =
+          target.getBoundingClientRect().top + window.scrollY - navHeight;
+        window.scrollTo({ top: targetPosition, behavior: "smooth" });
+      }
+    });
   });
 });
