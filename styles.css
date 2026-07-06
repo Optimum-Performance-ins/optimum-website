@@ -290,18 +290,12 @@ textarea:focus-visible {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 .navbar {
-  position: absolute;
-  top: 0;
+  position: fixed; /* أو sticky ليبقى ثابتاً في الأعلى */
+  top: 15px; /* مسافة من أعلى الصفحة */
   left: 0;
   width: 100%;
   z-index: 1000;
-  background: transparent;
-  transition: background 0.3s ease;
-  margin-top: 4px;
-}
-
-.navbar.scrolled {
-  background: #002d62;
+  padding: 0 20px;
 }
 
 .navbar .nav-links a,
@@ -313,10 +307,23 @@ textarea:focus-visible {
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 5px 30px; /* تقليل الـ padding لجعل الشريط يبدو أنحف وأرتب */
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 2rem;
+
+  /* التعديلات الجديدة للشكل */
+  background: rgba(0, 45, 98, 0.4);
+  backdrop-filter: blur(10px); /* تأثير الضبابية الجذاب */
+  border-radius: 50px; /* الحواف الدائرية */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+.navbar.scrolled .nav-container {
+  background: rgba(0, 45, 98, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
 .nav-logo {
@@ -341,9 +348,13 @@ textarea:focus-visible {
 .nav-links a {
   font-size: 0.92rem;
   font-weight: 500;
-  color: var(--color-text);
+  color: #ffffff !important; /* لون ثابت أبيض */
   position: relative;
-  transition: color var(--transition);
+}
+
+/* لون الخط تحت الرابط عند التحديد */
+.nav-links a::after {
+  background: #c0ff00; /* يمكنك تغيير هذا للون الفسفوري أو أي لون مميز */
 }
 
 .nav-links a::after {
