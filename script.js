@@ -618,17 +618,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- Smooth Scroll ---
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", (e) => {
-      const href = anchor.getAttribute("href");
-      const target = document.querySelector(href);
-      if (target) {
-        e.preventDefault();
-        const navHeight = navbar.offsetHeight;
-        const targetPosition =
-          target.getBoundingClientRect().top + window.scrollY - navHeight;
-        window.scrollTo({ top: targetPosition, behavior: "smooth" });
-      }
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        const targetId = this.getAttribute("href");
+        const targetElement = document.querySelector(targetId);
+
+        if (targetElement) {
+          e.preventDefault();
+          const elementPosition =
+            targetElement.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - 80;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      });
     });
   });
+  function toggleCard(card) {
+    // إزالة الكلاس active من أي كارت آخر (لإغلاق الباقي)
+    document.querySelectorAll(".testimonial-card").forEach((item) => {
+      if (item !== card) item.classList.remove("active");
+    });
+
+    // تبديل الكلاس للكارت المختار
+    card.classList.toggle("active");
+  }
 });
