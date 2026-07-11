@@ -3,6 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Content Security Policy (clickjacking via frame-ancestors must be set as an HTTP header by the host — meta CSP cannot enforce it) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://api.web3forms.com; frame-src https://www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com">
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-NPVGN75T');</script>
+    <!-- End Google Tag Manager -->
     <meta name="description" content="أوبتيمم بيرفورمانس شركة وساطة تأمينية مرخصة في مصر. نتفاوض للحصول على التغطية المناسبة بالسعر المناسب، تأمين الممتلكات، مزايا الموظفين، التأمين البحري والشحن، إدارة المخاطر، والمناصرة في المطالبات.">
     <meta name="theme-color" content="#0f1f3c">
     <link rel="icon" href="static/OP_original.png" type="image/png">
@@ -16,9 +25,7 @@
             if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
             var type = nav ? nav.type : 'navigate';
-            var sameOrigin = false;
-            try { sameOrigin = !!document.referrer && new URL(document.referrer).origin === location.origin; } catch (e) {}
-            if (type === 'reload' || (type === 'navigate' && !sameOrigin)) {
+            if (type === 'reload' || type === 'navigate') {
                 document.documentElement.classList.add('intro-play');
             }
         } catch (e) { /* never block the page */ }
@@ -26,6 +33,10 @@
     </script>
 </head>
 <body class="lang-ar">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NPVGN75T"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <!-- Logo Intro Overlay -->
     <div id="intro" aria-hidden="true">
         <svg class="intro-logo" aria-hidden="true" focusable="false"

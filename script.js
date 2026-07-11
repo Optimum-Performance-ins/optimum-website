@@ -363,6 +363,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const serviceValue = card.dataset.service;
             const clientType = card.dataset.clientType; // 'individual' or 'corporate'
 
+            // Analytics: which service drives quote intent (non-PII)
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                event: 'service_card_quote_click',
+                service: serviceValue,
+                client_type: clientType
+            });
+
             // 1. Select client type radio
             const radio = document.querySelector(`input[name="clientType"][value="${clientType}"]`);
             if (radio) {
@@ -387,6 +395,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // --- WhatsApp float → analytics ---
+    const whatsappFloat = document.querySelector('.whatsapp-float');
+    if (whatsappFloat) {
+        whatsappFloat.addEventListener('click', () => {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'whatsapp_click' });
+        });
+    }
 
     // --- Dynamic Insurance Type Dropdown ---
     const clientTypeRadios = document.querySelectorAll('input[name="clientType"]');
@@ -520,6 +537,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (isValid) {
+                // Analytics conversion event (non-PII only).
+                // NOTE: email submission is not wired yet — this currently fires on the
+                // client-side success. When the Web3Forms fetch is added, MOVE this push
+                // into the fetch success callback so it only fires on a real submission.
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    event: 'quote_form_submit',
+                    insurance_type: insuranceType.value,
+                    client_type: clientTypeChecked ? clientTypeChecked.value : ''
+                });
+
                 // Show success
                 document.querySelector('.form-grid').style.display = 'none';
                 formSuccess.classList.add('show');
@@ -554,6 +582,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (valid) {
+                // Analytics conversion event (non-PII only).
+                // NOTE: relocate into the real submission callback when email is wired (see quote form above).
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({ event: 'meeting_form_submit' });
+
                 document.querySelector('.form-grid').style.display = 'none';
                 formSuccess.classList.add('show');
                 formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
