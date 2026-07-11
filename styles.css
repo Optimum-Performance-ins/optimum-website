@@ -52,7 +52,6 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     overflow-x: hidden;
-    scrollbar-gutter: stable; /* reserve scrollbar space so the intro scroll-lock doesn't shift the centered nav */
 }
 
 body {
@@ -2398,19 +2397,6 @@ html:not(.intro-play) .lang-ar .hero-fra-link::after {
 .lang-ar .form-group select,
 .lang-ar .form-group textarea {
     text-align: right;
-}
-
-/* Segment tabs RTL — mirror the rounded corners and seam border.
-   In RTL the DOM first-child sits on the right, last-child on the left,
-   so flip the radii and move the removed (seam) border to the right edge. */
-.lang-ar .segment-tab:first-child {
-    border-radius: 0 4px 4px 0;
-}
-
-.lang-ar .segment-tab:last-child {
-    border-radius: 4px 0 0 4px;
-    border-left: 2px solid var(--color-primary);
-    border-right: none;
 }
 
 /* Mobile RTL overrides */
