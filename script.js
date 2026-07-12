@@ -637,13 +637,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
-  function toggleCard(card) {
-    // إزالة الكلاس active من أي كارت آخر (لإغلاق الباقي)
-    document.querySelectorAll(".testimonial-card").forEach((item) => {
-      if (item !== card) item.classList.remove("active");
-    });
-
-    // تبديل الكلاس للكارت المختار
-    card.classList.toggle("active");
-  }
 });
