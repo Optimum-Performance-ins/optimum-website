@@ -637,4 +637,78 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
+  document
+    .querySelectorAll(".testimonial-stack")
+    .forEach((stack, stackIndex) => {
+      let cards = [...stack.querySelectorAll(".testimonial-card")];
+      let interval;
+
+      function updateCards() {
+        cards.forEach((card, index) => {
+          card.style.zIndex = 3 - index;
+
+          if (index === 0) {
+            card.style.transform = "translateX(0) translateY(0)";
+            card.style.opacity = "1";
+          }
+
+          if (index === 1) {
+            card.style.transform = "translateX(-90px) translateY(12px)";
+            card.style.opacity = "0.55";
+          }
+
+          if (index === 2) {
+            card.style.transform = "translateX(90px) translateY(12px)";
+            card.style.opacity = "0.55";
+          }
+        });
+      }
+
+      function nextCard() {
+        const firstCard = cards.shift();
+
+        cards.push(firstCard);
+
+        updateCards();
+      }
+
+      function startAutoPlay() {
+        interval = setInterval(nextCard, 4000);
+      }
+
+      function stopAutoPlay() {
+        clearInterval(interval);
+      }
+
+      setTimeout(() => {
+        startAutoPlay();
+      }, stackIndex * 700);
+
+      stack.addEventListener("mouseenter", stopAutoPlay);
+
+      stack.addEventListener("mouseleave", () => {
+        stopAutoPlay();
+        startAutoPlay();
+      });
+
+      stack.addEventListener("click", (event) => {
+        const card = event.target.closest(".testimonial-card");
+
+        if (!card) return;
+
+        const clickedIndex = cards.indexOf(card);
+
+        if (clickedIndex === 0) return;
+
+        cards.splice(clickedIndex, 1);
+        cards.unshift(card);
+
+        updateCards();
+
+        stopAutoPlay();
+        startAutoPlay();
+      });
+
+      updateCards();
+    });
 });
