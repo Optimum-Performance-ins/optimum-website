@@ -6218,41 +6218,37 @@ body {
 
     position: fixed;
 
-    top: 90px; /* المسافة من تحت الـ navbar */
+    top: 90px;
 
     right: 20px;
 
     left: 20px;
 
-    /* التعديلات هنا للروقة */
+    width: auto;
 
-    width: auto; /* عشان تاخد عرض المحتوى بس */
+    height: auto;
 
-    height: auto; /* عشان طولها يكون على قد الروابط فقط */
+    max-width: 300px;
 
-    max-width: 300px; /* تحدد عرضها عشان متكونش عريضة أوي */
+    margin: 0 auto;
 
-    margin: 0 auto; /* توسيط البطاقة */
-
-    background: rgba(0, 45, 98, 0.85); /* تقليل الشفافية شوية */
+    background: rgba(0, 45, 98, 0.85);
 
     backdrop-filter: blur(15px);
 
-    padding: 25px 20px; /* مساحة مريحة */
+    padding: 25px 20px;
 
-    border-radius: 25px; /* حواف ناعمة */
+    border-radius: 25px;
 
     flex-direction: column;
 
-    gap: 15px; /* تقليل المسافات بين الروابط عشان متبقاش مفرقة أوي */
+    gap: 15px;
 
     text-align: center;
 
     border: 1px solid rgba(255, 255, 255, 0.1);
 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
-    /* الأنيميشن */
 
     visibility: hidden;
 
@@ -6270,8 +6266,6 @@ body {
 
     transform: translateY(0);
   }
-
-  /* تصغير حجم الخط شوية عشان الروابط تبان بروفيشنال */
 
   .nav-links li a {
     color: #ffffff !important;
