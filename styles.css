@@ -269,6 +269,14 @@ textarea:focus-visible {
 }
 
 /* --- Navigation --- */
+.navbar {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 0 20px;
+}
 .nav-actions .btn-outline {
   padding: 8px 20px !important;
   border: 1px solid #ffffff !important;
@@ -296,14 +304,6 @@ textarea:focus-visible {
 .navbar .nav-actions a {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
-.navbar {
-  position: absolute;
-  top: 15px;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 0 20px;
-}
 
 .navbar .nav-links a,
 .navbar .lang-active,
@@ -312,24 +312,30 @@ textarea:focus-visible {
 }
 
 .nav-container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 5px 30px;
+  padding: 8px 25px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 2rem;
 
-  background: rgba(0, 45, 98, 0.4);
-  backdrop-filter: blur(10px);
-  border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 60px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
 }
 .navbar.scrolled .nav-container {
   background: rgba(0, 45, 98, 0.4);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+.nav-container:hover {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
 }
 
 .nav-logo {
@@ -340,7 +346,7 @@ textarea:focus-visible {
   flex-shrink: 0;
 }
 .nav-logo img {
-  height: 100px;
+  height: 70px;
   width: auto;
   transition: height 0.3s ease;
 }
@@ -386,8 +392,7 @@ textarea:focus-visible {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  flex-shrink: 0;
+  gap: 15px;
 }
 
 .nav-toggle {
@@ -674,6 +679,7 @@ textarea:focus-visible {
   position: relative;
   width: 100% !important;
   min-height: 120vh;
+  background-image: url("../static/Family.webp");
   display: flex !important;
   justify-content: flex-end !important;
   align-items: center !important;
@@ -693,6 +699,7 @@ textarea:focus-visible {
   width: 100% !important;
   max-width: 650px !important;
 }
+
 .hero-custom::before {
   content: "";
   position: absolute;
@@ -945,7 +952,6 @@ textarea:focus-visible {
     font-size: 0.66rem !important;
   }
 }
-
 /* --- Image Placeholders --- */
 .image-placeholder {
   background: var(--color-bg-gray);
@@ -5337,19 +5343,6 @@ html[lang="en"] .whous-f-card::before {
     text-align: center;
   }
 
-  /* .logo-marquee {
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .logo-marquee-track {
-    width: max-content;
-  }
-
-  .logo-marquee-group {
-    gap: 15px;
-  } */
-
   .logo-cell {
     width: 130px;
     min-width: 130px;
@@ -6219,257 +6212,76 @@ body {
     max-width: 100%;
   }
 }
-/* =========================
-   HERO BASE
-========================= */
-
-.hero-custom {
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-
-  background-image: url("../static/Family.webp");
-  background-size: cover;
-  background-position: center;
-
-  transform: scaleX(-1);
-
-  z-index: 0;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.hero-custom .container {
-  position: relative;
-  z-index: 2;
-}
-
-/* =====================================
-   ENGLISH HERO — FORCE CONTENT TO LEFT
-===================================== */
-
-html[lang="en"] .hero-custom .container,
-body:not(.lang-ar) .hero-custom .container {
-  width: 100% !important;
-  max-width: 100% !important;
-
-  margin: 0 !important;
-
-  padding-left: 8% !important;
-  padding-right: 8% !important;
-
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: flex-start !important;
-  align-items: center !important;
-
-  direction: ltr !important;
-}
-
-/* HERO CONTENT */
-
-html[lang="en"] .hero-custom .hero-copy,
-body:not(.lang-ar) .hero-custom .hero-copy {
-  position: relative !important;
-
-  left: auto !important;
-  right: auto !important;
-
-  margin-left: 0 !important;
-  margin-right: auto !important;
-
-  width: 520px !important;
-  max-width: 520px !important;
-
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-
-  text-align: left !important;
-  direction: ltr !important;
-
-  transform: none !important;
-}
-
-/* TITLE + TEXT */
-
-html[lang="en"] .hero-custom .hero-copy h1,
-html[lang="en"] .hero-custom .hero-sub,
-body:not(.lang-ar) .hero-custom .hero-copy h1,
-body:not(.lang-ar) .hero-custom .hero-sub {
-  width: 100% !important;
-
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-
-  text-align: left !important;
-  direction: ltr !important;
-}
-
-/* BUTTONS */
-
-html[lang="en"] .hero-custom .hero-ctas,
-body:not(.lang-ar) .hero-custom .hero-ctas {
-  width: 100% !important;
-
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: flex-start !important;
-  align-items: center !important;
-
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-
-  direction: ltr !important;
-}
-
-/* FRA TRUST */
-
-html[lang="en"] .hero-custom .hero-trust,
-body:not(.lang-ar) .hero-custom .hero-trust {
-  width: 100% !important;
-
-  display: flex !important;
-  justify-content: flex-start !important;
-
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-html[lang="en"] .hero-custom .hero-fra-link,
-body:not(.lang-ar) .hero-custom .hero-fra-link {
-  margin-left: 0 !important;
-  margin-right: auto !important;
-
-  text-align: left !important;
-  direction: ltr !important;
-}
-
-html[lang="en"] .hero-custom .hero-fra-text,
-html[lang="en"] .hero-custom .hero-fra-main,
-html[lang="en"] .hero-custom .hero-fra-verify,
-body:not(.lang-ar) .hero-custom .hero-fra-text,
-body:not(.lang-ar) .hero-custom .hero-fra-main,
-body:not(.lang-ar) .hero-custom .hero-fra-verify {
-  text-align: left !important;
-  direction: ltr !important;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
 @media (max-width: 768px) {
-  html[lang="en"] .hero-custom .container,
-  body:not(.lang-ar) .hero-custom .container {
-    padding-left: 24px !important;
-    padding-right: 24px !important;
-
-    justify-content: flex-start !important;
-  }
-
-  html[lang="en"] .hero-custom .hero-copy,
-  body:not(.lang-ar) .hero-custom .hero-copy {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin-left: 0 !important;
-    margin-right: auto !important;
-  }
-}
-/* =====================================
-   MOBILE HERO - ENGLISH SAME AS ARABIC
-===================================== */
-
-@media (max-width: 768px) {
-  body:not(.lang-ar) .hero-custom .container {
-    padding: 0 20px !important;
-
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-
-    text-align: center !important;
-  }
-
-  body:not(.lang-ar) .hero-custom .hero-copy {
-    width: 100% !important;
-    max-width: 100% !important;
-
-    margin: 0 auto !important;
-
-    display: flex !important;
-    flex-direction: column !important;
-
-    align-items: center !important;
-
-    text-align: center !important;
-
-    direction: ltr !important;
-
-    transform: none !important;
-    left: auto !important;
-    right: auto !important;
-  }
-
-  body:not(.lang-ar) .hero-custom .hero-copy h1,
-  body:not(.lang-ar) .hero-custom .hero-sub {
-    width: 100% !important;
-
-    text-align: center !important;
-
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  /* Buttons */
-  body:not(.lang-ar) .hero-custom .hero-ctas {
-    width: 100% !important;
-
+  .nav-links {
     display: flex !important;
 
-    flex-direction: column !important;
+    position: fixed;
 
-    align-items: center !important;
+    top: 90px; /* المسافة من تحت الـ navbar */
 
-    justify-content: center !important;
+    right: 20px;
 
-    gap: 12px !important;
+    left: 20px;
+
+    /* التعديلات هنا للروقة */
+
+    width: auto; /* عشان تاخد عرض المحتوى بس */
+
+    height: auto; /* عشان طولها يكون على قد الروابط فقط */
+
+    max-width: 300px; /* تحدد عرضها عشان متكونش عريضة أوي */
+
+    margin: 0 auto; /* توسيط البطاقة */
+
+    background: rgba(0, 45, 98, 0.85); /* تقليل الشفافية شوية */
+
+    backdrop-filter: blur(15px);
+
+    padding: 25px 20px; /* مساحة مريحة */
+
+    border-radius: 25px; /* حواف ناعمة */
+
+    flex-direction: column;
+
+    gap: 15px; /* تقليل المسافات بين الروابط عشان متبقاش مفرقة أوي */
+
+    text-align: center;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+    /* الأنيميشن */
+
+    visibility: hidden;
+
+    opacity: 0;
+
+    transform: translateY(-20px);
+
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  body:not(.lang-ar) .hero-custom .hero-ctas a {
-    width: 100% !important;
+  .nav-links.active {
+    visibility: visible;
 
-    max-width: 300px !important;
+    opacity: 1;
+
+    transform: translateY(0);
   }
 
-  /* FRA */
+  /* تصغير حجم الخط شوية عشان الروابط تبان بروفيشنال */
 
-  body:not(.lang-ar) .hero-custom .hero-trust {
-    width: 100% !important;
+  .nav-links li a {
+    color: #ffffff !important;
 
-    justify-content: center !important;
-  }
+    font-size: 1rem;
 
-  body:not(.lang-ar) .hero-custom .hero-fra-link {
-    margin: 0 auto !important;
+    font-weight: 500;
 
-    text-align: center !important;
+    padding: 8px;
 
-    justify-content: center !important;
-  }
-
-  body:not(.lang-ar) .hero-custom .hero-fra-text,
-  body:not(.lang-ar) .hero-custom .hero-fra-main,
-  body:not(.lang-ar) .hero-custom .hero-fra-verify {
-    text-align: center !important;
+    transition: 0.2s;
   }
 }

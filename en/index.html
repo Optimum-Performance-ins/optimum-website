@@ -3007,5 +3007,23 @@
     </a>
 
     <script src="../script.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const navToggle = document.getElementById("navToggle");
+        const navLinks = document.getElementById("navLinks");
+
+        if (navToggle && navLinks) {
+          navToggle.addEventListener("click", () => {
+            navLinks.classList.toggle("active");
+
+            navToggle.classList.toggle("open");
+          });
+        } else {
+          console.error(
+            "لم يتم العثور على زر القائمة أو روابط القائمة، تأكد من الـ IDs!",
+          );
+        }
+      });
+    </script>
   </body>
 </html>
