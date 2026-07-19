@@ -2930,6 +2930,18 @@ html[lang="en"] .whous-f-card::before {
     right: auto;
     left: -100%;
     flex-direction: column;
+    /* تأكد من وجود transition لضمان حركة القائمة */
+    transition:
+      left 0.4s ease,
+      opacity 0.4s ease;
+  }
+
+  /* تم تغيير .open إلى .active ليتطابق مع كود الجافاسكريبت */
+  .lang-ar .nav-links.active {
+    left: 0;
+    right: auto;
+    opacity: 1;
+    visibility: visible;
   }
 
   .lang-ar .nav-links.open {
@@ -5716,67 +5728,44 @@ body {
 @media (max-width: 768px) {
   .nav-links {
     display: flex !important;
-
-    position: fixed;
-
-    top: 90px;
-
-    right: 20px;
-
-    left: 20px;
-
-    width: auto;
-
-    height: auto;
-
-    max-width: 300px;
-
-    margin: 0 auto;
-
-    background: rgba(0, 45, 98, 0.85);
-
-    backdrop-filter: blur(15px);
-
-    padding: 25px 20px;
-
-    border-radius: 25px;
-
+    position: fixed !important;
+    top: 90px !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(-20px) !important;
+    right: auto !important;
+    margin: 0 !important;
+    width: 50% !important;
+    max-width: 180px !important;
+    height: auto !important;
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    border-radius: 50px !important;
     flex-direction: column;
-
-    gap: 15px;
-
+    gap: 15px !important;
     text-align: center;
-
+    background: rgba(0, 45, 98, 0.85);
+    backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-
     visibility: hidden;
-
     opacity: 0;
-
-    transform: translateY(-20px);
-
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .nav-links.active {
-    visibility: visible;
-
-    opacity: 1;
-
-    transform: translateY(0);
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: translateX(-50%) translateY(0) !important;
   }
 
   .nav-links li a {
     color: #ffffff !important;
-
-    font-size: 1rem;
-
+    font-size: 1.1rem !important;
     font-weight: 500;
-
-    padding: 8px;
-
+    padding: 10px !important;
     transition: 0.2s;
+    display: block;
   }
 }
