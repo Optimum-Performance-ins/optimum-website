@@ -1001,7 +1001,7 @@ section {
 .section--white {
   background: #ffffff;
   padding: 80px 0;
-  border-top: 1px solid var(--color-primary);
+  /* border-top: 1px solid var(--color-primary); */
 }
 
 .section--gray {
