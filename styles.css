@@ -2175,10 +2175,23 @@ html[lang="en"] .whous-f-card::before {
   font-size: 1.1rem;
   font-weight: 700;
   color: var(--color-primary);
-  text-align: left;
   transition: background var(--transition);
+}
+
+/* اللغة الإنجليزية: الاتجاه طبيعي (النص شمال والأيقونة يمين) */
+[dir="ltr"] .accordion-header,
+html[lang="en"] .accordion-header {
+  direction: ltr;
+  text-align: left;
+  flex-direction: row;
+}
+
+/* اللغة العربية: الاتجاه معكوس (النص يمين والأيقونة شمال) */
+[dir="rtl"] .accordion-header,
+html[lang="ar"] .accordion-header {
   direction: rtl;
-  flex-direction: row-reverse;
+  text-align: right;
+  flex-direction: row;
 }
 
 .accordion-header:hover {
@@ -2229,13 +2242,22 @@ html[lang="en"] .whous-f-card::before {
 }
 
 .accordion-header span {
-  direction: ltr;
-  text-align: left;
   display: block;
 }
 
-/* Values list inside accordion */
+[dir="rtl"] .accordion-header span,
+html[lang="ar"] .accordion-header span {
+  direction: rtl;
+  text-align: right;
+}
 
+[dir="ltr"] .accordion-header span,
+html[lang="en"] .accordion-header span {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Values list inside accordion */
 .value-item h4 {
   font-size: 1rem;
   padding: 0;
@@ -2247,7 +2269,6 @@ html[lang="en"] .whous-f-card::before {
 }
 
 /* CEO quote inside accordion */
-
 .ceo-quote p {
   font-style: italic;
   font-size: 1rem;
