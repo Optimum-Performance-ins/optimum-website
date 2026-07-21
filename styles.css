@@ -313,9 +313,11 @@ textarea:focus-visible {
 }
 .nav-links {
   display: flex;
-  gap: 1.75rem;
+  gap: 2rem;
   align-items: center;
-  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .nav-links a {
@@ -323,10 +325,9 @@ textarea:focus-visible {
   font-weight: 500;
   color: #ffffff !important;
   position: relative;
-}
-
-.nav-links a::after {
-  background: #c0ff00;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  transition: opacity 0.3s ease;
 }
 
 .nav-links a::after {
@@ -336,13 +337,15 @@ textarea:focus-visible {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--color-primary);
-  transition: width 0.3s ease;
+  background: linear-gradient(90deg, #ffffff, var(--color-primary));
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--color-primary);
+  color: #ffffff !important;
+  opacity: 0.9;
 }
 
 .nav-links a:hover::after,
@@ -512,41 +515,46 @@ textarea:focus-visible {
 }
 /* --- Language Toggle --- */
 .lang-toggle {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: none;
-  border: 1px solid var(--color-border);
-  border-radius: 4px;
-  padding: 0.3rem 0.6rem;
-  cursor: pointer;
-  font-family: var(--font-serif);
-  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.45rem 0.9rem;
+  border-radius: 30px;
+  font-size: 0.85rem;
   text-decoration: none;
-  color: inherit;
-  transition:
-    border-color var(--transition),
-    background var(--transition);
+  transition: all 0.3s ease;
+  margin-left: 0.5rem;
 }
 
 .lang-toggle:hover {
-  border-color: #ffffff;
-  background: rgba(200, 150, 46, 0.06);
-}
-
-.lang-active {
-  color: var(--color-primary);
-  font-weight: 600;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .lang-divider {
-  color: var(--color-border);
-  font-weight: 300;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .lang-inactive {
-  color: var(--color-text-muted);
-  font-weight: 400;
+  opacity: 0.6;
+}
+
+/* موبايل تماسك */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0.5rem;
+}
+
+.lang-inactive {
+  opacity: 0.6;
 }
 
 /* --- Hero Particles & Ambient --- */
@@ -2178,7 +2186,6 @@ html[lang="en"] .whous-f-card::before {
   transition: background var(--transition);
 }
 
-/* اللغة الإنجليزية: الاتجاه طبيعي (النص شمال والأيقونة يمين) */
 [dir="ltr"] .accordion-header,
 html[lang="en"] .accordion-header {
   direction: ltr;
@@ -2186,7 +2193,6 @@ html[lang="en"] .accordion-header {
   flex-direction: row;
 }
 
-/* اللغة العربية: الاتجاه معكوس (النص يمين والأيقونة شمال) */
 [dir="rtl"] .accordion-header,
 html[lang="ar"] .accordion-header {
   direction: rtl;
