@@ -499,29 +499,35 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // --- Accordion ---
-  document.querySelectorAll(".accordion-header").forEach((header) => {
-    header.addEventListener("click", () => {
-      const item = header.parentElement;
-      const body = item.querySelector(".accordion-body");
-      const isOpen = item.classList.contains("open");
+  document.addEventListener("click", (e) => {
+    const header = e.target.closest(".accordion-header");
+    if (!header) return;
 
-      // Close all
-      document.querySelectorAll(".accordion-item").forEach((i) => {
-        i.classList.remove("open");
-        i.querySelector(".accordion-header").setAttribute(
-          "aria-expanded",
-          "false",
-        );
-        i.querySelector(".accordion-body").style.maxHeight = null;
-      });
+    const item = header.parentElement;
+    if (!item) return;
 
-      // Open clicked if it wasn't open
-      if (!isOpen) {
-        item.classList.add("open");
-        header.setAttribute("aria-expanded", "true");
-        body.style.maxHeight = body.scrollHeight + "px";
-      }
+    const body = item.querySelector(".accordion-body");
+    const isOpen = item.classList.contains("open");
+
+    const parentAccordion = item.closest(".accordion") || document;
+    parentAccordion.querySelectorAll(".accordion-item").forEach((i) => {
+      i.classList.remove("open");
+
+      const h = i.querySelector(".accordion-header");
+      const b = i.querySelector(".accordion-body");
+
+      if (h) h.setAttribute("aria-expanded", "false");
+      if (b) b.style.maxHeight = null;
     });
+
+    if (!isOpen && body) {
+      item.classList.add("open");
+      header.setAttribute("aria-expanded", "true");
+
+      requestAnimationFrame(() => {
+        body.style.maxHeight = body.scrollHeight + "px";
+      });
+    }
   });
 
   // --- Form Validation ---
