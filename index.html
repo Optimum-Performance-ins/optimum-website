@@ -2165,8 +2165,17 @@
                       placeholder="+20 xxx xxx xxxx"
                     />
                   </div>
+                  <!-- حقل اختيار التاريخ (التقويم) -->
                   <div class="form-group">
-                    <label for="meetingTime">الوقت المفضل</label>
+                    <label for="meetingDate">التاريخ المناسب</label>
+                    <input
+                      type="date"
+                      id="meetingDate"
+                      name="meetingDate"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="meetingTime">الوقت المناسب</label>
                     <select id="meetingTime" name="meetingTime">
                       <option value="morning">صباحاً (9ص - 12م)</option>
                       <option value="afternoon">ظهراً (12م - 4م)</option>
@@ -2182,6 +2191,7 @@
                   </button>
                 </div>
               </div>
+            </div>
               <div class="trust-signals">
                 <div class="trust-item">
                   <svg
