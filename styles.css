@@ -1189,7 +1189,6 @@ section {
 .insurance-card:hover .card-bg {
   transform: scale(1.1);
 }
-/* --- Services Carousel Full Width Wrapper --- */
 .services-carousel-wrapper {
   position: relative;
   width: 100vw;
@@ -1201,42 +1200,74 @@ section {
   box-sizing: border-box;
 }
 
+/* --- Carousel Slider Track --- */
 .services-slider {
   display: flex;
-  gap: 24px;
+  gap: 28px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding: 35px 5px;
+  padding: 30px 10px;
   direction: rtl;
+  -webkit-overflow-scrolling: touch;
 }
 
 .services-slider::-webkit-scrollbar {
   display: none;
 }
 
-/* --- Insurance Card (Elite Navy Pro Design) --- */
+/* --- Insurance Card Core Design --- */
 .services-slider .insurance-card {
-  flex: 0 0 calc((100vw - 140px) / 3.2) !important;
-  min-width: 320px !important;
-  height: 550px !important;
-  min-height: 550px !important;
+  flex: 0 0 calc((100vw - 160px) / 3.2);
+  min-width: 330px;
+  height: 550px;
+  min-height: 550px;
   scroll-snap-align: start;
   position: relative;
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: 32px;
   isolation: isolate;
   cursor: pointer;
-  background: #ffffff;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-
+  background: #0f172a;
+  /* border: 1px solid rgba(255, 255, 255, 0.08); */
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
   transition:
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.6s ease;
+  will-change: transform;
 }
 
+/* --- Hover State: Card Elevation --- */
+.services-slider .insurance-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 28px 55px rgba(15, 23, 42, 0.16);
+  border-color: rgba(21, 201, 183, 0.45);
+}
+
+.services-slider .insurance-card:hover::before {
+  opacity: 1;
+}
+
+/* --- Background Image & Smooth Zoom --- */
+.services-slider .insurance-card .card-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.services-slider .insurance-card:hover .card-bg {
+  transform: scale(1.07);
+}
+
+/* --- Glassmorphic Premium Border (::before) --- */
 .services-slider .insurance-card::before {
   content: "";
   position: absolute;
@@ -1245,26 +1276,33 @@ section {
   border-radius: inherit;
   background: linear-gradient(
     135deg,
-    rgba(255, 255, 255, 0.45),
-    transparent 30%,
-    transparent 70%,
-    rgba(15, 23, 42, 0.25)
+    rgba(255, 255, 255, 0.55),
+    transparent 40%,
+    transparent 60%,
+    rgba(21, 201, 183, 0.45)
   );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   mask-composite: exclude;
   opacity: 0;
-  transition: 0.5s;
+  transition: opacity 0.5s ease;
   pointer-events: none;
   z-index: 5;
 }
 
+/* --- Dynamic Light Sweep Effect (::after) --- */
 .services-slider .insurance-card::after {
   content: "";
   position: absolute;
-  top: -140%;
-  left: -60%;
-  width: 45%;
-  height: 320%;
+  top: -150%;
+  left: -70%;
+  width: 50%;
+  height: 350%;
   background: linear-gradient(
     90deg,
     transparent,
@@ -1272,70 +1310,53 @@ section {
     transparent
   );
   transform: rotate(25deg);
-  transition: 1s;
+  transition: 0.9s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
   z-index: 4;
 }
 
-.services-slider .insurance-card .card-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-  z-index: 1;
+.services-slider .insurance-card:hover::after {
+  top: 100%;
+  left: 100%;
 }
 
-.services-slider .insurance-card:hover .card-bg {
-  transform: scale(1.08);
-}
-
-.services-slider .insurance-card:hover {
-  transform: translateY(-12px);
-}
-
-.services-slider .insurance-card:hover::before {
-  opacity: 1;
-}
-
+/* --- Floating Badge Style (Glassmorphism) --- */
 .services-slider .insurance-card .badge {
   position: absolute;
   top: 24px;
   right: 24px;
-  z-index: 3;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #fff;
-  padding: 8px 18px;
+  z-index: 6;
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 8px 20px;
   border-radius: 50px;
   font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.4px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-/* --- Card Content (Deep Navy Gradient & RTL Alignment) --- */
+/* --- Card Content Area (Deep Navy Gradient & RTL) --- */
 .insurance-card .card-content {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 35px 28px;
+  padding: 38px 30px;
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(15, 23, 42, 0.2) 30%,
-    rgba(15, 23, 42, 0.8) 70%,
+    rgba(15, 23, 42, 0.1) 20%,
+    rgba(15, 23, 42, 0.82) 60%,
     rgba(15, 23, 42, 0.98) 100%
   );
-  z-index: 2;
-  transition: 0.45s;
+  z-index: 3;
   text-align: right;
   direction: rtl;
+  transition: transform 0.4s ease;
 }
 
 .services-slider .insurance-card:hover .card-content {
@@ -1343,19 +1364,19 @@ section {
 }
 
 .insurance-card .card-content h3 {
-  font-size: 1.75rem;
+  font-size: 1.7rem;
   font-weight: 700;
-  line-height: 1.3;
-  letter-spacing: -0.5px;
-  margin-bottom: 10px;
-  color: #fff;
+  line-height: 1.35;
+  letter-spacing: -0.3px;
+  margin-bottom: 12px;
+  color: #ffffff;
 }
 
 .insurance-card .card-content p {
-  font-size: 0.98rem;
-  line-height: 1.7;
+  font-size: 0.96rem;
+  line-height: 1.75;
   color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .insurance-card .card-cta {
@@ -1363,23 +1384,56 @@ section {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background-color: #f1f5f9;
+  background-color: #ffffff;
   color: #0f172a !important;
   font-weight: 600;
   font-size: 0.92rem;
-  padding: 12px 26px;
+  padding: 13px 28px;
   border-radius: 50px;
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border: 1px solid rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.insurance-card .card-cta:hover {
-  background-color: #e2e8f0;
+/* --- Force default white --- */
+.insurance-card .card-cta,
+.services-slider .insurance-card .card-cta,
+.card-cta {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* --- Hover = Navy فقط --- */
+.insurance-card .card-cta:hover,
+.services-slider .insurance-card .card-cta:hover,
+.card-cta:hover {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.4) !important;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
   gap: 14px;
+}
+
+/* --- Force default white --- */
+.insurance-card .card-cta,
+.services-slider .insurance-card .card-cta,
+.card-cta {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.insurance-card .card-cta:hover,
+.services-slider .insurance-card .card-cta:hover,
+.card-cta:hover {
+  /* background-color: # !important; */
+  color: #ffffff !important;
+  border-color: transparent !important;
 }
 
 /* --- Carousel Navigation Buttons --- */
@@ -1390,7 +1444,8 @@ section {
   width: 52px;
   height: 52px;
   background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid rgba(15, 23, 42, 0.08);
   color: #0f172a;
   border-radius: 50%;
@@ -1398,48 +1453,25 @@ section {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 10;
+  z-index: 20;
   box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .carousel-btn:hover {
   background: #0f172a;
   border-color: #0f172a;
-  color: #fff;
+  color: #ffffff;
   transform: translateY(-50%) scale(1.08);
-  box-shadow: 0 15px 30px rgba(15, 23, 42, 0.3);
+  box-shadow: 0 15px 30px rgba(15, 23, 42, 0.25);
 }
 
 .carousel-btn.prev {
-  left: 24px;
+  left: 20px;
 }
 
 .carousel-btn.next {
-  right: 24px;
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 1200px) {
-  .services-slider .insurance-card {
-    flex: 0 0 calc((100vw - 120px) / 2);
-    min-width: 310px;
-    height: 510px;
-  }
-}
-
-@media (max-width: 768px) {
-  .services-carousel-wrapper {
-    padding: 0 16px;
-  }
-  .services-slider .insurance-card {
-    flex: 0 0 88vw;
-    min-width: unset;
-    height: 460px;
-  }
-  .carousel-btn {
-    display: none;
-  }
+  right: 20px;
 }
 .slider-arrow,
 .swiper-button-prev,
@@ -5983,4 +6015,30 @@ body {
     transition: 0.2s;
     display: block;
   }
+}
+.meeting-form input[type="date"],
+.meeting-form select,
+.meeting-form input[type="text"],
+.meeting-form input[type="tel"] {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  border-radius: 8px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.meeting-form .form-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.meeting-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-primary, #0f1f3c);
 }
