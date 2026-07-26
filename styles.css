@@ -273,6 +273,11 @@ textarea:focus-visible {
 }
 
 .nav-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 50px);
   max-width: 1400px;
   margin: 0 auto;
   padding: 8px 25px;
@@ -282,13 +287,14 @@ textarea:focus-visible {
   gap: 2rem;
 
   background: rgba(255, 255, 255, 0.08);
+
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
   border-radius: 60px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
+  z-index: 9999;
 }
 .navbar.scrolled .nav-container {
   background: rgba(0, 45, 98, 0.4);
