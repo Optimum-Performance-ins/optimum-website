@@ -296,7 +296,7 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
       <div class="nav-container">
-        <a href="#hero" class="nav-logo"aria-label="أوبتيمم بيرفورمانس ">
+        <a href="#hero" class="nav-logo" aria-label="أوبتيمم بيرفورمانس ">
           <img src="static\OP_original.png" alt="أوبتيمم بيرفورمانس" />
         </a>
         <button class="nav-toggle" id="navToggle" aria-label="تبديل القائمة">
@@ -304,7 +304,7 @@
           <span></span>
           <span></span>
         </button>
-       
+
         <ul class="nav-links" id="navLinks">
           <li><a href="#services">خدماتنا</a></li>
           <li><a href="#how-we-work">كيف نعمل</a></li>
@@ -490,7 +490,7 @@
           </div>
         </div>
       </section>
-      <!-- Services - Individual vs Corporate -->
+
       <section class="section--white" id="services">
         <div class="section-shapes" aria-hidden="true"></div>
         <div class="container">
@@ -501,705 +501,726 @@
             سواء كنت تحمي عائلتك أو عملك، نحن نوفر لك التغطية
           </p>
 
+          <!-- أزرار التبويب (الأفراد / للشركات) -->
           <div class="segment-tabs reveal">
             <button class="segment-tab active" data-segment="individual">
-              للأفراد
+              لِلأفراد
             </button>
             <button class="segment-tab" data-segment="corporate">
               للشركات
             </button>
           </div>
 
-          <!-- Individual Cards -->
+          <!-- 1. سكشن الأفراد (Carousel) -->
           <div class="segment-content active" id="segment-individual">
-            <div class="services-grid">
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/motors.webp"
-                  alt="Motor Insurance"
-                  class="card-bg"
-                />
+            <div class="services-carousel-wrapper">
+              <!-- زر السهم الأيسر -->
+              <button class="carousel-btn prev" aria-label="Previous">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
 
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الأفراد</div>
+              <!-- حاوية الكروت الأفقية للأفراد -->
+              <div class="services-slider">
+                <!-- الكارت الأول -->
+                <div class="insurance-card">
+                  <img
+                    src="/static/motors.webp"
+                    alt="Motor Insurance"
+                    class="card-bg"
+                  />
+                  <div class="badge">الأفراد</div>
+                  <div class="card-content">
+                    <h3>تأمين السيارات</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      يوفر تأمين السيارات حماية شاملة ضد مخاطر الطرق وحوادث
+                      السرقة.
+                    </p>
+                    <a href="#quote" class="card-cta"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
 
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>تأمين السيارات</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    يوفر تأمين السيارات حماية شاملة ضد مخاطر الطرق وحوادث السرقة
-                    والأضرار الناتجة عن أخطاء الغير.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
+                <!-- الكارت الثاني -->
+                <div class="insurance-card">
+                  <img
+                    src="/static/card-home.webp"
+                    alt="Home Insurance"
+                    class="card-bg"
+                  />
+                  <div class="badge">الأفراد</div>
+                  <div class="card-content">
+                    <h3>تأمين المنزل</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      احمِ منزلك وممتلكاتك ضد الحريق والسرقة والكوارث الطبيعية.
+                    </p>
+                    <a href="#quote" class="card-cta"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <!-- الكارت الثالث -->
+                <div class="insurance-card">
+                  <img
+                    src="/static/intro.webp"
+                    alt="Medical Insurance"
+                    class="card-bg"
+                  />
+                  <div class="badge">الأفراد</div>
+                  <div class="card-content">
+                    <h3>التأمين الطبي</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      رعاية صحية متكاملة تغطي الفحوصات والاستشارات والعمليات
+                      الجراحية.
+                    </p>
+                    <a href="#quote" class="card-cta"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <!-- الكارت الرابع -->
+                <div class="insurance-card">
+                  <img
+                    src="/static/Card_life.webp"
+                    alt="Life Insurance"
+                    class="card-bg"
+                  />
+                  <div class="badge">الأفراد</div>
+                  <div class="card-content">
+                    <h3>تأمين الحياة</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      يوفر الحماية المالية للأفراد وعائلتهم ودعم مادي في حالة
+                      الوفاة أو العجز.
+                    </p>
+                    <a href="#quote" class="card-cta"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <!-- الكارت الخامس -->
+                <div class="insurance-card">
+                  <img
+                    src="/static/loan.webp"
+                    alt="Loan repayment Insurance"
+                    class="card-bg"
+                  />
+                  <div class="badge">الأفراد</div>
+                  <div class="card-content">
+                    <h3>تأمين ضمان مخاطر عدم السداد</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      هي وثيقه تضمن تغطية وسداد الاقساط للجهه المقرضه نيابة عن
+                      المقترض من التعثر المالي في حالات (الوفاة، فقدان الوظيفة،
+                      العجز).
+                    </p>
+                    <a href="#quote" class="card-cta"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
                 </div>
               </div>
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/card-home.webp"
-                  alt="Medical Insurance"
-                  class="card-bg"
-                />
 
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الأفراد</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>تأمين المنزل</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    احمِ منزلك وممتلكاتك ضد الحريق والسرقة والكوارث الطبيعية.
-                    استفد من تغطيتنا الشاملة المصممة خصيصاً لتناسب احتياجاتك، مع
-                    إجراءات سريعة وخدمة دعم احترافية تضمن لك التعافي السريع في
-                    حالة وقوع أي ضرر.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/medical.jpg"
-                  alt="Medical Insurance"
-                  class="card-bg"
-                />
-
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الأفراد</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>التأمين الطبي</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    رعاية صحية متكاملة للأفراد والشركات، تغطي الفحوصات،
-                    الاستشارات، الأدوية، والعمليات الجراحية. كما تشمل تغطية
-                    الحمل والولادة، الأسنان، البصريات، بالإضافة إلى الأمراض
-                    المزمنة والسابقة والحرجة، لضمان أعلى مستويات الأمان الصحي.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-              <div class="insurance-card">
-                <img
-                  src="/static/Card_life.webp"
-                  alt="Life Insurance"
-                  class="card-bg"
-                />
-
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الأفراد</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>تأمين الحياة</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    التأمين على الحياة هو تأمين يوفر الحماية المالية للأفراد
-                    وعائلتهم حيث يوفر دعم مادي للأسرة في حالة وفاة الشخص المؤمن
-                    عليه او اصابته بالعجز الكلي او الجزئي الناتج عن مرض او حادث
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/loan.webp"
-                  alt="Loan_repayment Insurance"
-                  class="card-bg"
-                />
-
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الأفراد</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>تأمين ضمان مخاطر عدم السداد</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    هي وثيقه تضمن تغطية وسداد الاقساط للجهه المقرضه نيابة عن
-                    المقترض من التعثر المالي في حالات (الوفاة، فقدان الوظيفة،
-                    العجز).
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
+              <!-- زر السهم الأيمن -->
+              <button class="carousel-btn next" aria-label="Next">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
             </div>
           </div>
 
-          <!-- Corporate Cards -->
+          <!-- 2. سكشن للشركات (Carousel) -->
           <div class="segment-content" id="segment-corporate">
-            <div class="services-grid">
-              <div class="insurance-card">
-                <img
-                  src="static/card-liability.webp"
-                  alt="تأمين المسؤوليات"
-                  class="card-bg"
-                />
-                <div class="badge">الشركات</div>
+            <div class="services-carousel-wrapper">
+              <!-- زر السهم الأيسر -->
+              <button class="carousel-btn prev" aria-label="Previous">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
 
-                <div class="card-content">
-                  <h3>تأمين المسؤوليات</h3>
-                  <p>
-                    حماية شاملة ضد المطالبات القانونية والتعويضات المالية تجاه
-                    الغير، لتأمين نشاطك التجاري.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
+              <div class="services-slider">
+                <!-- الكارت الأول -->
+                <div class="insurance-card">
+                  <!-- الخلفية مع زووم سينمائي -->
+                  <img
+                    src="static/card-liability.webp"
+                    alt="تأمين المسؤوليات"
+                    class="card-bg"
+                  />
+                  <div class="badge">الشركات</div>
 
-                <div class="white-hover-overlay">
-                  <h4>أنواع تأمين المسؤوليات:</h4>
-
-                  <div class="liability-lines-container">
-                    <div class="pro-line-item item-1">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                        ></path>
-                      </svg>
-                      <span>تأمين مسؤولية المنتجات</span>
-                    </div>
-                    <div class="pro-line-item item-2">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
-                        ></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                      </svg>
-                      <span>تأمين مسؤولية رب العمل</span>
-                    </div>
-                    <div class="pro-line-item item-3">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <rect
-                          x="2"
-                          y="7"
-                          width="20"
-                          height="14"
-                          rx="2"
-                          ry="2"
-                        ></rect>
-                        <path
-                          d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"
-                        ></path>
-                      </svg>
-                      <span>تأمين المسؤولية المهنية</span>
-                    </div>
-                    <div class="pro-line-item item-4">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
-                        ></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                      </svg>
-                      <span>تأمين المسؤولية المدنية للمديرين</span>
-                    </div>
-                    <div class="pro-line-item item-5">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <rect
-                          x="2"
-                          y="3"
-                          width="20"
-                          height="14"
-                          rx="2"
-                          ry="2"
-                        ></rect>
-                        <line x1="8" y1="21" x2="16" y2="21"></line>
-                      </svg>
-                      <span>تأمين المسؤولية السيبرانية</span>
-                    </div>
+                  <!-- المحتوى الأساسي -->
+                  <div class="card-content">
+                    <h3>تأمين المسؤوليات</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      حماية شاملة ضد المطالبات القانونية والتعويضات المالية تجاه
+                      الغير، لتأمين نشاطك التجاري.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
                   </div>
 
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
+                  <!-- طبقة التفاعل عند الهفر (أنواع المسؤوليات) -->
+                  <div class="white-hover-overlay">
+                    <h4>أنواع تأمين المسؤوليات:</h4>
+
+                    <div class="liability-lines-container">
+                      <div class="pro-line-item item-1">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                          ></path>
+                        </svg>
+                        <span>تأمين مسؤولية المنتجات</span>
+                      </div>
+
+                      <div class="pro-line-item item-2">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                          ></path>
+                          <circle cx="9" cy="7" r="4"></circle>
+                        </svg>
+                        <span>تأمين مسؤولية رب العمل</span>
+                      </div>
+
+                      <div class="pro-line-item item-3">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <rect
+                            x="2"
+                            y="7"
+                            width="20"
+                            height="14"
+                            rx="2"
+                            ry="2"
+                          ></rect>
+                          <path
+                            d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"
+                          ></path>
+                        </svg>
+                        <span>تأمين المسؤولية المهنية</span>
+                      </div>
+
+                      <div class="pro-line-item item-4">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                          ></path>
+                          <circle cx="9" cy="7" r="4"></circle>
+                        </svg>
+                        <span>تأمين المسؤولية المدنية للمديرين</span>
+                      </div>
+
+                      <div class="pro-line-item item-5">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <rect
+                            x="2"
+                            y="3"
+                            width="20"
+                            height="14"
+                            rx="2"
+                            ry="2"
+                          ></rect>
+                          <line x1="8" y1="21" x2="16" y2="21"></line>
+                        </svg>
+                        <span>تأمين المسؤولية السيبرانية</span>
+                      </div>
+                    </div>
+
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
                 </div>
-              </div>
 
-              <div class="insurance-card">
-                <img
-                  src="static/card_Engineering.png"
-                  alt="التأمين الهندسي"
-                  class="card-bg"
-                />
-                <div class="badge">الشركات</div>
+                <div class="insurance-card">
+                  <!-- الخلفية مع زووم سينمائي -->
+                  <img
+                    src="static/card_Engineering.png"
+                    alt="التأمين الهندسي"
+                    class="card-bg"
+                  />
+                  <div class="badge">الشركات</div>
 
-                <div class="card-content">
-                  <h3>التأمين الهندسي</h3>
-                  <p>
-                    تغطية شاملة لمبانيكم وأصولكم وممتلكات أعمالكم ضد الحريق
-                    والسطو والكوارث الطبيعية والأضرار غير المتوقعة.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-
-                <div class="white-hover-overlay">
-                  <h4>أنواع التأمين الهندسي:</h4>
-
-                  <div class="liability-lines-container">
-                    <div class="pro-line-item item-1">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                        ></path>
-                      </svg>
-                      <span>تأمين عطل الالات</span>
-                    </div>
-                    <div class="pro-line-item item-2">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
-                        ></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                      </svg>
-                      <span>تأمين معدات مقاولين برية</span>
-                    </div>
-                    <div class="pro-line-item item-3">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <rect
-                          x="2"
-                          y="7"
-                          width="20"
-                          height="14"
-                          rx="2"
-                          ry="2"
-                        ></rect>
-                        <path
-                          d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"
-                        ></path>
-                      </svg>
-                      <span>تأمين اخطار مقاولين</span>
-                    </div>
-                    <div class="pro-line-item item-4">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
-                        ></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                      </svg>
-                      <span>تأمين تأمين التركيبات </span>
-                    </div>
-                    <div class="pro-line-item item-5">
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <rect
-                          x="2"
-                          y="3"
-                          width="20"
-                          height="14"
-                          rx="2"
-                          ry="2"
-                        ></rect>
-                        <line x1="8" y1="21" x2="16" y2="21"></line>
-                      </svg>
-                      <span>تأمين فساد المخزون </span>
-                    </div>
-                    <div class="pro-line-item item-6>
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path
-                          d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
-                        ></path>
-                        <line x1="12" y1="9" x2="12" y2="13"></line>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                      </svg>
-                      <span>تأمين فقد الايراد</span>
-                    </div>
+                  <!-- المحتوى الأساسي -->
+                  <div class="card-content">
+                    <h3>التأمين الهندسي</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      تغطية شاملة لمبانيكم وأصولكم وممتلكات أعمالكم ضد الحريق
+                      والسطو والكوارث الطبيعية والأضرار غير المتوقعة.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
                   </div>
 
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
+                  <!-- طبقة التفاعل عند الهفر (أنواع التأمين الهندسي) -->
+                  <div class="white-hover-overlay">
+                    <h4>أنواع التأمين الهندسي:</h4>
+
+                    <div class="liability-lines-container">
+                      <div class="pro-line-item item-1">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                          ></path>
+                        </svg>
+                        <span>تأمين عطل الآلات</span>
+                      </div>
+
+                      <div class="pro-line-item item-2">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                          ></path>
+                          <circle cx="9" cy="7" r="4"></circle>
+                        </svg>
+                        <span>تأمين معدات مقاولين برية</span>
+                      </div>
+
+                      <div class="pro-line-item item-3">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <rect
+                            x="2"
+                            y="7"
+                            width="20"
+                            height="14"
+                            rx="2"
+                            ry="2"
+                          ></rect>
+                          <path
+                            d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"
+                          ></path>
+                        </svg>
+                        <span>تأمين أخطار مقاولين</span>
+                      </div>
+
+                      <div class="pro-line-item item-4">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
+                          ></path>
+                          <circle cx="9" cy="7" r="4"></circle>
+                        </svg>
+                        <span>تأمين التركيبات</span>
+                      </div>
+
+                      <div class="pro-line-item item-5">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <rect
+                            x="2"
+                            y="3"
+                            width="20"
+                            height="14"
+                            rx="2"
+                            ry="2"
+                          ></rect>
+                          <line x1="8" y1="21" x2="16" y2="21"></line>
+                        </svg>
+                        <span>تأمين فساد المخزون</span>
+                      </div>
+
+                      <div class="pro-line-item item-6">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"
+                          ></path>
+                          <line x1="12" y1="9" x2="12" y2="13"></line>
+                          <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <span>تأمين فقد الإيراد</span>
+                      </div>
+                    </div>
+
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <div class="insurance-card">
+                  <!-- الصورة الخلفية -->
+                  <img
+                    src="/static/card-property.webp"
+                    alt="Property Insurance"
+                    class="card-bg"
+                  />
+
+                  <!-- Badge الشركات -->
+                  <div class="badge">الشركات</div>
+
+                  <!-- المحتوى السفلي -->
+                  <div class="card-content">
+                    <h3>تأمين الممتلكات</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      تغطية شاملة لمبانيكم وأصولكم وممتلكات أعمالكم ضد الحريق
+                      والسطو والكوارث الطبيعية والأضرار غير المتوقعة.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <div class="insurance-card">
+                  <!-- الصورة الخلفية -->
+                  <img
+                    src="/static/card-accident.webp"
+                    alt="Personal Accident Insurance"
+                    class="card-bg"
+                  />
+
+                  <!-- Badge الشركات -->
+                  <div class="badge">الشركات</div>
+
+                  <!-- المحتوى السفلي -->
+                  <div class="card-content">
+                    <h3>تأمين الحوادث الشخصية</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      تأمين الحوادث الشخصية يغطي الأشخاص (خلال 24 ساعة أو ساعات
+                      العمل فقط) ضد الوفاة والعجز المستديم الكلي أو الجزئي
+                      الناتج عن حادث فجائي وعارض. بالإضافة إلى تغطية العجز الكلي
+                      المؤقت واسترداد النفقات الطبية الناتجة عن الحوادث.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <div class="insurance-card">
+                  <img
+                    src="/static/motors.webp"
+                    alt="Motor Insurance"
+                    class="card-bg"
+                  />
+                  <div class="badge">الأفراد</div>
+                  <div class="card-content">
+                    <h3>تأمين السيارات</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      يوفر تأمين السيارات حماية شاملة ضد مخاطر الطرق وحوادث
+                      السرقة.
+                    </p>
+                    <a href="#quote" class="card-cta"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <div class="insurance-card">
+                  <!-- الصورة الخلفية -->
+                  <img
+                    src="/static/loan.webp"
+                    alt="Loan repayment Insurance"
+                    class="card-bg"
+                  />
+
+                  <!-- Badge الأفراد -->
+                  <div class="badge">الأفراد</div>
+
+                  <!-- المحتوى السفلي -->
+                  <div class="card-content">
+                    <h3>تأمين ضمان مخاطر عدم السداد</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      هي وثيقة تضمن تغطية وسداد الأقساط للجهة المقرضة نيابة عن
+                      المقترض من التعثر المالي في حالات (الوفاة، فقدان الوظيفة،
+                      العجز).
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+                <div class="insurance-card">
+                  <img
+                    src="/static/intro.webp"
+                    alt="Medical Insurance"
+                    class="card-bg"
+                  />
+                  <div class="badge">الأفراد</div>
+                  <div class="card-content">
+                    <h3>التأمين الطبي</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      رعاية صحية متكاملة تغطي الفحوصات والاستشارات والعمليات
+                      الجراحية.
+                    </p>
+                    <a href="#quote" class="card-cta"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <!-- الكارت التاسع -->
+                <div class="insurance-card">
+                  <img
+                    src="/static/card-marine.webp"
+                    alt="Marine Insurance"
+                    class="card-bg"
+                  />
+                  <div class="badge">الشركات</div>
+                  <div class="card-content">
+                    <h3>التأمين البحري والبري والجوي</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      حماية الشحنات والبضائع المنقولة براً وبحراً وجواً ضد مخاطر
+                      السفر والتلف.
+                    </p>
+                    <a href="#quote" class="card-cta"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <!-- الكارت العاشر -->
+                <div class="insurance-card">
+                  <!-- الصورة الخلفية -->
+                  <img
+                    src="static/Breach_of_trust.jfif"
+                    alt="تأمين خيانة الامانة"
+                    class="card-bg"
+                  />
+
+                  <!-- Badge الشركات -->
+                  <div class="badge">الشركات</div>
+
+                  <!-- المحتوى السفلي -->
+                  <div class="card-content">
+                    <h3>تأمين خيانة الأمانة</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      تأمين خيانة الأمانة هو وثيقة تأمين تحمي الشركات من الخسائر
+                      المالية الناتجة عن الأفعال غير المشروعة التي يرتكبها
+                      الموظفون، مثل الاختلاس، والسرقة الداخلية، والتزوير،
+                      والاحتيال، مما يوفر حماية فعالة ضد المخاطر الداخلية التي
+                      قد تواجه الأعمال.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+                <div class="insurance-card">
+                  <img
+                    src="static/card_robbery.webp"
+                    alt="تأمين نقل النقدية"
+                    class="card-bg"
+                  />
+
+                  <div class="badge">الشركات</div>
+
+                  <div class="card-content">
+                    <h3>تأمين نقل النقدية</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      حماية مالية متكاملة للأموال أثناء نقلها من وإلى البنوك أو
+                      بين الفروع، تغطي مخاطر السرقة بالإكراه لضمان نقل أموالك
+                      بأمان.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <div class="insurance-card">
+                  <img
+                    src="static/card_Political_violence.webp"
+                    alt="تأمين العنف السياسي"
+                    class="card-bg"
+                  />
+
+                  <div class="badge">الشركات</div>
+
+                  <div class="card-content">
+                    <h3>تأمين العنف السياسي</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      حماية استباقية لممتلكاتك ضد أضرار الإرهاب، التخريب، الشغب،
+                      والاضطرابات السياسية، لضمان استقرار أعمالك في جميع الظروف.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <div class="insurance-card">
+                  <img
+                    src="static/card_Pension.webp"
+                    alt="تأمين المعاش"
+                    class="card-bg"
+                  />
+
+                  <div class="badge">الأفراد</div>
+
+                  <div class="card-content">
+                    <h3>تأمين المعاش</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      خطة تأمينية تضمن لك دخلاً مستمراً (سنوي أو شهري) بعد سن
+                      التقاعد، لتأمين مستقبل مالي مستقر ومريح لك ولأسرتك.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
+                </div>
+
+                <div class="insurance-card">
+                  <img
+                    src="static/card_ships.webp"
+                    alt="تأمين أجسام السفن"
+                    class="card-bg"
+                  />
+
+                  <div class="badge">الشركات</div>
+
+                  <div class="card-content">
+                    <h3>تأمين أجسام السفن</h3>
+                    <p style="color: #ffffff; opacity: 0.9">
+                      تغطية بحرية شاملة للسفينة ومعداتها ضد مخاطر التصادم،
+                      الغرق، الحريق، والعواصف، لضمان حماية أصولك واستمرارية
+                      تشغيل أسطولك.
+                    </p>
+                    <a
+                      href="#quote"
+                      class="card-cta"
+                      style="display: inline-block; margin-top: 10px"
+                      >احصل على عرض سعر &larr;</a
+                    >
+                  </div>
                 </div>
               </div>
 
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/card-property.webp"
-                  alt="property Insurance"
-                  class="card-bg"
-                />
-
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الشركات</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>تأمين الممتلكات</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    تغطية شاملة لمبانيكم وأصولكم وممتلكات أعمالكم ضد الحريق
-                    والسطو والكوارث الطبيعية والأضرار غير المتوقعة.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/card-accident.webp"
-                  alt="Medical Insurance"
-                  class="card-bg"
-                />
-
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الشركات</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>تأمين الحوادث الشخصية</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    تأمين الحوادث الشخصية يغطي الأشخاص (خلال 24 ساعة أو ساعات
-                    العمل فقط) ضد الوفاة والعجز المستديم الكلي أو الجزئي الناتج
-                    عن حادث فجائي وعارض. بالإضافة إلى تغطية العجز الكلي المؤقت
-                    واسترداد النفقات الطبية الناتجة عن الحوادث.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/motors.webp"
-                  alt="Motor Insurance"
-                  class="card-bg"
-                />
-
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الشركات</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>تأمين السيارات</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    يوفر تأمين السيارات حماية شاملة ضد مخاطر الطرق وحوادث السرقة
-                    والأضرار الناتجة عن أخطاء الغير.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-              <div class="insurance-card">
-                <img
-                  src="static/card-marine.webp"
-                  alt="التأمين البحري والبري والجوي"
-                  class="card-bg"
-                />
-
-                <div class="badge">الشركات</div>
-
-                <div class="card-content">
-                  <h3>التأمين البحري والبري والجوي</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    حماية متكاملة لبضائعك أثناء الشحن والنقل، تغطي مخاطر التلف
-                    والسرقة لضمان استمرارية أعمالك بثقة.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/medical.jpg"
-                  alt="Medical Insurance"
-                  class="card-bg"
-                />
-
-                <div class="badge">الشركات</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>التأمين الطبي</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    التأمين الطبي: رعاية صحية متكاملة للأفراد والشركات، تغطي
-                    الفحوصات، الاستشارات، الأدوية، والعمليات الجراحية. كما تشمل
-                    تغطية الحمل والولادة، الأسنان، البصريات، بالإضافة إلى
-                    الأمراض المزمنة والسابقة والحرجة، لضمان أعلى مستويات الأمان
-                    الصحي.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-             
-
-              <div class="insurance-card">
-                <!-- الصورة الخلفية -->
-                <img
-                  src="/static/loan.webp"
-                  alt="Loan_repayment Insurance"
-                  class="card-bg"
-                />
-
-                <!-- "الأفراد" Badge -->
-                <div class="badge">الشركات</div>
-
-                <!-- المحتوى السفلي -->
-                <div class="card-content">
-                  <h3>تأمين مخاطر عدم السداد</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    هي وثيقه تضمن تغطية وسداد الاقساط للجهه المقرضه نيابة عن
-                    المقترض من التعثر المالي في حالات (الوفاة، فقدان الوظيفة،
-                    العجز).
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-              <div class="insurance-card">
-                <img
-                  src="static/Breach_of_trust.jfif"
-                  alt="تأمين خيانة الامانة"
-                  class="card-bg"
-                />
-
-                <div class="badge">الشركات</div>
-
-                <div class="card-content">
-                  <h3>تأمين خيانة الامانة</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    تأمين خيانة الأمانة هو وثيقة تأمين تحمي الشركات من الخسائر
-                    المالية الناتجة عن الأفعال غير المشروعة التي يرتكبها
-                    الموظفون، مثل الاختلاس، والسرقة الداخلية، والتزوير،
-                    والاحتيال، مما يوفر حماية فعالة ضد المخاطر الداخلية التي قد
-                    تواجه الأعمال.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-              <div class="insurance-card">
-                <img
-                  src="static/card_robbery.webp"
-                  alt="تأمين نقل النقدية"
-                  class="card-bg"
-                />
-
-                <div class="badge">الشركات</div>
-
-                <div class="card-content">
-                  <h3>تأمين نقل النقدية</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    حماية مالية متكاملة للأموال أثناء نقلها من وإلى البنوك أو
-                    بين الفروع، تغطي مخاطر السرقة بالإكراه لضمان نقل أموالك
-                    بأمان.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-              <div class="insurance-card">
-                <img
-                  src="static/card_Political_violence.webp"
-                  alt="تأمين العنف السياسي"
-                  class="card-bg"
-                />
-
-                <div class="badge">الشركات</div>
-
-                <div class="card-content">
-                  <h3>تأمين العنف السياسي</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    حماية استباقية لممتلكاتك ضد أضرار الإرهاب، التخريب، الشغب،
-                    والاضطرابات السياسية، لضمان استقرار أعمالك في جميع الظروف.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-              <div class="insurance-card">
-                <img
-                  src="static/card_Pension.webp"
-                  alt="تأمين المعاش"
-                  class="card-bg"
-                />
-
-                <div class="badge">الشركات</div>
-
-                <div class="card-content">
-                  <h3>تأمين المعاش</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    خطة تأمينية تضمن لك دخلاً مستمراً (سنوي أو شهري) بعد سن
-                    التقاعد، لتأمين مستقبل مالي مستقر ومريح لك ولأسرتك.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
-
-              <div class="insurance-card">
-                <img
-                  src="static/card_ships.webp"
-                  alt="تأمين أجسام السفن"
-                  class="card-bg"
-                />
-
-                <div class="badge">الشركات</div>
-
-                <div class="card-content">
-                  <h3>تأمين أجسام السفن</h3>
-                  <p style="color: #ffffff; opacity: 0.9">
-                    تغطية بحرية شاملة للسفينة ومعداتها ضد مخاطر التصادم، الغرق،
-                    الحريق، والعواصف، لضمان حماية أصولك واستمرارية تشغيل أسطولك.
-                  </p>
-                  <a
-                    href="#quote"
-                    class="card-cta"
-                    style="display: inline-block; margin-top: 10px"
-                    >احصل على عرض سعر &larr;</a
-                  >
-                </div>
-              </div>
+              <!-- زر السهم الأيمن -->
+              <button class="carousel-btn next" aria-label="Next">
+                <svg
+                  width="22"
+                  height="22"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                >
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
             </div>
           </div>
         </div>
       </section>
-
       <!-- Cinematic Strip -->
       <section
         class="cinematic-strip cinematic-strip--parallax"
@@ -3006,7 +3027,7 @@
     </a>
 
     <script src="script.js" defer></script>
-     <script>
+    <script>
       document.addEventListener("DOMContentLoaded", () => {
         const navToggle = document.getElementById("navToggle");
         const navLinks = document.getElementById("navLinks");
