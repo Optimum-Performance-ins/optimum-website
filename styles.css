@@ -1125,11 +1125,6 @@ section {
 }
 
 /* --- Services Grid --- */
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
 
 .service-card .card-cta {
   margin-top: auto;
@@ -1166,12 +1161,6 @@ section {
   font-family: sans-serif;
 }
 
-.card-bg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .badge {
   position: absolute;
   top: 15px;
@@ -1180,18 +1169,6 @@ section {
   padding: 8px 20px;
   border-radius: 20px;
   font-size: 0.9rem;
-}
-
-.insurance-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .insurance-card:hover {
@@ -1212,72 +1189,266 @@ section {
 .insurance-card:hover .card-bg {
   transform: scale(1.1);
 }
-
-.card-content,
-.card-content h3,
-.card-content p {
-  color: #ffffff !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  font-size: 1.8rem;
-  font-weight: 700;
+/* --- Services Carousel Full Width Wrapper --- */
+.services-carousel-wrapper {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 0 60px;
+  box-sizing: border-box;
 }
 
-.card-content {
+.services-slider {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding: 35px 5px;
+  direction: rtl;
+}
+
+.services-slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Insurance Card (Elite Navy Pro Design) --- */
+.services-slider .insurance-card {
+  flex: 0 0 calc((100vw - 140px) / 3.2) !important;
+  min-width: 320px !important;
+  height: 550px !important;
+  min-height: 550px !important;
+  scroll-snap-align: start;
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  isolation: isolate;
+  cursor: pointer;
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+
+  transition:
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.services-slider .insurance-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.45),
+    transparent 30%,
+    transparent 70%,
+    rgba(15, 23, 42, 0.25)
+  );
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: 0.5s;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.services-slider .insurance-card::after {
+  content: "";
+  position: absolute;
+  top: -140%;
+  left: -60%;
+  width: 45%;
+  height: 320%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+  transform: rotate(25deg);
+  transition: 1s;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.services-slider .insurance-card .card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 1;
+}
+
+.services-slider .insurance-card:hover .card-bg {
+  transform: scale(1.08);
+}
+
+.services-slider .insurance-card:hover {
+  transform: translateY(-12px);
+}
+
+.services-slider .insurance-card:hover::before {
+  opacity: 1;
+}
+
+.services-slider .insurance-card .badge {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 3;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Card Content (Deep Navy Gradient & RTL Alignment) --- */
+.insurance-card .card-content {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 30px;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
-  color: var(--color-text) !important;
+  padding: 35px 28px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(15, 23, 42, 0.2) 30%,
+    rgba(15, 23, 42, 0.8) 70%,
+    rgba(15, 23, 42, 0.98) 100%
+  );
   z-index: 2;
+  transition: 0.45s;
+  text-align: right;
+  direction: rtl;
 }
 
-.card-content p {
-  opacity: 0.9 !important;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  margin-bottom: 20px;
+.services-slider .insurance-card:hover .card-content {
+  transform: translateY(-4px);
 }
 
-.card-cta {
-  display: inline-block;
-  background-color: var(--color-bg-gray);
-  color: var(--color-text) !important;
-  padding: 12px 25px;
-  border-radius: 15px;
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 15px;
-  text-align: center;
+.insurance-card .card-content h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+  margin-bottom: 10px;
+  color: #fff;
 }
 
-.card-cta:hover {
-  /* color: #f1f1f1 !important; */
-  padding-left: 10px;
+.insurance-card .card-content p {
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 22px;
 }
 
-.badge {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  padding: 5px 15px;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.card-cta {
-  font-size: 0.9rem;
+.insurance-card .card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #f1f5f9;
+  color: #0f172a !important;
   font-weight: 600;
-  color: var(--color-primary);
-  transition: color var(--transition);
+  font-size: 0.92rem;
+  padding: 12px 26px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(15, 23, 42, 0.06);
 }
 
-.card-cta:hover {
-  color: #b58527;
+.insurance-card .card-cta:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  gap: 14px;
+}
+
+/* --- Carousel Navigation Buttons --- */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  color: #0f172a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carousel-btn:hover {
+  background: #0f172a;
+  border-color: #0f172a;
+  color: #fff;
+  transform: translateY(-50%) scale(1.08);
+  box-shadow: 0 15px 30px rgba(15, 23, 42, 0.3);
+}
+
+.carousel-btn.prev {
+  left: 24px;
+}
+
+.carousel-btn.next {
+  right: 24px;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1200px) {
+  .services-slider .insurance-card {
+    flex: 0 0 calc((100vw - 120px) / 2);
+    min-width: 310px;
+    height: 510px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-carousel-wrapper {
+    padding: 0 16px;
+  }
+  .services-slider .insurance-card {
+    flex: 0 0 88vw;
+    min-width: unset;
+    height: 460px;
+  }
+  .carousel-btn {
+    display: none;
+  }
+}
+.slider-arrow,
+.swiper-button-prev,
+.swiper-button-next,
+.carousel-control {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+  pointer-events: auto !important;
 }
 
 #who-us {
@@ -4705,15 +4876,6 @@ html[lang="en"] .whous-f-card::before {
 
   .card-cta:hover {
     padding-left: 18px;
-  }
-
-  .badge {
-    top: 15px;
-    right: 15px;
-
-    padding: 6px 14px;
-
-    font-size: 0.75rem;
   }
 }
 /* ===================================
