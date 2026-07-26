@@ -718,3 +718,57 @@ document.addEventListener("DOMContentLoaded", () => {
       updateCards();
     });
 });
+// --- Services Carousel Arrow Controller (Reversed Back) ---
+document.addEventListener("DOMContentLoaded", () => {
+  const initCarousel = () => {
+    document
+      .querySelectorAll(".services-carousel-wrapper")
+      .forEach((wrapper) => {
+        const slider = wrapper.querySelector(".services-slider");
+        const prevBtn = wrapper.querySelector(".carousel-btn.prev");
+        const nextBtn = wrapper.querySelector(".carousel-btn.next");
+
+        if (!slider) return;
+
+        const getScrollAmount = () => {
+          const card = slider.querySelector(".insurance-card");
+          if (!card) return 380;
+          return card.offsetWidth + 24; // عرض الكارت + الـ Gap
+        };
+
+        // تنظيف الأزرار لمنع تكرار الأحداث
+        if (nextBtn) nextBtn.replaceWith(nextBtn.cloneNode(true));
+        if (prevBtn) prevBtn.replaceWith(prevBtn.cloneNode(true));
+
+        const freshNextBtn = wrapper.querySelector(".carousel-btn.next");
+        const freshPrevBtn = wrapper.querySelector(".carousel-btn.prev");
+
+        // زر التالي (Next) -> القيمة موجبة
+        if (freshNextBtn) {
+          freshNextBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const scrollStep = getScrollAmount();
+            slider.scrollBy({ left: scrollStep, behavior: "smooth" });
+          });
+        }
+
+        // زر السابق (Prev) -> القيمة سالبة
+        if (freshPrevBtn) {
+          freshPrevBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const scrollStep = getScrollAmount();
+            slider.scrollBy({ left: -scrollStep, behavior: "smooth" });
+          });
+        }
+      });
+  };
+
+  initCarousel();
+
+  // إعادة التفعيل عند التبديل بين الأفراد والشركات
+  document.querySelectorAll(".segment-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      setTimeout(initCarousel, 100);
+    });
+  });
+});
