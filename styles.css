@@ -1443,34 +1443,6 @@ section {
   right: 20px;
 }
 
-/* =========================================================
-   --- Responsive Adjustments ---
-   ========================================================= */
-@media (max-width: 1024px) {
-  .services-slider .insurance-card {
-    flex: 0 0 calc((100vw - 60px) / 2);
-    min-width: 290px;
-  }
-}
-
-@media (max-width: 768px) {
-  .services-slider {
-    padding: 20px 20px;
-    gap: 16px;
-  }
-
-  .services-slider .insurance-card {
-    flex: 0 0 85vw;
-    min-width: 280px;
-    height: 480px;
-    min-height: 480px;
-  }
-
-  .carousel-btn {
-    display: none;
-  }
-}
-
 #who-us {
   position: relative;
   width: 100%;
