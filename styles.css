@@ -563,6 +563,12 @@ textarea:focus-visible {
   opacity: 0.6;
 }
 
+.hero {
+  padding: 8rem 0 5rem;
+  background: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
 /* --- Hero Particles & Ambient --- */
 
 .hero-particles .particle {
@@ -3152,13 +3158,11 @@ html[lang="en"] .accordion-header span {
     right: auto;
     left: -100%;
     flex-direction: column;
-    /* تأكد من وجود transition لضمان حركة القائمة */
     transition:
       left 0.4s ease,
       opacity 0.4s ease;
   }
 
-  /* تم تغيير .open إلى .active ليتطابق مع كود الجافاسكريبت */
   .lang-ar .nav-links.active {
     left: 0;
     right: auto;
