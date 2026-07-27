@@ -440,14 +440,37 @@ document.addEventListener("DOMContentLoaded", () => {
       { value: "life-health", label: "Medical Insurance" },
       { value: "home", label: "Home Insurance" },
       { value: "motor", label: "Motor Insurance" },
-      { value: "personal-accident", label: "Personal Accident" },
+      {
+        value: "Loan Repayment Protection Insurance",
+        label: "Loan Repayment Protection Insurance",
+      },
     ],
     corporate: [
       { value: "property", label: "Property Insurance" },
       { value: "employee-benefits", label: "Employee Benefits" },
       { value: "marine-cargo", label: "Marine & Cargo Insurance" },
       { value: "liability", label: "Liability" },
-      { value: "cybersecurity", label: "Cybersecurity Insurance" },
+      { value: "Engineering Insurance", label: "Engineering Insurance" },
+      { value: "Marine Hull Insurance", label: "Marine Hull Insurance" },
+      { value: "personal-accident", label: "Personal Accident" },
+      { value: "Pension Insurance", label: "Pension Insurance" },
+      {
+        value: "Political Violence Insurance",
+        label: "Political Violence Insurance",
+      },
+      {
+        value: "Cash in Transit Insurance",
+        label: "Cash in Transit Insurance",
+      },
+      { value: "motor", label: "Motor Insurance" },
+      {
+        value: "Fidelity Guarantee Insurance",
+        label: "Fidelity Guarantee Insurance",
+      },
+      {
+        value: "Loan Repayment Protection Insurance",
+        label: "Loan Repayment Protection Insurance",
+      },
     ],
   };
 
@@ -456,14 +479,29 @@ document.addEventListener("DOMContentLoaded", () => {
       { value: "life-health", label: "التأمين الطبي" },
       { value: "home", label: "تأمين المنزل" },
       { value: "motor", label: "تأمين السيارات" },
-      { value: "personal-accident", label: "الحوادث الشخصية" },
+      { value: "medical", label: "التأمين الطبي" },
+      {
+        value: "Loan Repayment Protection Insurance",
+        label: "تأمين ضمان مخاطر عدم السداد",
+      },
     ],
     corporate: [
       { value: "property", label: "تأمين الممتلكات" },
-      { value: "employee-benefits", label: "مزايا الموظفين" },
-      { value: "marine-cargo", label: "التأمين البحري والشحن" },
+      { value: "medical", label: "التأمين الطبي" },
+      { value: "marine-cargo", label: "التأمين البحري والبري والجوي" },
       { value: "liability", label: "المسؤولية" },
-      { value: "cybersecurity", label: "التأمين السيبراني" },
+      { value: "Engineering Insurance", label: "التأمين الهندسي" },
+      { value: "personal-accident", label: "الحوادث الشخصية" },
+      {
+        value: "Loan Repayment Protection Insurance",
+        label: "تأمين ضمان مخاطر عدم السداد",
+      },
+      { value: "motor", label: "تأمين السيارات" },
+      { value: "Fidelity Guarantee Insurance", label: "تأمين خيانة الأمانة" },
+      { value: "Cash in Transit Insurance", label: "تأمين نقل النقدية" },
+      { value: "Political Violence Insurance", label: "تأمين العنف السياسي" },
+      { value: "Pension Insurance", label: "تأمين المعاش" },
+      { value: "Marine Hull Insurance", label: "تأمين أجسام السفن" },
     ],
   };
 
@@ -752,7 +790,6 @@ document.addEventListener("DOMContentLoaded", () => {
           });
         }
 
-        // زر السابق (Prev) -> القيمة سالبة
         if (freshPrevBtn) {
           freshPrevBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -765,7 +802,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initCarousel();
 
-  // إعادة التفعيل عند التبديل بين الأفراد والشركات
   document.querySelectorAll(".segment-tab").forEach((tab) => {
     tab.addEventListener("click", () => {
       setTimeout(initCarousel, 100);
