@@ -4559,7 +4559,6 @@ html[lang="en"] .whous-f-card::before {
   perspective: 1400px;
 }
 
-/* 1. الوضع الافتراضي لكل الكروت (Glassy وشفافة في الخلفية) */
 .testimonial-card {
   position: absolute;
   width: 300px;
@@ -4578,6 +4577,7 @@ html[lang="en"] .whous-f-card::before {
   overflow: hidden;
   opacity: 0.75;
   z-index: 1;
+  pointer-events: none;
 
   transition:
     transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
@@ -4586,7 +4586,6 @@ html[lang="en"] .whous-f-card::before {
     box-shadow 0.4s ease;
 }
 
-/* 2. الكارت اللي في الواجهة (Active) - يتحول لـ Navy صريح */
 .testimonial-card.active,
 .testimonial-card.swiper-slide-active,
 .testimonial-card.is-active,
@@ -4604,7 +4603,6 @@ html[lang="en"] .whous-f-card::before {
   z-index: 10 !important;
 }
 
-/* تأثير الـ Hover على الكارت اللي قدام */
 .testimonial-card:hover {
   transform: translateY(-8px) !important;
   box-shadow: 0 30px 70px rgba(0, 49, 87, 0.4) !important;
