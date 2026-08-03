@@ -661,7 +661,9 @@ textarea:focus-visible {
   width: 100% !important;
   gap: 20px;
 }
-
+.hero-custom h1 {
+  font-size: 3.2rem !important;
+}
 .hero-custom h1,
 .hero-custom .hero-sub,
 .hero-custom .hero-ctas,
