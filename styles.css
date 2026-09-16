@@ -1114,12 +1114,16 @@ section {
 }
 
 .segment-tab:first-child {
-  border-radius: 4px 0 0 4px;
+  /* Logical corners: outer-start side rounds in both LTR (EN) and RTL (AR) */
+  border-start-start-radius: 4px;
+  border-end-start-radius: 4px;
 }
 
 .segment-tab:last-child {
-  border-radius: 0 4px 4px 0;
-  border-left: none;
+  border-start-end-radius: 4px;
+  border-end-end-radius: 4px;
+  /* Drop the shared inner border so the seam is a single 2px line */
+  border-inline-start: none;
 }
 
 .segment-tab.active {
