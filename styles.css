@@ -2773,10 +2773,6 @@ html[lang="en"] .accordion-header span {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .testimonials-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -2836,10 +2832,6 @@ html[lang="en"] .accordion-header span {
 
   /* Grids */
   .services-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .testimonials-grid {
     grid-template-columns: 1fr;
   }
 
@@ -3000,13 +2992,6 @@ html[lang="en"] .accordion-header span {
   right: 3rem;
 }
 
-.testimonial-accent-photo--2 {
-  width: 100px;
-  height: 100px;
-  bottom: 4rem;
-  left: 2rem;
-}
-
 /* --- CEO Shield Photo --- */
 
 /* --- Photo Layouts Responsive --- */
@@ -3051,11 +3036,6 @@ html[lang="en"] .accordion-header span {
 .lang-ar .testimonial-accent-photo--1 {
   right: auto;
   left: 3rem;
-}
-
-.lang-ar .testimonial-accent-photo--2 {
-  left: auto;
-  right: 2rem;
 }
 
 /* ==========================================================================
@@ -3104,15 +3084,6 @@ html[lang="en"] .accordion-header span {
 /* Pain strip RTL */
 .lang-ar .pain-item {
   flex-direction: row-reverse;
-}
-
-/* Testimonials RTL */
-.lang-ar .testimonial-author {
-  flex-direction: row-reverse;
-}
-
-.lang-ar .testimonial-info {
-  text-align: right;
 }
 
 /* Accordion RTL */
@@ -3192,6 +3163,67 @@ html[lang="en"] .accordion-header span {
 }
 
 /* ==========================================================================
+   LTR / English Language Styles
+   (overrides the Arabic-first layout rules above that are not scoped to .lang-ar)
+   ========================================================================== */
+
+/* Hero: copy block on the left, reading left-to-right. Mobile stays centered. */
+@media (min-width: 769px) {
+  html[lang="en"] .hero-custom {
+    justify-content: flex-start !important;
+    padding-right: 0 !important;
+    padding-left: 80px !important;
+  }
+
+  html[lang="en"] .hero-custom .container {
+    justify-content: flex-start !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
+  }
+
+  /* mirror the overlay so the darker side sits behind the text */
+  html[lang="en"] .hero-custom::before {
+    background: linear-gradient(
+      270deg,
+      rgba(15, 31, 60, 0.582) 0%,
+      rgba(15, 31, 60, 0.8) 100%
+    );
+  }
+
+  html[lang="en"] .hero-custom .hero-copy {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  html[lang="en"] .hero-custom h1,
+  html[lang="en"] .hero-custom .hero-sub,
+  html[lang="en"] .hero-custom .hero-ctas,
+  html[lang="en"] .hero-custom .hero-trust {
+    text-align: left !important;
+    justify-content: flex-start !important;
+  }
+}
+
+html[lang="en"] .hero-fra-text {
+  text-align: left !important;
+}
+
+/* Services carousel: first card on the left, cards read LTR */
+html[lang="en"] .services-slider {
+  direction: ltr;
+}
+
+html[lang="en"] .insurance-card .card-content {
+  direction: ltr;
+  text-align: left;
+}
+
+/* Who We Are intro (mobile rule below sets text-align: right) */
+html[lang="en"] .whous-intro {
+  text-align: left;
+}
+
+/* ==========================================================================
    Performance Optimizations
    ========================================================================== */
 
@@ -3234,7 +3266,7 @@ html[lang="en"] .accordion-header span {
 
 /* --- CSS Containment for repeated cards --- */
 .service-card,
-.testimonial-card,
+.letter-mini,
 .trusted-logo {
   contain: content;
 }
@@ -4534,186 +4566,425 @@ html[lang="en"] .whous-f-card::before {
     transform: translateY(0);
   }
 }
-.testimonials-grid {
-  width: 100%;
-  max-width: 1450px;
-  margin: 60px auto 80px;
-
-  display: grid;
-  grid-template-columns: repeat(3, 300px);
-  justify-content: center;
-  align-items: center;
-
-  column-gap: 180px;
-
-  padding: 0 30px;
-}
-
-.testimonial-stack {
+/* ==========================================================================
+   Testimonials — "Letters of thanks"
+   One featured letter (crossfades, height follows the text) above a slow
+   drifting strip of every testimonial. Click a strip card to feature it.
+   ========================================================================== */
+.letters {
   position: relative;
+  z-index: 1;
+  max-width: 980px;
+  margin: 0 auto 3.5rem;
+}
 
-  width: 300px;
-  height: 500px;
+/* --- Featured letter --- */
+.letter-featured {
+  position: relative;
+  margin: 0 0 2.75rem;
+  padding: 2.5rem 3rem 2rem;
 
+  background: #fafbfc;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: 0 30px 60px -40px rgba(15, 31, 60, 0.35);
+
+  overflow: hidden;
+  transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* short gold rule at the head of the letter, like a letterhead line */
+.letter-featured::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  inset-inline-start: 3rem;
+  width: 64px;
+  height: 3px;
+  background: var(--color-accent);
+}
+
+.letter-quote,
+.letter-logo,
+.letter-info {
+  transition:
+    opacity 0.32s ease,
+    transform 0.32s ease;
+}
+
+.letter-featured.is-switching .letter-quote,
+.letter-featured.is-switching .letter-logo,
+.letter-featured.is-switching .letter-info {
+  opacity: 0;
+  transform: translateY(6px);
+}
+
+.letter-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 1.25rem;
+  color: var(--color-accent);
+}
+
+.letter-stars svg {
+  width: 14px;
+  height: 14px;
+}
+
+.letter-quote {
+  margin: 0 0 1.75rem;
+  font-size: 1.3rem;
+  line-height: 1.75;
+  color: var(--color-secondary);
+  text-wrap: pretty;
+}
+
+.letter-quote::before {
+  content: "\201C";
+}
+
+.letter-quote::after {
+  content: "\201D";
+}
+
+.lang-ar .letter-quote::before {
+  content: "\201D";
+}
+
+.lang-ar .letter-quote::after {
+  content: "\201C";
+}
+
+.letter-author {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.letter-logo {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  perspective: 1400px;
-}
-
-.testimonial-card {
-  position: absolute;
-  width: 300px;
-  height: 460px;
-  padding: 28px 25px;
-
-  background: rgba(11, 35, 67, 0.25) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-
-  cursor: pointer;
-  overflow: hidden;
-  opacity: 0.75;
-  z-index: 1;
-  pointer-events: none;
-
-  transition:
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.4s ease,
-    background 0.4s ease,
-    box-shadow 0.4s ease;
-}
-
-.testimonial-card.active,
-.testimonial-card.swiper-slide-active,
-.testimonial-card.is-active,
-.testimonial-card[style*="transform: translate3d(0px"],
-.testimonial-card[style*="transform: translateX(0px)"],
-.testimonial-card:not([style*="translateX(-"]):not([style*="translateX(9"]):not(
-    [style*="translateX(1"]
-  ) {
-  background: linear-gradient(135deg, #0b2343 0%, #133b68 100%) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  box-shadow: 0 20px 50px rgba(0, 49, 87, 0.35) !important;
-  opacity: 1 !important;
-  z-index: 10 !important;
-}
-
-.testimonial-card:hover {
-  transform: translateY(-8px) !important;
-  box-shadow: 0 30px 70px rgba(0, 49, 87, 0.4) !important;
-}
-
-.testimonial-stars {
-  display: flex;
-  gap: 0.2rem;
-  margin-bottom: 1rem;
-  color: #ffffff;
-}
-
-.testimonial-stars svg {
-  width: 16px;
-  height: 16px;
-}
-
-.testimonial-quote {
-  font-size: 0.95rem;
-  font-style: italic;
-  color: #ffffff;
-  line-height: 1.75;
-  margin-bottom: 1.25rem;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding-top: 1rem;
-}
-
-.testimonial-avatar {
-  width: 60px;
-  height: 60px;
+  background: #fff;
+  border: 1px solid var(--color-border);
   border-radius: 50%;
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
 }
 
-.testimonial-avatar .avatar-img,
-.testimonial-avatar img {
+.letter-logo img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 5px;
+  padding: 6px;
 }
 
-.testimonial-name {
-  display: block;
-  font-size: 0.9rem;
+.letter-info {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+}
+
+.letter-name {
   font-weight: 700;
-  color: #ffffff;
+  font-size: 1rem;
+  color: var(--color-secondary);
 }
 
-.testimonial-role {
-  display: block;
+.letter-role {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+.letter-nav {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-inline-start: auto;
+}
+
+.letter-arrow {
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  color: var(--color-primary);
+  cursor: pointer;
+  transition:
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.letter-arrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.letter-arrow:hover,
+.letter-arrow:focus-visible {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  outline: none;
+}
+
+.letter-arrow:focus-visible {
+  box-shadow: 0 0 0 3px rgba(200, 150, 46, 0.3);
+}
+
+/* arrows point along the reading direction */
+.lang-ar .letter-arrow svg {
+  transform: scaleX(-1);
+}
+
+.letter-counter {
+  min-width: 3.4em;
+  text-align: center;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+}
+
+.letter-counter-of {
+  margin: 0 0.15em;
+}
+
+/* --- Drifting strip --- */
+.letter-strip {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  margin-inline-start: calc(50% - 50vw);
+  overflow: hidden;
+  direction: ltr;
+  /* soften the edges so cards appear and leave gently */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.letter-strip-track {
+  display: flex;
+  width: max-content;
+  padding: 12px 0 20px;
+  animation: logo-scroll 60s linear infinite;
+  will-change: transform;
+}
+
+.lang-ar .letter-strip-track {
+  animation-direction: reverse;
+}
+
+.letter-strip:hover .letter-strip-track,
+.letter-strip:focus-within .letter-strip-track,
+.letter-strip.is-paused .letter-strip-track {
+  animation-play-state: paused;
+}
+
+/* no clone → nothing to loop; just let the row scroll */
+.letter-strip.is-static {
+  overflow-x: auto;
+  -webkit-mask-image: none;
+  mask-image: none;
+  scrollbar-width: thin;
+}
+
+.letter-strip.is-static .letter-strip-track {
+  animation: none;
+  padding-inline: 1rem;
+}
+
+.letter-strip-group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.letter-mini {
+  flex: 0 0 300px;
+  width: 300px;
+  margin: 0 0.6rem;
+  padding: 1.1rem 1.25rem 1.2rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+
+  font: inherit;
+  text-align: start;
+  color: var(--color-text);
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  cursor: pointer;
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+/* the strip container is LTR for the animation; cards read in page direction */
+.lang-ar .letter-mini {
+  direction: rtl;
+}
+
+.letter-mini:hover,
+.letter-mini:focus-visible {
+  border-color: rgba(42, 122, 181, 0.5);
+  outline: none;
+}
+
+.letter-mini:focus-visible {
+  box-shadow: 0 0 0 3px rgba(42, 122, 181, 0.25);
+}
+
+.letter-mini.is-current {
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent);
+}
+
+.letter-mini-head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.letter-mini-logo {
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  padding: 4px;
+  object-fit: contain;
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+}
+
+.letter-mini-who {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.3;
+}
+
+.letter-mini-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--color-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.letter-mini-role {
   font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.85);
-  margin-top: 0.1rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-@media (max-width: 1200px) {
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-    gap: 50px;
-    padding: 0 30px;
+.letter-mini-quote {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .letters {
+    margin-bottom: 2.5rem;
   }
 
-  .testimonial-stack {
-    height: 570px;
+  .letter-featured {
+    padding: 2rem 1.5rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .letter-featured::before {
+    inset-inline-start: 1.5rem;
+  }
+
+  .letter-quote {
+    font-size: 1.12rem;
+    line-height: 1.7;
+  }
+
+  .letter-author {
+    flex-wrap: wrap;
+    row-gap: 0.9rem;
+  }
+
+  .letter-nav {
+    flex-basis: 100%;
+    justify-content: flex-start;
+    margin-inline-start: 0;
+  }
+
+  .letter-mini {
+    flex-basis: 260px;
+    width: 260px;
   }
 }
 
-@media (max-width: 600px) {
-  .testimonials-grid {
-    padding: 0 15px;
+@media (max-width: 480px) {
+  .letter-featured {
+    padding: 1.75rem 1.25rem 1.25rem;
   }
 
-  .testimonial-stack {
-    height: 510px;
+  .letter-featured::before {
+    inset-inline-start: 1.25rem;
   }
 
-  .testimonial-card {
-    width: 78%;
-    height: 470px;
-    padding: 28px 24px;
+  .letter-quote {
+    font-size: 1.05rem;
+  }
+
+  .letter-logo {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .letter-mini {
+    flex-basis: 240px;
+    width: 240px;
+    margin: 0 0.45rem;
   }
 }
 
-@media (max-width: 600px) {
-  .testimonials-grid {
-    padding: 0 15px;
+@media (prefers-reduced-motion: reduce) {
+  .letter-strip-track {
+    animation: none;
   }
 
-  .testimonial-stack {
-    height: 510px;
-  }
-
-  .testimonial-card {
-    width: 78%;
-    height: 470px;
-    padding: 28px 24px;
+  .letter-featured,
+  .letter-quote,
+  .letter-logo,
+  .letter-info {
+    transition: none;
   }
 }
 /* =========================
@@ -5136,205 +5407,6 @@ html[lang="en"] .whous-f-card::before {
     font-size: 0.92rem;
     line-height: 1.9;
     margin-bottom: 14px;
-  }
-}
-/* =========================================
-   TESTIMONIALS - MOBILE RESPONSIVE
-========================================= */
-
-@media (max-width: 600px) {
-  #testimonials {
-    overflow: hidden;
-  }
-
-  #testimonials .container {
-    width: 100%;
-    max-width: 100%;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  #testimonials .section-title {
-    font-size: 2rem;
-    line-height: 1.3;
-    text-align: center;
-  }
-
-  #testimonials .section-subtitle {
-    font-size: 1rem;
-    line-height: 1.6;
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  /* STACKS */
-
-  .testimonials-grid {
-    width: 100%;
-    max-width: 100%;
-    margin: 30px auto 50px;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 35px;
-
-    padding: 0;
-  }
-
-  .testimonial-stack {
-    position: relative;
-
-    width: 100%;
-    max-width: 340px;
-    height: 500px;
-
-    margin: 0 auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    perspective: 1000px;
-  }
-
-  /* CARDS */
-
-  .testimonial-card {
-    position: absolute;
-
-    width: calc(100% - 40px);
-    max-width: 300px;
-    height: 460px;
-
-    padding: 24px 20px;
-
-    border-radius: 20px;
-
-    overflow: hidden;
-  }
-
-  /* ACTIVE CARD */
-
-  .testimonial-card:nth-child(1) {
-    z-index: 10;
-
-    transform: translateX(0) translateY(0);
-
-    background: linear-gradient(135deg, #0b2343 0%, #133b68 100%);
-
-    opacity: 1;
-  }
-
-  /* LEFT GLASS CARD */
-
-  .testimonial-card:nth-child(2) {
-    z-index: 2;
-
-    transform: translateX(-35px) translateY(12px);
-
-    background: rgba(11, 35, 67, 0.08);
-
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-
-    border: 1px solid rgba(11, 35, 67, 0.12);
-
-    opacity: 0.3;
-  }
-
-  /* RIGHT GLASS CARD */
-
-  .testimonial-card:nth-child(3) {
-    z-index: 1;
-
-    transform: translateX(35px) translateY(12px);
-
-    background: rgba(11, 35, 67, 0.08);
-
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-
-    border: 1px solid rgba(11, 35, 67, 0.12);
-
-    opacity: 0.3;
-  }
-
-  /* TEXT */
-
-  .testimonial-quote {
-    font-size: 0.88rem;
-    line-height: 1.8;
-
-    margin-top: 15px;
-
-    overflow-y: auto;
-    max-height: 280px;
-  }
-
-  /* STARS */
-
-  .testimonial-stars {
-    gap: 4px;
-  }
-
-  .testimonial-stars svg {
-    width: 17px;
-    height: 17px;
-  }
-
-  /* AUTHOR */
-
-  .testimonial-author {
-    position: absolute;
-
-    bottom: 22px;
-    left: 20px;
-    right: 20px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 12px;
-  }
-
-  .testimonial-avatar {
-    width: 48px;
-    height: 48px;
-
-    flex-shrink: 0;
-  }
-
-  .testimonial-name {
-    font-size: 0.9rem;
-  }
-
-  .testimonial-role {
-    font-size: 0.75rem;
-    line-height: 1.5;
-  }
-
-  /* CTA */
-
-  #testimonials .section-cta {
-    width: 100%;
-    padding: 0 10px;
-  }
-
-  #testimonials .section-cta .btn {
-    width: 100%;
-    max-width: 340px;
-
-    padding: 14px 18px;
-
-    font-size: 0.9rem;
-    text-align: center;
-  }
-
-  /* BACKGROUND ACCENT */
-
-  .testimonial-accent-photo {
-    opacity: 0.08;
-    max-width: 180px;
   }
 }
 /* =========================================

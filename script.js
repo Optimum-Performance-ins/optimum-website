@@ -681,80 +681,183 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   });
-  document
-    .querySelectorAll(".testimonial-stack")
-    .forEach((stack, stackIndex) => {
-      let cards = [...stack.querySelectorAll(".testimonial-card")];
-      let interval;
+  // --- Testimonials: featured letter + drifting strip ---
+  // The strip's first group is the single source of truth. The featured
+  // letter shows one of them; clicking a strip card or an arrow swaps it in.
+  document.querySelectorAll("[data-letters]").forEach((root) => {
+    if (root.dataset.lettersReady) return;
+    root.dataset.lettersReady = "1";
+    const featured = root.querySelector("[data-featured]");
+    const strip = root.querySelector("[data-letter-strip]");
+    const group = root.querySelector("[data-letter-group]");
+    const items = [...group.querySelectorAll("[data-letter-item]")];
+    if (!featured || !strip || items.length === 0) return;
 
-      function updateCards() {
-        cards.forEach((card, index) => {
-          card.style.zIndex = 3 - index;
+    const fQuote = featured.querySelector("[data-featured-quote]");
+    const fLogo = featured.querySelector("[data-featured-logo]");
+    const fName = featured.querySelector("[data-featured-name]");
+    const fRole = featured.querySelector("[data-featured-role]");
+    const fIndex = featured.querySelector("[data-letter-index]");
+    const fTotal = featured.querySelector("[data-letter-total]");
 
-          if (index === 0) {
-            card.style.transform = "translateX(0) translateY(0)";
-            card.style.opacity = "1";
-          }
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const lowEnd = document.body.classList.contains("low-end-device");
+    const AUTOPLAY_MS = 8000;
+    const FADE_MS = 320;
 
-          if (index === 1) {
-            card.style.transform = "translateX(-90px) translateY(12px)";
-            card.style.opacity = "0.55";
-          }
+    let current = 0;
+    let timer = null;
+    let switching = false;
 
-          if (index === 2) {
-            card.style.transform = "translateX(90px) translateY(12px)";
-            card.style.opacity = "0.55";
-          }
-        });
+    fTotal.textContent = items.length;
+
+    // Seamless loop needs a duplicate group (hidden from AT). Skip it when
+    // motion is off and let the strip scroll natively instead.
+    if (reduceMotion || lowEnd) {
+      strip.classList.add("is-static");
+    } else {
+      const clone = group.cloneNode(true);
+      clone.removeAttribute("data-letter-group");
+      clone.setAttribute("aria-hidden", "true");
+      clone.querySelectorAll("[data-letter-item]").forEach((btn, i) => {
+        btn.tabIndex = -1;
+        btn.dataset.letterClone = i;
+      });
+      group.parentNode.appendChild(clone);
+    }
+
+    const allItems = () => strip.querySelectorAll("[data-letter-item]");
+
+    function markCurrent(index) {
+      allItems().forEach((btn) => {
+        const i =
+          btn.dataset.letterClone !== undefined
+            ? Number(btn.dataset.letterClone)
+            : items.indexOf(btn);
+        const on = i === index;
+        btn.classList.toggle("is-current", on);
+        if (btn.dataset.letterClone === undefined) {
+          btn.setAttribute("aria-pressed", on ? "true" : "false");
+        }
+      });
+    }
+
+    function fill(index) {
+      const src = items[index];
+      const logo = src.querySelector("[data-letter-logo]");
+      const role = src.querySelector("[data-letter-role]");
+      fQuote.textContent = src
+        .querySelector("[data-letter-quote]")
+        .textContent.trim();
+      fLogo.src = logo.getAttribute("src");
+      fLogo.alt = logo.alt;
+      fName.textContent = src
+        .querySelector("[data-letter-name]")
+        .textContent.trim();
+      fRole.textContent = role ? role.textContent.trim() : "";
+      fRole.hidden = !role;
+      fIndex.textContent = index + 1;
+      markCurrent(index);
+    }
+
+    function show(index) {
+      index = (index + items.length) % items.length;
+      if (index === current || switching) return;
+      current = index;
+
+      if (reduceMotion) {
+        fill(index);
+        return;
       }
 
-      function nextCard() {
-        const firstCard = cards.shift();
-
-        cards.push(firstCard);
-
-        updateCards();
-      }
-
-      function startAutoPlay() {
-        interval = setInterval(nextCard, 4000);
-      }
-
-      function stopAutoPlay() {
-        clearInterval(interval);
-      }
+      // Fade out, swap, animate height to the new content, fade in.
+      switching = true;
+      const startH = featured.offsetHeight;
+      featured.style.height = startH + "px";
+      featured.classList.add("is-switching");
 
       setTimeout(() => {
-        startAutoPlay();
-      }, stackIndex * 700);
+        fill(index);
+        featured.style.height = "auto";
+        const endH = featured.offsetHeight;
+        featured.style.height = startH + "px";
+        // force a frame at the old height so the transition has a start point
+        void featured.offsetHeight;
+        featured.style.height = endH + "px";
+        featured.classList.remove("is-switching");
 
-      stack.addEventListener("mouseenter", stopAutoPlay);
+        setTimeout(() => {
+          featured.style.height = "";
+          switching = false;
+        }, 450);
+      }, FADE_MS);
+    }
 
-      stack.addEventListener("mouseleave", () => {
-        stopAutoPlay();
-        startAutoPlay();
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    function start() {
+      if (reduceMotion || timer) return;
+      timer = setInterval(() => show(current + 1), AUTOPLAY_MS);
+    }
+
+    function restart() {
+      stop();
+      start();
+    }
+
+    featured
+      .querySelector("[data-letter-prev]")
+      .addEventListener("click", () => {
+        show(current - 1);
+        restart();
+      });
+    featured
+      .querySelector("[data-letter-next]")
+      .addEventListener("click", () => {
+        show(current + 1);
+        restart();
       });
 
-      stack.addEventListener("click", (event) => {
-        const card = event.target.closest(".testimonial-card");
-
-        if (!card) return;
-
-        const clickedIndex = cards.indexOf(card);
-
-        if (clickedIndex === 0) return;
-
-        cards.splice(clickedIndex, 1);
-        cards.unshift(card);
-
-        updateCards();
-
-        stopAutoPlay();
-        startAutoPlay();
+    strip.addEventListener("click", (e) => {
+      const btn = e.target.closest("[data-letter-item]");
+      if (!btn) return;
+      const i =
+        btn.dataset.letterClone !== undefined
+          ? Number(btn.dataset.letterClone)
+          : items.indexOf(btn);
+      show(i);
+      restart();
+      featured.scrollIntoView({
+        behavior: reduceMotion ? "auto" : "smooth",
+        block: "nearest",
       });
-
-      updateCards();
     });
+
+    // Pause while the reader is on the letter, and while it's off-screen.
+    featured.addEventListener("mouseenter", stop);
+    featured.addEventListener("mouseleave", start);
+    featured.addEventListener("focusin", stop);
+    featured.addEventListener("focusout", start);
+
+    const visibility = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          strip.classList.toggle("is-paused", !entry.isIntersecting);
+          if (entry.isIntersecting) start();
+          else stop();
+        });
+      },
+      { rootMargin: "100px 0px" },
+    );
+    visibility.observe(root);
+
+    markCurrent(0);
+  });
 });
 // --- Services Carousel Arrow Controller (Reversed Back) ---
 document.addEventListener("DOMContentLoaded", () => {
