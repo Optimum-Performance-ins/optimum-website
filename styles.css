@@ -620,7 +620,7 @@ textarea:focus-visible {
   position: relative;
   width: 100% !important;
   min-height: 120vh;
-  background-image: url("../static/Family.webp");
+  background-image: url("static/Family.webp");
   display: flex !important;
   justify-content: flex-end !important;
   align-items: center !important;
