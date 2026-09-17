@@ -1042,6 +1042,14 @@ section {
   background: var(--color-primary);
 }
 
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.75rem;
+  color: var(--color-primary);
+}
+
 /* Quote: the page stays white; the navy lives in one rounded panel so
    there is no page-level colour change on either side of the section */
 #quote {
