@@ -2744,6 +2744,62 @@ html[lang="en"] .accordion-header span {
   transform: translate(2px, -2px);
 }
 
+/* --- FRA strip: complaints line ---
+   One muted sentence under the licence card, segments separated by small
+   gold dots; no rules. Phone/email live in the footer, so only the FRA
+   escalation route and the guide link appear here. */
+.fra-cx {
+  margin-top: 1.75rem;
+  text-align: center;
+}
+
+.fra-cx p {
+  margin: 0;
+  font-size: 0.88rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.fra-cx-dot {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  margin: 0 0.8rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  vertical-align: middle;
+}
+
+.fra-cx a {
+  color: var(--color-white);
+  text-decoration: underline;
+  text-decoration-color: rgba(200, 150, 46, 0.6);
+  text-underline-offset: 3px;
+  transition:
+    color var(--transition),
+    text-decoration-color var(--transition);
+}
+
+.fra-cx a:hover,
+.fra-cx a:focus-visible {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-accent);
+}
+
+.fra-cx-guide {
+  white-space: nowrap;
+}
+
+.fra-cx-guide svg {
+  vertical-align: -1px;
+  margin-inline-start: 0.2rem;
+  transition: transform var(--transition);
+}
+
+.fra-cx-guide:hover svg {
+  transform: translate(2px, -2px);
+}
+
 /* --- Footer --- */
 .footer {
   background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-1000) 100%);
@@ -5842,6 +5898,26 @@ html[lang="en"] .whous-f-card::before {
     justify-content: center;
     gap: 8px;
     font-size: 0.9rem;
+  }
+
+  /* ===== FRA complaints line ===== */
+
+  .fra-cx {
+    margin-top: 24px;
+  }
+
+  .fra-cx p {
+    font-size: 0.86rem;
+    overflow-wrap: anywhere;
+  }
+
+  /* stack the segments; dots are not needed once each is on its own line */
+  .fra-cx-seg {
+    display: block;
+  }
+
+  .fra-cx-dot {
+    display: none;
   }
 
   /* ===== Mobile Footer ===== */
