@@ -825,25 +825,33 @@ textarea:focus-visible {
 
   /* BUTTONS */
 
+  /* Same side-by-side row as desktop; wraps only if the screen is too narrow */
   .hero-custom .hero-ctas {
     width: 100% !important;
+    max-width: 420px !important;
+    margin: 0 auto !important;
 
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
 
     align-items: center !important;
+    justify-content: center !important;
 
     gap: 12px !important;
   }
 
   .hero-custom .hero-ctas .btn {
-    width: 100% !important;
-    max-width: 320px !important;
+    flex: 1 1 0 !important;
+    width: auto !important;
+    min-width: 140px !important;
+    white-space: nowrap;
 
     text-align: center !important;
     justify-content: center !important;
 
-    padding: 14px 20px !important;
+    padding: 14px 16px !important;
+    font-size: 1rem !important;
   }
 
   /* FRA */
@@ -2995,14 +3003,6 @@ html[lang="en"] .accordion-header span {
     font-size: 1.7rem;
   }
 
-  .hero-ctas {
-    flex-direction: column;
-  }
-
-  .hero-ctas .btn {
-    width: 100%;
-  }
-
   .segment-tab {
     padding: 0.6rem 1.5rem;
     font-size: 0.95rem;
@@ -3269,10 +3269,6 @@ html[lang="en"] .accordion-header span {
   .lang-ar .nav-links.open {
     left: 0;
     right: auto;
-  }
-
-  .lang-ar .hero-ctas {
-    flex-direction: column;
   }
 
   .lang-ar .fra-content {
