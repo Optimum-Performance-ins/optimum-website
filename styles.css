@@ -4867,18 +4867,6 @@ html[lang="en"] .whous-f-card::before {
   transform: scaleX(-1);
 }
 
-.letter-counter {
-  min-width: 3.4em;
-  text-align: center;
-  font-size: 0.9rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--color-text-muted);
-}
-
-.letter-counter-of {
-  margin: 0 0.15em;
-}
-
 /* --- Drifting strip --- */
 .letter-strip {
   position: relative;

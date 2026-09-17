@@ -697,8 +697,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const fLogo = featured.querySelector("[data-featured-logo]");
     const fName = featured.querySelector("[data-featured-name]");
     const fRole = featured.querySelector("[data-featured-role]");
-    const fIndex = featured.querySelector("[data-letter-index]");
-    const fTotal = featured.querySelector("[data-letter-total]");
 
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
@@ -711,7 +709,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let timer = null;
     let switching = false;
 
-    fTotal.textContent = items.length;
 
     // Seamless loop needs a duplicate group (hidden from AT). Skip it when
     // motion is off and let the strip scroll natively instead.
@@ -758,7 +755,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .textContent.trim();
       fRole.textContent = role ? role.textContent.trim() : "";
       fRole.hidden = !role;
-      fIndex.textContent = index + 1;
       markCurrent(index);
     }
 
