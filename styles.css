@@ -2771,10 +2771,6 @@ html[lang="en"] .accordion-header span {
   color: var(--color-white);
   font-size: 0.9rem;
 }
-[dir="rtl"] .footer-contact li {
-  justify-content: flex-end;
-}
-
 .footer-contact svg {
   flex-shrink: 0;
   margin-top: 3px;
@@ -3136,10 +3132,6 @@ html[lang="en"] .accordion-header span {
 /* Footer RTL */
 .lang-ar .footer-grid {
   direction: rtl;
-}
-
-.lang-ar .footer-contact li {
-  flex-direction: row-reverse;
 }
 
 /* FRA Strip RTL */
