@@ -416,6 +416,9 @@ textarea:focus-visible {
 
 @media (max-width: 768px) {
   .navbar {
+    /* .nav-container drops to position: relative below, so the navbar itself
+       must be fixed or the whole bar scrolls away with the page. */
+    position: fixed;
     top: 10px;
     padding: 0 12px;
   }
@@ -3277,7 +3280,8 @@ html[lang="en"] .accordion-header span {
   }
 
   .lang-ar .fra-text {
-    text-align: center;
+    align-items: flex-end;
+    text-align: right;
   }
 }
 
@@ -5809,83 +5813,101 @@ html[lang="en"] .whous-f-card::before {
     opacity: 0.04;
   }
 
+  /* same single-row composition as desktop, scaled with the viewport:
+     [reg number] | [logo + authority text] | [verify pill] */
   .fra-card {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 25px 18px;
-    text-align: center;
-    border-radius: 18px;
+    justify-content: space-between;
+    gap: clamp(6px, 2.2vw, 14px);
+    padding: 16px 12px;
+    border-radius: 16px;
   }
 
   .fra-regblock {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-shrink: 0;
+    text-align: center;
   }
 
   .fra-regnum {
-    font-size: 2.8rem;
+    font-size: clamp(1.6rem, 7vw, 2.4rem);
     line-height: 1;
   }
 
   .fra-reglabel {
-    font-size: 0.85rem;
-    margin-top: 8px;
+    max-width: 5.5rem;
+    margin-top: 4px;
+    font-size: clamp(0.5rem, 2vw, 0.7rem);
+    line-height: 1.3;
+    letter-spacing: 0.06em;
+    white-space: normal;
   }
 
   .fra-vline {
-    width: 80%;
-    height: 1px;
-    min-height: 1px;
+    display: block;
+    flex-shrink: 0;
+    width: 1px;
+    height: 48px;
   }
 
   .fra-mid {
-    width: 100%;
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 14px;
+    gap: clamp(6px, 2vw, 10px);
   }
 
   .fra-logo-img {
-    width: 80px;
+    width: clamp(28px, 9vw, 40px);
     height: auto;
     object-fit: contain;
   }
 
   .fra-text {
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .fra-label {
-    font-size: 0.85rem;
+    font-size: clamp(0.5rem, 1.9vw, 0.62rem);
+    letter-spacing: 0.06em;
   }
 
   .fra-authority {
-    font-size: 1.1rem;
-    line-height: 1.5;
+    font-size: clamp(0.66rem, 2.6vw, 0.85rem);
+    line-height: 1.3;
   }
 
   .fra-authority-ar {
-    font-size: 0.75rem;
-    margin-top: 5px;
+    font-size: clamp(0.5rem, 1.9vw, 0.62rem);
+    margin-top: 2px;
     direction: ltr;
   }
 
   .fra-verify {
-    display: flex;
+    flex-shrink: 0;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    font-size: 0.9rem;
+    gap: 4px;
+    padding: 0.4rem 0.6rem;
+    font-size: clamp(0.55rem, 2.1vw, 0.72rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .fra-verify-arrow {
+    width: 10px;
+    height: 10px;
   }
 
   /* ===== FRA complaints line ===== */
@@ -5920,12 +5942,13 @@ html[lang="en"] .whous-f-card::before {
 
   .footer-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 35px;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px 20px;
     text-align: center;
   }
 
   .footer-brand {
+    grid-column: 1 / -1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -5971,11 +5994,12 @@ html[lang="en"] .whous-f-card::before {
 
   .footer-contact li {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     font-size: 0.9rem;
-    line-height: 1.7;
+    line-height: 1.5;
+    text-align: left;
   }
 
   .footer-contact li svg {
@@ -5987,6 +6011,10 @@ html[lang="en"] .whous-f-card::before {
 
   .footer-contact li span {
     overflow-wrap: anywhere;
+  }
+
+  .lang-ar .footer-contact li {
+    text-align: right;
   }
 
   .footer-bottom {
@@ -6019,33 +6047,12 @@ html[lang="en"] .whous-f-card::before {
   }
 
   .fra-card {
-    padding: 22px 14px;
-    gap: 17px;
-    border-radius: 15px;
-  }
-
-  .fra-regnum {
-    font-size: 2.4rem;
-  }
-
-  .fra-reglabel {
-    font-size: 0.78rem;
-  }
-
-  .fra-logo-img {
-    width: 65px;
-  }
-
-  .fra-authority {
-    font-size: 1rem;
-  }
-
-  .fra-authority-ar {
-    font-size: 0.68rem;
+    padding: 14px 10px;
+    border-radius: 14px;
   }
 
   .fra-vline {
-    width: 90%;
+    height: 42px;
   }
 
   .footer {
@@ -6053,7 +6060,7 @@ html[lang="en"] .whous-f-card::before {
   }
 
   .footer-grid {
-    gap: 30px;
+    gap: 30px 12px;
   }
 
   .footer-logo {
