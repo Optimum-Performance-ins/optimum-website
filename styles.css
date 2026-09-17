@@ -50,6 +50,13 @@
   --color-bg-gray: #e8e9ec;
   --color-border: #e2e5ea;
   --color-divider: rgba(200, 150, 46, 0.3);
+  /* Navy tone ladder — sections drift between adjacent rungs, and every
+     section boundary shares the same rung on both sides (no colour jumps) */
+  --navy-700: #1a3a5c;
+  --navy-800: #142e4d;
+  --navy-900: #0f1f3c;
+  --navy-950: #0a1628;
+  --navy-1000: #07111f;
   --color-glow: rgba(200, 150, 46, 0.4);
   --font-serif: "EB Garamond", "Garamond", "Georgia", serif;
   --transition: 0.3s ease;
@@ -1035,12 +1042,26 @@ section {
   background: var(--color-primary);
 }
 
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 0.75rem;
-  color: var(--color-primary);
+/* Quote: the page stays white; the navy lives in one rounded panel so
+   there is no page-level colour change on either side of the section */
+#quote {
+  background: #ffffff;
+  padding: 5rem 2rem;
+}
+
+#quote > .container {
+  padding: 4.5rem 4rem 4rem;
+  border-radius: 28px;
+  background:
+    radial-gradient(
+      ellipse 55% 45% at 88% 0%,
+      rgba(200, 150, 46, 0.12),
+      transparent 70%
+    ),
+    linear-gradient(180deg, var(--navy-700) 0%, var(--navy-900) 100%);
+  box-shadow:
+    0 40px 70px -40px rgba(15, 31, 60, 0.55),
+    0 1px 0 rgba(255, 255, 255, 0.35) inset;
 }
 
 .section--navy .section-title {
@@ -2498,9 +2519,8 @@ html[lang="en"] .accordion-header span {
       rgba(200, 150, 46, 0.07),
       transparent 70%
     ),
-    linear-gradient(180deg, #0f1f3c 0%, #0a1628 100%);
-  border-top: 1px solid rgba(200, 150, 46, 0.25);
-  border-bottom: 1px solid rgba(200, 150, 46, 0.25);
+    linear-gradient(180deg, var(--navy-900) 0%, var(--navy-950) 100%);
+  border-radius: 36px 36px 0 0;
   padding: 3.5rem 0;
   overflow: hidden;
 }
@@ -2688,7 +2708,7 @@ html[lang="en"] .accordion-header span {
 
 /* --- Footer --- */
 .footer {
-  background-color: var(--color-secondary);
+  background: linear-gradient(180deg, var(--navy-950) 0%, var(--navy-1000) 100%);
   padding: 4rem 0 2rem;
 }
 
@@ -3412,8 +3432,7 @@ html {
 /* Insurance benefits */
 #faq {
   padding: 100px 0;
-  background: linear-gradient(to bottom, #ffffff, var(--color-primary));
-  border-top: 1px solid #e1e8ed;
+  background: #ffffff;
 }
 
 .faq-card:hover {
@@ -5428,14 +5447,15 @@ html[lang="en"] .whous-f-card::before {
 
 @media (max-width: 600px) {
   #quote {
-    padding: 60px 0;
+    padding: 48px 16px;
     overflow: hidden;
   }
 
   #quote .container {
     width: 100%;
     max-width: 100%;
-    padding: 0 16px;
+    padding: 2.5rem 18px 2rem;
+    border-radius: 20px;
   }
 
   /* HEADER */
