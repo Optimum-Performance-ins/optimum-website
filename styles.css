@@ -58,6 +58,12 @@
   --navy-950: #0a1628;
   --navy-1000: #07111f;
   --color-glow: rgba(200, 150, 46, 0.4);
+  /* Quote panel fields: warm ivory instead of pure white on navy */
+  --ivory: #f4efe6;
+  --ivory-deep: #fbf9f4;
+  --ivory-border: #d8cfbc;
+  --ivory-placeholder: #8a8272;
+  --gold-hover: #d4a53f;
   --font-serif: "EB Garamond", "Garamond", "Georgia", serif;
   --transition: 0.3s ease;
 }
@@ -168,14 +174,14 @@ ul {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3) !important;
 }
 .btn-accent {
-  background-color: var(--color-primary);
+  background-color: var(--navy-900);
   color: var(--color-white);
-  border-color: var(--color-primary);
+  border-color: var(--navy-900);
 }
 
 .btn-accent:hover {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+  background-color: var(--navy-700);
+  border-color: var(--navy-700);
   transform: translateY(-2px);
 }
 
@@ -2142,12 +2148,16 @@ html[lang="en"] .whous-f-card::before {
 .form-group label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--color-primary);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.form-group .required {
+  color: var(--color-accent);
 }
 
 .form-group .optional {
   font-weight: 400;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 0.85rem;
 }
 
@@ -2157,21 +2167,25 @@ html[lang="en"] .whous-f-card::before {
   font-family: var(--font-serif);
   font-size: 0.95rem;
   padding: 0.7rem 0.85rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--ivory-border);
   border-radius: 4px;
-  background: var(--color-white);
-  color: var(--color-text);
+  background: var(--ivory);
+  color: var(--navy-900);
   transition:
     border-color var(--transition),
     box-shadow var(--transition);
+}
+
+.form-group ::placeholder {
+  color: var(--ivory-placeholder);
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(15, 31, 60, 0.08);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(200, 150, 46, 0.25);
 }
 
 .form-group textarea {
@@ -2196,8 +2210,9 @@ html[lang="en"] .whous-f-card::before {
   -webkit-appearance: none;
   width: 15px;
   height: 15px;
-  border: 1.5px solid #c0c6cf;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
   border-radius: 50%;
+  background: transparent;
   margin: 0;
   cursor: pointer;
   position: relative;
@@ -2221,11 +2236,11 @@ html[lang="en"] .whous-f-card::before {
 }
 
 .radio-option:hover input[type="radio"] {
-  border-color: var(--color-primary);
+  border-color: rgba(255, 255, 255, 0.7);
 }
 
 .radio-option input[type="radio"]:checked {
-  border-color: var(--color-primary);
+  border-color: var(--color-accent);
 }
 
 .radio-option input[type="radio"]:checked::after {
@@ -2235,33 +2250,47 @@ html[lang="en"] .whous-f-card::before {
 .radio-option .radio-label {
   font-family: var(--font-serif);
   font-size: 0.95rem;
-  color: var(--color-text);
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .radio-option:has(input:checked) .radio-label {
-  color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .form-group.error .radio-option input[type="radio"] {
-  border-color: #c0392b;
+  border-color: #e0685a;
 }
 
 .form-error {
   font-size: 0.8rem;
-  color: #c0392b;
+  color: #e0685a;
   display: none;
 }
 
 .form-group.error input,
 .form-group.error select,
 .form-group.error textarea {
-  border-color: #c0392b;
+  border-color: #e0685a;
 }
 
 .form-group.error .form-error {
   display: block;
+}
+
+/* Submit: the one solid gold CTA on the navy panel */
+.quote-form .btn-primary {
+  background: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
+  color: var(--navy-900) !important;
+}
+
+.quote-form .btn-primary:hover {
+  background: var(--gold-hover) !important;
+  border-color: var(--gold-hover) !important;
+  color: var(--navy-900) !important;
+  box-shadow: 0 10px 20px rgba(7, 17, 31, 0.35) !important;
 }
 
 /* Meeting sidebar */
@@ -2272,8 +2301,8 @@ html[lang="en"] .whous-f-card::before {
 }
 
 .meeting-card {
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
+  background: var(--ivory);
+  border: 1px solid var(--ivory-border);
   border-radius: 4px;
   padding: 2rem;
 }
@@ -2281,7 +2310,7 @@ html[lang="en"] .whous-f-card::before {
 .meeting-card h3 {
   font-size: 1.35rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--navy-900);
   margin-bottom: 0.5rem;
 }
 
@@ -2303,9 +2332,10 @@ html[lang="en"] .whous-f-card::before {
 .meeting-form input[type="tel"] {
   width: 100%;
   padding: 10px 14px;
-  border: 1px solid rgba(15, 23, 42, 0.15);
+  border: 1px solid var(--ivory-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--ivory-deep);
+  color: var(--navy-900);
   font-family: inherit;
   font-size: 0.95rem;
   box-sizing: border-box;
@@ -2321,7 +2351,7 @@ html[lang="en"] .whous-f-card::before {
   margin-bottom: 5px;
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--color-primary, #0f1f3c);
+  color: var(--navy-900);
 }
 
 /* Trust signals */
@@ -2336,12 +2366,12 @@ html[lang="en"] .whous-f-card::before {
   align-items: center;
   gap: 0.6rem;
   font-size: 0.85rem;
-  color: var(--color-text-muted);
+  color: var(--color-white);
 }
 
 .trust-item svg {
   flex-shrink: 0;
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 /* Form success */
@@ -2349,7 +2379,7 @@ html[lang="en"] .whous-f-card::before {
   display: none;
   text-align: center;
   padding: 3rem;
-  color: var(--color-primary);
+  color: var(--color-white);
 }
 
 .form-success.show {
@@ -2357,7 +2387,7 @@ html[lang="en"] .whous-f-card::before {
 }
 
 .form-success svg {
-  color: #27ae60;
+  color: var(--color-accent);
   margin: 0 auto 1rem;
 }
 
@@ -2369,7 +2399,7 @@ html[lang="en"] .whous-f-card::before {
 
 .form-success p {
   font-size: 1rem;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* --- Trusted By --- */
@@ -6071,9 +6101,10 @@ body {
 .meeting-form input[type="tel"] {
   width: 100%;
   padding: 10px 14px;
-  border: 1px solid rgba(15, 23, 42, 0.15);
+  border: 1px solid var(--ivory-border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--ivory-deep);
+  color: var(--navy-900);
   font-family: inherit;
   font-size: 0.95rem;
   box-sizing: border-box;
@@ -6089,5 +6120,5 @@ body {
   margin-bottom: 5px;
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--color-primary, #0f1f3c);
+  color: var(--navy-900);
 }
