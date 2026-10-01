@@ -330,89 +330,103 @@
 
             <!-- Individual Cards -->
             <div class="segment-content active" id="segment-individual">
-                <div class="services-grid">
-                    <div class="service-card reveal stagger" data-client-type="individual" data-service="life-health">
-                        <div class="card-logo-banner card-banner-photo">
-                            <img src="static/card-medical.webp" alt="التأمين الطبي" class="card-logo-img" loading="lazy">
+                <div class="services-carousel reveal" data-carousel>
+                    <div class="services-track" data-carousel-track tabindex="0" aria-label="حلول تأمين الأفراد">
+                        <div class="service-card" data-client-type="individual" data-service="life-health">
+                            <div class="card-logo-banner card-banner-photo">
+                                <img src="static/card-medical.webp" alt="التأمين الطبي" class="card-logo-img" loading="lazy">
+                            </div>
+                            <h4>التأمين الطبي</h4>
+                            <p>خطط طبية شاملة لحمايتك أنت وعائلتك.</p>
+                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
                         </div>
-                        <h4>التأمين الطبي</h4>
-                        <p>خطط طبية شاملة لحمايتك أنت وعائلتك.</p>
-                        <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                        <div class="service-card" data-client-type="individual" data-service="home">
+                            <div class="card-logo-banner card-banner-photo">
+                                <img src="static/card-home.webp" alt="تأمين المنزل" class="card-logo-img" loading="lazy">
+                            </div>
+                            <h4>تأمين المنزل</h4>
+                            <p>احمِ منزلك وممتلكاتك ضد الحريق والسرقة والكوارث الطبيعية.</p>
+                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                        </div>
+                        <div class="service-card" data-client-type="individual" data-service="motor">
+                            <div class="card-logo-banner card-banner-photo">
+                                <img src="static/card-motor.webp" alt="تأمين السيارات" class="card-logo-img" loading="lazy">
+                            </div>
+                            <h4>تأمين السيارات</h4>
+                            <p>تغطية شاملة وتأمين ضد الغير بأسعار تنافسية.</p>
+                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                        </div>
+                        <div class="service-card" data-client-type="individual" data-service="personal-accident">
+                            <div class="card-logo-banner card-banner-photo">
+                                <img src="static/card-accident.webp" alt="الحوادث الشخصية" class="card-logo-img" loading="lazy">
+                            </div>
+                            <h4>الحوادث الشخصية</h4>
+                            <p>حماية مالية لك ولعائلتك في حالة الإصابة العرضية أو الإعاقة.</p>
+                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                        </div>
                     </div>
-                    <div class="service-card reveal stagger" data-client-type="individual" data-service="home">
-                        <div class="card-logo-banner card-banner-photo">
-                            <img src="static/card-home.webp" alt="تأمين المنزل" class="card-logo-img" loading="lazy">
-                        </div>
-                        <h4>تأمين المنزل</h4>
-                        <p>احمِ منزلك وممتلكاتك ضد الحريق والسرقة والكوارث الطبيعية.</p>
-                        <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
-                    </div>
-                    <div class="service-card reveal stagger" data-client-type="individual" data-service="motor">
-                        <div class="card-logo-banner card-banner-photo">
-                            <img src="static/card-motor.webp" alt="تأمين السيارات" class="card-logo-img" loading="lazy">
-                        </div>
-                        <h4>تأمين السيارات</h4>
-                        <p>تغطية شاملة وتأمين ضد الغير بأسعار تنافسية.</p>
-                        <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
-                    </div>
-                    <div class="service-card reveal stagger" data-client-type="individual" data-service="personal-accident">
-                        <div class="card-logo-banner card-banner-photo">
-                            <img src="static/card-accident.webp" alt="الحوادث الشخصية" class="card-logo-img" loading="lazy">
-                        </div>
-                        <h4>الحوادث الشخصية</h4>
-                        <p>حماية مالية لك ولعائلتك في حالة الإصابة العرضية أو الإعاقة.</p>
-                        <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                    <div class="carousel-controls">
+                        <button type="button" class="carousel-arrow" data-carousel-prev aria-label="الخدمة السابقة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+                        <div class="carousel-dots" data-carousel-dots></div>
+                        <button type="button" class="carousel-arrow" data-carousel-next aria-label="الخدمة التالية"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
                     </div>
                 </div>
             </div>
 
                 <!-- Corporate Cards -->
                 <div class="segment-content" id="segment-corporate">
-                    <div class="services-grid">
-                        <div class="service-card reveal stagger" data-client-type="corporate" data-service="property">
-                            <div class="card-logo-banner card-banner-photo">
-                                <img src="static/card-property.webp" alt="تأمين الممتلكات" class="card-logo-img"
-                                    loading="lazy">
+                    <div class="services-carousel reveal" data-carousel>
+                        <div class="services-track" data-carousel-track tabindex="0" aria-label="حلول تأمين الشركات">
+                            <div class="service-card" data-client-type="corporate" data-service="property">
+                                <div class="card-logo-banner card-banner-photo">
+                                    <img src="static/card-property.webp" alt="تأمين الممتلكات" class="card-logo-img"
+                                        loading="lazy">
+                                </div>
+                                <h4>تأمين الممتلكات</h4>
+                                <p>تغطية شاملة للمباني والأصول والممتلكات التجارية ضد الحريق والكوارث الطبيعية والأضرار غير المتوقعة.</p>
+                                <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
                             </div>
-                            <h4>تأمين الممتلكات</h4>
-                            <p>تغطية شاملة للمباني والأصول والممتلكات التجارية ضد الحريق والكوارث الطبيعية والأضرار غير المتوقعة.</p>
-                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                            <div class="service-card" data-client-type="corporate" data-service="employee-benefits">
+                                <div class="card-logo-banner card-banner-photo">
+                                    <img src="static/card-benefits.webp" alt="مزايا الموظفين" class="card-logo-img"
+                                        loading="lazy">
+                                </div>
+                                <h4>مزايا الموظفين</h4>
+                                <p>استقطب واحتفظ بالكفاءات مع خطط طبية وأسنان وتأمين حياة وتقاعد جماعية.</p>
+                                <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                            </div>
+                            <div class="service-card" data-client-type="corporate" data-service="marine-cargo">
+                                <div class="card-logo-banner card-banner-photo">
+                                    <img src="static/card-marine.webp" alt="التأمين البحري والشحن" class="card-logo-img"
+                                        loading="lazy">
+                                </div>
+                                <h4>التأمين البحري والشحن</h4>
+                                <p>احمِ البضائع أثناء النقل - تغطية كل مرحلة من سلسلة التوريد واللوجستيات.</p>
+                                <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                            </div>
+                            <div class="service-card" data-client-type="corporate" data-service="liability">
+                                <div class="card-logo-banner card-banner-photo">
+                                    <img src="static/card-liability.webp" alt="المسؤولية" class="card-logo-img"
+                                        loading="lazy">
+                                </div>
+                                <h4>المسؤولية</h4>
+                                <p>احمِ عملك من مطالبات الطرف الثالث بشأن الإصابة البدنية والأضرار في الممتلكات والمسؤولية القانونية.</p>
+                                <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                            </div>
+                            <div class="service-card" data-client-type="corporate" data-service="cybersecurity">
+                                <div class="card-logo-banner card-banner-photo">
+                                    <img src="static/card-cyber.webp" alt="التأمين السيبراني" class="card-logo-img"
+                                        loading="lazy">
+                                </div>
+                                <h4>التأمين السيبراني</h4>
+                                <p>احمِ عملك من اختراقات البيانات وهجمات الفدية والمسؤولية السيبرانية بحماية رقمية شاملة.</p>
+                                <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                            </div>
                         </div>
-                        <div class="service-card reveal stagger" data-client-type="corporate" data-service="employee-benefits">
-                            <div class="card-logo-banner card-banner-photo">
-                                <img src="static/card-benefits.webp" alt="مزايا الموظفين" class="card-logo-img"
-                                    loading="lazy">
-                            </div>
-                            <h4>مزايا الموظفين</h4>
-                            <p>استقطب واحتفظ بالكفاءات مع خطط طبية وأسنان وتأمين حياة وتقاعد جماعية.</p>
-                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
-                        </div>
-                        <div class="service-card reveal stagger" data-client-type="corporate" data-service="marine-cargo">
-                            <div class="card-logo-banner card-banner-photo">
-                                <img src="static/card-marine.webp" alt="التأمين البحري والشحن" class="card-logo-img"
-                                    loading="lazy">
-                            </div>
-                            <h4>التأمين البحري والشحن</h4>
-                            <p>احمِ البضائع أثناء النقل - تغطية كل مرحلة من سلسلة التوريد واللوجستيات.</p>
-                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
-                        </div>
-                        <div class="service-card reveal stagger" data-client-type="corporate" data-service="liability">
-                            <div class="card-logo-banner card-banner-photo">
-                                <img src="static/card-liability.webp" alt="المسؤولية" class="card-logo-img"
-                                    loading="lazy">
-                            </div>
-                            <h4>المسؤولية</h4>
-                            <p>احمِ عملك من مطالبات الطرف الثالث بشأن الإصابة البدنية والأضرار في الممتلكات والمسؤولية القانونية.</p>
-                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
-                        </div>
-                        <div class="service-card reveal stagger" data-client-type="corporate" data-service="cybersecurity">
-                            <div class="card-logo-banner card-banner-photo">
-                                <img src="static/card-cyber.webp" alt="التأمين السيبراني" class="card-logo-img"
-                                    loading="lazy">
-                            </div>
-                            <h4>التأمين السيبراني</h4>
-                            <p>احمِ عملك من اختراقات البيانات وهجمات الفدية والمسؤولية السيبرانية بحماية رقمية شاملة.</p>
-                            <a href="#quote" class="card-cta">احصل على عرض سعر &larr;</a>
+                        <div class="carousel-controls">
+                            <button type="button" class="carousel-arrow" data-carousel-prev aria-label="الخدمة السابقة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+                            <div class="carousel-dots" data-carousel-dots></div>
+                            <button type="button" class="carousel-arrow" data-carousel-next aria-label="الخدمة التالية"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
                         </div>
                     </div>
                 </div>

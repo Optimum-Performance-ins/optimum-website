@@ -872,13 +872,6 @@ html:not(.intro-play) .hero-fra-link::after {
     display: block;
 }
 
-/* --- Services Grid --- */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
 .service-card {
     padding: 2rem;
     background: var(--color-white);
@@ -1122,15 +1115,17 @@ html:not(.intro-play) .hero-fra-link::after {
     letter-spacing: 0.05em;
 }
 
-/* --- Testimonials --- */
-.testimonial-carousel {
+/* --- Carousels (testimonials, services) --- */
+.testimonial-carousel,
+.services-carousel {
     --carousel-gap: 2rem;
     --carousel-per-view: 3;
     max-width: 1100px;
     margin: 0 auto;
 }
 
-.testimonial-track {
+.testimonial-track,
+.services-track {
     display: flex;
     gap: var(--carousel-gap);
     overflow-x: auto;
@@ -1143,16 +1138,19 @@ html:not(.intro-play) .hero-fra-link::after {
     padding: 0.5rem 0.25rem 1.5rem;
 }
 
-.testimonial-track::-webkit-scrollbar {
+.testimonial-track::-webkit-scrollbar,
+.services-track::-webkit-scrollbar {
     display: none;
 }
 
-.testimonial-track:focus-visible {
+.testimonial-track:focus-visible,
+.services-track:focus-visible {
     outline: 2px solid var(--color-accent);
     outline-offset: 4px;
 }
 
-.testimonial-track > .testimonial-card {
+.testimonial-track > .testimonial-card,
+.services-track > .service-card {
     flex: 0 0 calc((100% - (var(--carousel-per-view) - 1) * var(--carousel-gap)) / var(--carousel-per-view));
     scroll-snap-align: start;
     display: flex;
@@ -1985,11 +1983,8 @@ html:not(.intro-play) .hero-fra-link::after {
         gap: 3rem;
     }
 
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .testimonial-carousel {
+    .testimonial-carousel,
+    .services-carousel {
         --carousel-per-view: 2;
         --carousel-gap: 1.5rem;
     }
@@ -2081,11 +2076,8 @@ html:not(.intro-play) .hero-fra-link::after {
     }
 
     /* Grids */
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .testimonial-carousel {
+    .testimonial-carousel,
+    .services-carousel {
         --carousel-per-view: 1;
     }
 

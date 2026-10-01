@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         marquees.forEach(el => marqueeObserver.observe(el));
     }
 
-    // --- Testimonial Carousel ---
+    // --- Carousels (testimonials, services) ---
     // Endless loop: a full set of cloned cards sits on each side of the real ones. Native
     // scroll-snap does the sliding (and touch swipe); once a scroll settles inside a clone
     // set, the track jumps invisibly back to the matching real card.
@@ -454,6 +454,9 @@ document.addEventListener('DOMContentLoaded', () => {
             syncAutoplay();
         }, { threshold: 0.4 }).observe(carousel);
 
+        // Shown again after being display:none (segment tabs) — scroll position was lost
+        carousel.addEventListener('carousel:refresh', recenter);
+
         recenter();
     });
 
@@ -475,6 +478,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Trigger reveal animations for newly visible cards
                     content.querySelectorAll('.reveal:not(.visible)').forEach(el => {
                         revealObserver.observe(el);
+                    });
+                    content.querySelectorAll('[data-carousel]').forEach(el => {
+                        el.dispatchEvent(new Event('carousel:refresh'));
                     });
                 }
             });
