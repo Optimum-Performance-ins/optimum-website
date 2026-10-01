@@ -327,6 +327,136 @@ document.addEventListener('DOMContentLoaded', () => {
         marquees.forEach(el => marqueeObserver.observe(el));
     }
 
+    // --- Testimonial Carousel ---
+    // Endless loop: a full set of cloned cards sits on each side of the real ones. Native
+    // scroll-snap does the sliding (and touch swipe); once a scroll settles inside a clone
+    // set, the track jumps invisibly back to the matching real card.
+    document.querySelectorAll('[data-carousel]').forEach(carousel => {
+        const track = carousel.querySelector('[data-carousel-track]');
+        const cards = Array.from(track.children);
+        const total = cards.length;
+        const prevBtn = carousel.querySelector('[data-carousel-prev]');
+        const nextBtn = carousel.querySelector('[data-carousel-next]');
+        const dotsWrap = carousel.querySelector('[data-carousel-dots]');
+        const isRTL = getComputedStyle(track).direction === 'rtl';
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (total < 2) return;
+
+        const makeClone = (card) => {
+            const clone = card.cloneNode(true);
+            clone.setAttribute('aria-hidden', 'true');
+            clone.inert = true;
+            return clone;
+        };
+        track.prepend(...cards.map(makeClone));
+        track.append(...cards.map(makeClone));
+        const slides = Array.from(track.children);
+
+        // Section may be un-laid-out under content-visibility: auto, so never return 0
+        const step = () => Math.max(1, Math.abs(slides[1].offsetLeft - slides[0].offsetLeft));
+        const rawIndex = () => Math.round(Math.abs(track.scrollLeft) / step());
+        const toLeft = (i) => (isRTL ? -1 : 1) * i * step();
+        let active = 0;
+
+        const jump = (i) => {
+            track.style.scrollBehavior = 'auto';
+            track.scrollLeft = toLeft(i);
+            track.style.scrollBehavior = '';
+        };
+        const goTo = (i) => {
+            if (reduceMotion) jump(i);
+            else track.scrollTo({ left: toLeft(i), behavior: 'smooth' });
+        };
+        const move = (delta) => goTo(rawIndex() + delta);
+
+        const dots = cards.map((_, n) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'carousel-dot';
+            dot.setAttribute('aria-label', `${n + 1} / ${total}`);
+            dot.addEventListener('click', () => {
+                stopAutoplay();
+                // Shortest way round the circle
+                let d = n - active;
+                if (d > total / 2) d -= total;
+                if (d < -total / 2) d += total;
+                move(d);
+            });
+            dotsWrap.appendChild(dot);
+            return dot;
+        });
+
+        const update = () => {
+            active = ((rawIndex() - total) % total + total) % total;
+            dots.forEach((dot, n) => dot.setAttribute('aria-current', n === active ? 'true' : 'false'));
+        };
+
+        // Back into the real set once motion stops
+        const settle = () => {
+            const i = rawIndex();
+            if (i < total || i >= total * 2) jump(total + active);
+        };
+        const recenter = () => { jump(total + active); update(); };
+
+        // Autoplay: advance every 7s. Paused on hover/focus or off-screen,
+        // stopped for good once the visitor navigates themselves.
+        let timer = null;
+        let inView = false;
+        let hovering = false;
+        let stopped = reduceMotion || isLowEnd;
+
+        const tick = () => {
+            if (!inView || hovering || document.hidden) return;
+            move(1);
+        };
+        const syncAutoplay = () => {
+            const run = !stopped && inView;
+            if (run && !timer) timer = setInterval(tick, 7000);
+            if (!run && timer) { clearInterval(timer); timer = null; }
+        };
+        const stopAutoplay = () => { stopped = true; syncAutoplay(); };
+
+        prevBtn.addEventListener('click', () => { stopAutoplay(); move(-1); });
+        nextBtn.addEventListener('click', () => { stopAutoplay(); move(1); });
+        track.addEventListener('pointerdown', stopAutoplay);
+        track.addEventListener('wheel', stopAutoplay, { passive: true });
+        track.addEventListener('keydown', stopAutoplay);
+        carousel.addEventListener('mouseenter', () => { hovering = true; });
+        carousel.addEventListener('mouseleave', () => { hovering = false; });
+        carousel.addEventListener('focusin', () => { hovering = true; });
+        carousel.addEventListener('focusout', () => { hovering = false; });
+
+        const hasScrollEnd = 'onscrollend' in window;
+        let ticking = false;
+        let settleTimer;
+        track.addEventListener('scroll', () => {
+            if (!hasScrollEnd) {
+                clearTimeout(settleTimer);
+                settleTimer = setTimeout(settle, 150);
+            }
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(() => { update(); ticking = false; });
+        }, { passive: true });
+        if (hasScrollEnd) track.addEventListener('scrollend', settle);
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(recenter, 150);
+        });
+
+        // First sighting: the track may only now have real layout, so line it up once
+        let laidOut = false;
+        new IntersectionObserver(entries => {
+            inView = entries[0].isIntersecting;
+            if (inView && !laidOut) { laidOut = true; recenter(); }
+            syncAutoplay();
+        }, { threshold: 0.4 }).observe(carousel);
+
+        recenter();
+    });
+
     // --- Segment Tab Switching ---
     const segmentTabs = document.querySelectorAll('.segment-tab');
     const segmentContents = document.querySelectorAll('.segment-content');

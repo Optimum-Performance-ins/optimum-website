@@ -1123,12 +1123,98 @@ html:not(.intro-play) .hero-fra-link::after {
 }
 
 /* --- Testimonials --- */
-.testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+.testimonial-carousel {
+    --carousel-gap: 2rem;
+    --carousel-per-view: 3;
     max-width: 1100px;
     margin: 0 auto;
+}
+
+.testimonial-track {
+    display: flex;
+    gap: var(--carousel-gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 0.25rem;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    /* Room for the card hover lift and shadow, which overflow would otherwise clip */
+    padding: 0.5rem 0.25rem 1.5rem;
+}
+
+.testimonial-track::-webkit-scrollbar {
+    display: none;
+}
+
+.testimonial-track:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
+.testimonial-track > .testimonial-card {
+    flex: 0 0 calc((100% - (var(--carousel-per-view) - 1) * var(--carousel-gap)) / var(--carousel-per-view));
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-track .testimonial-quote {
+    flex: 1;
+}
+
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+}
+
+.carousel-arrow {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: var(--color-white);
+    color: var(--color-primary);
+    cursor: pointer;
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.carousel-arrow svg {
+    width: 20px;
+    height: 20px;
+}
+
+.carousel-arrow:hover,
+.carousel-arrow:focus-visible {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: var(--color-border);
+    cursor: pointer;
+    transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.carousel-dot[aria-current="true"] {
+    width: 24px;
+    background: var(--color-accent);
 }
 
 .testimonial-card {
@@ -1173,18 +1259,19 @@ html:not(.intro-play) .hero-fra-link::after {
     padding-top: 1rem;
 }
 
-.testimonial-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--color-primary);
+.testimonial-logo {
+    width: 76px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--color-white);
     flex-shrink: 0;
+}
+
+.testimonial-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
 }
 
 .testimonial-name {
@@ -1902,8 +1989,9 @@ html:not(.intro-play) .hero-fra-link::after {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .testimonials-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .testimonial-carousel {
+        --carousel-per-view: 2;
+        --carousel-gap: 1.5rem;
     }
 
     .process-grid {
@@ -1997,8 +2085,8 @@ html:not(.intro-play) .hero-fra-link::after {
         grid-template-columns: 1fr;
     }
 
-    .testimonials-grid {
-        grid-template-columns: 1fr;
+    .testimonial-carousel {
+        --carousel-per-view: 1;
     }
 
     .process-grid {
@@ -2355,6 +2443,10 @@ html:not(.intro-play) .lang-ar .hero-fra-link::after {
 }
 
 /* Testimonials RTL */
+.lang-ar .carousel-arrow svg {
+    transform: scaleX(-1);
+}
+
 .lang-ar .testimonial-author {
     flex-direction: row-reverse;
 }
