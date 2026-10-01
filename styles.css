@@ -2589,15 +2589,9 @@ html:not(.intro-play) .lang-ar .hero-fra-link::after {
         flex-direction: column;
     }
 
+    /* Drawer slides in from the right in both languages (base rules) */
     .lang-ar .nav-links {
-        right: auto;
-        left: -100%;
         flex-direction: column;
-    }
-
-    .lang-ar .nav-links.open {
-        left: 0;
-        right: auto;
     }
 
     .lang-ar .hero-ctas {
