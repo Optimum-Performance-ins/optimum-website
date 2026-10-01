@@ -2127,10 +2127,8 @@ html:not(.intro-play) .hero-fra-link::after {
         line-height: 1.4;
     }
 
-    /* Quote form and meeting card stay side by side */
     .form-grid {
-        grid-template-columns: 1.5fr 1fr;
-        gap: 1rem;
+        grid-template-columns: 1fr;
     }
 
     .form-row {
