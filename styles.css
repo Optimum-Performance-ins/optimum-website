@@ -270,7 +270,7 @@ textarea:focus-visible {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--color-primary);
+    background: var(--color-accent);
     transition: width 0.3s ease;
 }
 
