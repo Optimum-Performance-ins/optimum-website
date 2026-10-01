@@ -1959,6 +1959,15 @@ html:not(.intro-play) .hero-fra-link::after {
     color: var(--color-accent);
 }
 
+.footer-social-link {
+    color: rgba(255, 255, 255, 0.6);
+    transition: color var(--transition);
+}
+
+.footer-social-link:hover {
+    color: var(--color-accent);
+}
+
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 1.5rem;
