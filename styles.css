@@ -1989,14 +1989,6 @@ html:not(.intro-play) .hero-fra-link::after {
         --carousel-gap: 1.5rem;
     }
 
-    .process-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
     .pain-grid {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -2081,8 +2073,26 @@ html:not(.intro-play) .hero-fra-link::after {
         --carousel-per-view: 1;
     }
 
+    /* Process steps stay side by side — swipeable row instead of stacking */
     .process-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: 70%;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        padding-bottom: 0.5rem;
+    }
+
+    .process-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .process-step {
+        scroll-snap-align: start;
+        padding: 1.25rem 1rem;
     }
 
     .pain-grid {
@@ -2102,12 +2112,27 @@ html:not(.intro-play) .hero-fra-link::after {
         grid-template-columns: 1fr;
     }
 
+    /* Stats stay in one row of four */
     .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
     }
 
-    .stat-item::after {
-        display: none;
+    .stat-item {
+        padding: 1.25rem 0.25rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .stat-suffix {
+        font-size: 1.2rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.02em;
     }
 
     .values-list {
@@ -2165,7 +2190,7 @@ html:not(.intro-play) .hero-fra-link::after {
     }
 
     .process-grid {
-        grid-template-columns: 1fr;
+        grid-auto-columns: 80%;
     }
 
     .logo-cell {
@@ -2175,7 +2200,15 @@ html:not(.intro-play) .hero-fra-link::after {
     }
 
     .stat-number {
-        font-size: 2.5rem;
+        font-size: 1.6rem;
+    }
+
+    .stat-suffix {
+        font-size: 1rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
     }
 
     .accordion-header {
