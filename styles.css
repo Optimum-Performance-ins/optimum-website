@@ -2104,21 +2104,47 @@ html:not(.intro-play) .hero-fra-link::after {
         padding: 1.25rem 1rem;
     }
 
+    /* Pain points stay in one row of four, icon stacked above text */
     .pain-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 1.25rem;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0.5rem;
     }
 
+    .pain-item,
+    .lang-ar .pain-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .pain-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .pain-item span {
+        font-size: 0.75rem;
+        line-height: 1.4;
+    }
+
+    /* Quote form and meeting card stay side by side */
     .form-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 1rem;
     }
 
     .form-row {
         grid-template-columns: 1fr;
     }
 
+    /* Footer: brand on top, quick links + contact side by side */
     .footer-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1.4fr;
+        gap: 2rem 1.25rem;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
     }
 
     /* Stats stay in one row of four */
@@ -2192,10 +2218,6 @@ html:not(.intro-play) .hero-fra-link::after {
     .segment-tab {
         padding: 0.6rem 1.5rem;
         font-size: 0.95rem;
-    }
-
-    .pain-grid {
-        grid-template-columns: 1fr;
     }
 
     .process-grid {
@@ -2558,6 +2580,10 @@ html:not(.intro-play) .lang-ar .hero-fra-link::after {
 
 /* Mobile RTL overrides */
 @media (max-width: 768px) {
+    .lang-ar .pain-item {
+        flex-direction: column;
+    }
+
     .lang-ar .nav-links {
         right: auto;
         left: -100%;
