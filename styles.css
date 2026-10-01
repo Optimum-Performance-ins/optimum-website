@@ -2471,9 +2471,36 @@ html:not(.intro-play) .lang-ar .hero-fra-link::after {
     direction: rtl;
 }
 
-/* Pain strip RTL */
+/* Pain strip RTL — direction: rtl already puts the icon on the right;
+   row-reverse would flip it back to the left */
 .lang-ar .pain-item {
-    flex-direction: row-reverse;
+    flex-direction: row;
+}
+
+/* Arabic: tracking breaks letter joining, and synthetic italic looks broken */
+.lang-ar .stat-label,
+.lang-ar .cinematic-text,
+.lang-ar .btn,
+.lang-ar .fra-reglabel,
+.lang-ar .fra-label,
+.lang-ar .fra-authority {
+    letter-spacing: 0;
+}
+
+.lang-ar .cinematic-text {
+    font-style: normal;
+}
+
+/* Keep the "+" before the number (bidi otherwise moves it after) */
+.lang-ar .cinematic-stat {
+    direction: ltr;
+    unicode-bidi: isolate;
+}
+
+/* Stat dividers sit on the trailing edge, which is the left in RTL */
+.lang-ar .stat-item::after {
+    right: auto;
+    left: 0;
 }
 
 /* Testimonials RTL */
@@ -2501,7 +2528,7 @@ html:not(.intro-play) .lang-ar .hero-fra-link::after {
 }
 
 .lang-ar .footer-contact li {
-    flex-direction: row-reverse;
+    flex-direction: row;
 }
 
 /* FRA Strip RTL — dir="rtl" already flows the row right-to-left */
