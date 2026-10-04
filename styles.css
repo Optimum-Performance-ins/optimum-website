@@ -401,7 +401,7 @@ textarea:focus-visible {
 .ambient-ring {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid rgba(200, 150, 46, 0.1);
+    border: 1px solid rgba(26, 58, 92, 0.12);
 }
 
 .ambient-ring--1 {
@@ -678,7 +678,7 @@ html:not(.intro-play) .hero-fra-link::after {
     width: 36px;
     height: 36px;
     flex-shrink: 0;
-    color: var(--color-accent);
+    color: var(--color-primary);
 }
 
 .pain-icon svg {
@@ -701,13 +701,13 @@ html:not(.intro-play) .hero-fra-link::after {
 
 .section-shapes .shape {
     position: absolute;
-    border: 1px solid rgba(200, 150, 46, 0.08);
+    border: 1px solid rgba(26, 58, 92, 0.1);
     border-radius: 50%;
     animation: shapeDrift 30s ease-in-out infinite;
 }
 
 .section--navy .section-shapes .shape {
-    border-color: rgba(200, 150, 46, 0.06);
+    border-color: rgba(255, 255, 255, 0.06);
 }
 
 @keyframes shapeDrift {
@@ -1015,24 +1015,46 @@ html:not(.intro-play) .hero-fra-link::after {
 
 /* --- Process --- */
 .process-grid {
+    --process-gap: 2rem;
+    --process-pad: 1.5rem;
+    --process-dot: 56px;
+    position: relative;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+    gap: var(--process-gap);
     max-width: 1100px;
     margin: 0 auto;
 }
 
+/* navy line joining the step circles, first centre to last centre */
+.process-grid::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--process-pad) + var(--process-dot) / 2 - 1px);
+    inset-inline: calc((100% - 3 * var(--process-gap)) / 8);
+    height: 2px;
+    background: rgba(26, 58, 92, 0.25);
+}
+
 .process-step {
+    position: relative;
     text-align: center;
-    padding: 1.5rem;
+    padding: var(--process-pad);
 }
 
 .process-number {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: var(--color-accent);
-    opacity: 0.3;
-    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--process-dot);
+    height: var(--process-dot);
+    margin: 0 auto 1rem;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 0 6px var(--color-bg-gray); /* gap where the line meets the circle */
+    color: var(--color-white);
+    font-size: 1.3rem;
+    font-weight: 700;
     line-height: 1;
 }
 
@@ -1485,6 +1507,79 @@ html:not(.intro-play) .hero-fra-link::after {
 .trust-item svg {
     flex-shrink: 0;
     color: var(--color-accent);
+}
+
+/* Navy quote panel: form sits on navy, meeting card stays white inside it */
+.form-grid {
+    background: linear-gradient(160deg, var(--color-primary), var(--color-secondary));
+    border-radius: 28px;
+    padding: 3rem;
+    box-shadow: 0 20px 50px rgba(15, 31, 60, 0.18);
+}
+
+.quote-form .form-group label,
+.quote-form .radio-option .radio-label,
+.quote-form .radio-option:has(input:checked) .radio-label {
+    color: var(--color-white);
+}
+
+.quote-form .form-group .optional {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.quote-form .required,
+.quote-form .form-error {
+    color: #ff9a8f;
+}
+
+.quote-form .form-group input:focus,
+.quote-form .form-group select:focus,
+.quote-form .form-group textarea:focus {
+    border-color: var(--color-white);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+}
+
+.quote-form .radio-option input[type="radio"] {
+    padding: 0;
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.55);
+}
+
+.quote-form .radio-option:hover input[type="radio"],
+.quote-form .radio-option input[type="radio"]:checked {
+    border-color: var(--color-white);
+}
+
+.quote-form .form-group.error input,
+.quote-form .form-group.error select,
+.quote-form .form-group.error textarea,
+.quote-form .form-group.error .radio-option input[type="radio"] {
+    border-color: #ff9a8f;
+}
+
+.quote-form .btn-primary {
+    background-color: var(--color-white);
+    border-color: var(--color-white);
+    color: var(--color-primary);
+}
+
+.quote-form .btn-primary:hover {
+    background-color: var(--color-bg-gray);
+    border-color: var(--color-bg-gray);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.form-grid .meeting-card {
+    border: none;
+    border-radius: 16px;
+}
+
+.form-grid .trust-item {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.form-grid .trust-item svg {
+    color: rgba(255, 255, 255, 0.9);
 }
 
 /* Form success */
@@ -2084,17 +2179,21 @@ html:not(.intro-play) .hero-fra-link::after {
 
     /* Process steps: four across, fitted to the frame (no scrolling) */
     .process-grid {
+        --process-gap: 0.5rem;
+        --process-pad: 0.75rem;
+        --process-dot: 38px;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0.5rem;
     }
 
     .process-step {
-        padding: 0.75rem 0.15rem;
+        padding: var(--process-pad) 0.15rem;
         min-width: 0;
     }
 
     .process-number {
-        font-size: 1.6rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.6rem;
+        box-shadow: 0 0 0 4px var(--color-bg-gray);
     }
 
     .process-icon {
@@ -2140,6 +2239,8 @@ html:not(.intro-play) .hero-fra-link::after {
 
     .form-grid {
         grid-template-columns: 1fr;
+        border-radius: 20px;
+        padding: 1.75rem 1.25rem;
     }
 
     .form-row {
