@@ -84,6 +84,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.add('low-end-device');
     }
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const navbar = document.getElementById('navbar');
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.getElementById('navLinks');
@@ -97,6 +99,33 @@ document.addEventListener('DOMContentLoaded', () => {
             document.addEventListener('intro:done', fn, { once: true });
         } else {
             fn();
+        }
+    };
+
+    // --- Story: scroll-driven beats ---
+    // The section is pinned for ~3 screens; progress through it picks the beat (1-4, then "end").
+    // Reduced motion / low-end devices keep the static stacked layout instead.
+    const story = document.getElementById('story');
+    const storyLive = Boolean(story) && !reduceMotion && !isLowEnd;
+    if (storyLive) {
+        story.classList.add('story--live');
+        story.dataset.beat = '';
+    }
+
+    let storyDrawn = '';
+    const updateStory = () => {
+        if (!storyLive) return;
+        const rect = story.getBoundingClientRect();
+        const span = story.offsetHeight - window.innerHeight;
+        if (span <= 0) return;
+        const progress = Math.min(Math.max(-rect.top / span, 0), 1);
+        const beat = progress >= 0.9 ? 'end' : String(Math.min(4, Math.floor(progress / 0.225) + 1));
+        if (story.dataset.beat !== beat) story.dataset.beat = beat;
+        // Trace the frames now on stage once the stage is actually in view (beat "end" keeps frame 4)
+        const frame = beat === 'end' ? '4' : beat;
+        if (frame !== storyDrawn && rect.top < window.innerHeight * 0.5) {
+            storyDrawn = frame;
+            story.querySelectorAll(`[data-frame="${frame}"] svg.draw`).forEach(svg => svg.classList.add('is-drawn'));
         }
     };
 
@@ -116,6 +145,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Sticky navbar
             navbar.classList.toggle('scrolled', scrollTop > 100);
+
+            updateStory();
 
             // Active nav highlighting
             const scrollY = scrollTop + 120;
@@ -156,44 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Word-by-Word Title Reveal ---
-    const initWordReveal = () => {
-        document.querySelectorAll('[data-word-reveal]').forEach(title => {
-            if (title.querySelector('.word')) return;
-            const nodes = [...title.childNodes];
-            title.textContent = '';
-            let wordIndex = 0;
-            nodes.forEach(node => {
-                if (node.nodeName === 'BR') {
-                    title.appendChild(document.createElement('br'));
-                    return;
-                }
-                const words = node.textContent.trim().split(/\s+/);
-                words.forEach((word) => {
-                    if (!word) return;
-                    const span = document.createElement('span');
-                    span.classList.add('word');
-                    span.textContent = word;
-                    span.style.transitionDelay = (wordIndex * 0.1) + 's';
-                    title.appendChild(span);
-                    title.appendChild(document.createTextNode('\u00A0'));
-                    wordIndex++;
-                });
-            });
-        });
-    };
-
-    initWordReveal();
-
     // --- Staggered Reveal Animations ---
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const el = entry.target;
-
-                el.querySelectorAll('.word').forEach(word => {
-                    word.classList.add('word-visible');
-                });
 
                 if (el.classList.contains('stagger')) {
                     const parent = el.parentElement;
@@ -220,69 +218,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     whenIntroDone(() => revealElements.forEach(el => revealObserver.observe(el)));
-
-    // Word reveal for non-.reveal titles
-    const wordTitleObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.querySelectorAll('.word').forEach(word => {
-                    word.classList.add('word-visible');
-                });
-                wordTitleObserver.unobserve(entry.target);
-            }
-        });
-    }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
-
-    whenIntroDone(() => {
-        document.querySelectorAll('[data-word-reveal]:not(.reveal)').forEach(el => {
-            wordTitleObserver.observe(el);
-        });
-    });
-
-    // --- Hero Particles ---
-    const particleContainer = document.getElementById('particles');
-    if (particleContainer && !isLowEnd) {
-        whenIntroDone(() => {
-            const particleCount = window.innerWidth < 768 ? 10 : 30;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = (50 + Math.random() * 50) + '%';
-                particle.style.width = (2 + Math.random() * 3) + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (4 + Math.random() * 4) + 's';
-                particleContainer.appendChild(particle);
-            }
-        });
-    }
-
-    // --- Section Ambient Shapes ---
-    const isMobile = window.innerWidth < 768;
-    document.querySelectorAll('.section-shapes').forEach(container => {
-        const count = isLowEnd ? 0 : (isMobile ? 2 : 4 + Math.floor(Math.random() * 3));
-        for (let i = 0; i < count; i++) {
-            const shape = document.createElement('div');
-            shape.classList.add('shape');
-            const size = 100 + Math.random() * 250;
-            shape.style.width = size + 'px';
-            shape.style.height = size + 'px';
-            shape.style.left = (Math.random() * 120 - 10) + '%';
-            // Spread shapes across full range including edges that cross into adjacent sections
-            const edgeBias = Math.random();
-            if (edgeBias < 0.3) {
-                shape.style.top = (-15 + Math.random() * 30) + '%'; // near top edge
-            } else if (edgeBias > 0.7) {
-                shape.style.top = (70 + Math.random() * 30) + '%'; // near bottom edge
-            } else {
-                shape.style.top = (20 + Math.random() * 60) + '%'; // middle
-            }
-            shape.style.animationDelay = (Math.random() * 10) + 's';
-            shape.style.animationDuration = (20 + Math.random() * 20) + 's';
-            container.appendChild(shape);
-        }
-    });
 
     // --- Stats Counter Animation ---
     const statNumbers = document.querySelectorAll('.stat-number[data-count]');
@@ -339,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextBtn = carousel.querySelector('[data-carousel-next]');
         const dotsWrap = carousel.querySelector('[data-carousel-dots]');
         const isRTL = getComputedStyle(track).direction === 'rtl';
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (total < 2) return;
 
         const makeClone = (card) => {
@@ -459,6 +393,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
         recenter();
     });
+
+    // --- Line-art draw-on ---
+    // Runs after the carousels so their cloned cards are traced too.
+    // Each illustration traces its strokes once when it scrolls into view. Without JS,
+    // with reduced motion or on low-end devices the drawings simply render complete.
+    const drawables = document.querySelectorAll('svg.draw');
+    if (!reduceMotion && !isLowEnd && drawables.length) {
+        // Normalise solid strokes to length 1 so one dash can trace them; dotted strokes keep
+        // their real length (they fade in instead) or their dash pattern would render solid
+        drawables.forEach(svg => svg.querySelectorAll('path, line, polyline, circle, ellipse, rect')
+            .forEach(el => { if (!el.classList.contains('dash')) el.setAttribute('pathLength', '1'); }));
+        document.documentElement.classList.add('js-draw');
+        const drawObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-drawn');
+                    drawObserver.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
+        // Pinned story frames are traced by the beat controller instead
+        whenIntroDone(() => drawables.forEach(svg => {
+            if (!(storyLive && story.contains(svg))) drawObserver.observe(svg);
+        }));
+    }
 
     // --- Segment Tab Switching ---
     const segmentTabs = document.querySelectorAll('.segment-tab');
@@ -704,14 +663,14 @@ document.addEventListener('DOMContentLoaded', () => {
             let valid = true;
 
             if (!name.value.trim()) {
-                name.style.borderColor = '#c0392b';
+                name.style.borderColor = 'var(--ember)';
                 valid = false;
             } else {
                 name.style.borderColor = '';
             }
 
             if (!phone.value.trim()) {
-                phone.style.borderColor = '#c0392b';
+                phone.style.borderColor = 'var(--ember)';
                 valid = false;
             } else {
                 phone.style.borderColor = '';
