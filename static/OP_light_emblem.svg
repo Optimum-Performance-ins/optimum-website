@@ -18,13 +18,13 @@
        gradientTransform="matrix(79.626793,0,0,-79.626793,257.8244,1651.054)"
        spreadMethod="pad"
        id="linearGradient1457">
-      <stop stop-color="#f5efe6" offset="0"
+      <stop stop-color="#1f3d4a" offset="0"
          id="stop1454" />
-      <stop stop-color="#f5efe6" offset="0.55270582"
+      <stop stop-color="#3e7596" offset="0.55270582"
          id="stop1455" />
-      <stop stop-color="#f5efe6" offset="0.557542"
+      <stop stop-color="#3e7596" offset="0.557542"
          id="stop1456" />
-      <stop stop-color="#f5efe6" offset="1"
+      <stop stop-color="#315c69" offset="1"
          id="stop1457" />
     </linearGradient>
   </defs>

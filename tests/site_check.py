@@ -12,7 +12,7 @@ ROOT = pathlib.Path(os.environ.get('SITE_ROOT', HERE.parent))  # SITE_ROOT lets 
 OUT = HERE / 'out'
 OUT.mkdir(exist_ok=True)
 PAGES = {'ar': '/index.html', 'en': '/en/index.html'}
-INK900 = 'rgb(13, 29, 38)'
+INK900 = 'rgb(12, 36, 54)'
 
 
 def serve():
@@ -72,7 +72,7 @@ def check_colors(b, base):
         body = p.evaluate("getComputedStyle(document.body).backgroundColor")
         assert body == INK900, f'{lang}: body bg {body}'
         theme = p.evaluate("document.querySelector('meta[name=theme-color]').content")
-        assert theme == '#0d1d26', f'{lang}: theme-color {theme}'
+        assert theme == '#0c2436', f'{lang}: theme-color {theme}'
         light = p.evaluate("""[...document.querySelectorAll('section, footer')].filter(s => {
             const m = getComputedStyle(s).backgroundColor.match(/\\d+/g);
             return m && m.length >= 3 && (m.length < 4 || +m[3] > 0) && m.slice(0, 3).every(v => +v > 200);
@@ -165,7 +165,8 @@ def check_form(b, base):
         p.fill('#fullName', 'Test')
         p.fill('#email', 't@t.co')
         p.fill('#phone', '0100')
-        p.locator('input[name=clientType][value=corporate]').check(force=True)
+        # click the radio directly: a smooth scroll in flight can make a pointer click miss
+        p.evaluate("document.querySelector('input[name=clientType][value=corporate]').click()")
         p.select_option('#insuranceType', 'marine-cargo')
         p.locator('#quoteForm [type=submit]').click()
         p.wait_for_timeout(200)
