@@ -1,6 +1,6 @@
 /* ==========================================================================
    Optimum Performance — Lead Generation Website
-   Dark teal-ink identity: cream type, champagne gold + soft teal accents,
+   Dark teal-ink identity: cream type, silver + soft teal accents,
    thin-line illustrations. Old shield logo rendered light-on-dark.
    ========================================================================== */
 
@@ -58,10 +58,10 @@
     --cream-muted: rgba(245, 239, 230, 0.68);
     --cream-faint: rgba(245, 239, 230, 0.55);
     --line: rgba(245, 239, 230, 0.12);
-    --gold: #b8a670;
+    --silver: #c4cbd4;
     --teal: #80c8c0;
     --ember: #e0803f;
-    --accent: var(--gold);
+    --accent: var(--silver);
     --font-display: 'Cormorant Garamond', 'Garamond', Georgia, serif;
     --font-body: 'Times New Roman', Times, serif;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -73,7 +73,7 @@
     --font-body: 'Times New Roman', Times, serif;
 }
 
-[data-accent="gold"] { --accent: var(--gold); }
+[data-accent="silver"] { --accent: var(--silver); }
 [data-accent="teal"] { --accent: var(--teal); }
 
 html {
@@ -130,7 +130,7 @@ strong {
     left: 0;
     height: 2px;
     width: 0%;
-    background: var(--gold);
+    background: var(--silver);
     z-index: 1001;
     transition: width 0.05s linear;
 }
@@ -165,27 +165,27 @@ strong {
 }
 
 .btn-primary {
-    background-color: var(--gold);
-    border-color: var(--gold);
+    background-color: var(--silver);
+    border-color: var(--silver);
     color: var(--ink-900);
 }
 
 .btn-primary:hover {
-    background-color: #c9b883;
-    border-color: #c9b883;
+    background-color: #dde2e8;
+    border-color: #dde2e8;
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(184, 166, 112, 0.22);
+    box-shadow: 0 10px 30px rgba(196, 203, 212, 0.22);
 }
 
 .btn-outline {
     background: transparent;
     color: var(--cream);
-    border-color: rgba(184, 166, 112, 0.7);
+    border-color: rgba(196, 203, 212, 0.7);
 }
 
 .btn-outline:hover {
-    border-color: var(--gold);
-    background: rgba(184, 166, 112, 0.1);
+    border-color: var(--silver);
+    background: rgba(196, 203, 212, 0.1);
     transform: translateY(-2px);
 }
 
@@ -211,7 +211,7 @@ a:hover .arrow-ne {
     position: absolute;
     top: -100px;
     left: 0;
-    background: var(--gold);
+    background: var(--silver);
     color: var(--ink-900);
     padding: 0.75rem 1.5rem;
     z-index: 10000;
@@ -524,7 +524,7 @@ html.js-draw .draw.is-drawn text {
     inset-inline-start: 0;
     width: 0;
     height: 1px;
-    background: var(--gold);
+    background: var(--silver);
     transition: width 0.3s ease;
 }
 
@@ -588,7 +588,7 @@ html.js-draw .draw.is-drawn text {
 }
 
 .lang-toggle:hover {
-    border-color: var(--gold);
+    border-color: var(--silver);
 }
 
 .lang-active {
@@ -658,15 +658,15 @@ html.js-draw .draw.is-drawn text {
     gap: 0.85rem;
     padding-block: 0.5rem;
     padding-inline: 0.55rem 1.25rem;
-    border: 1px solid rgba(184, 166, 112, 0.45);
+    border: 1px solid rgba(196, 203, 212, 0.45);
     border-radius: 999px;
     overflow: hidden;
     transition: border-color var(--transition), background-color var(--transition);
 }
 
 .hero-fra-link:hover {
-    border-color: var(--gold);
-    background: rgba(184, 166, 112, 0.06);
+    border-color: var(--silver);
+    background: rgba(196, 203, 212, 0.06);
 }
 
 /* one-time glint sweep after the intro releases the page */
@@ -677,7 +677,7 @@ html.js-draw .draw.is-drawn text {
     left: 0;
     width: 55%;
     height: 100%;
-    background: linear-gradient(105deg, transparent, rgba(184, 166, 112, 0.22), transparent);
+    background: linear-gradient(105deg, transparent, rgba(196, 203, 212, 0.22), transparent);
     transform: translateX(-130%) skewX(-18deg);
     pointer-events: none;
 }
@@ -716,7 +716,7 @@ html:not(.intro-play) .hero-fra-link::after {
     gap: 0.35rem;
     font-size: 0.78rem;
     font-weight: 500;
-    color: var(--gold);
+    color: var(--silver);
 }
 
 .hero-art {
@@ -774,7 +774,7 @@ html:not(.intro-play) .hero-fra-link::after {
 }
 
 .segment-tab.active {
-    background: var(--gold);
+    background: var(--silver);
     color: var(--ink-900);
 }
 
@@ -801,7 +801,7 @@ html:not(.intro-play) .hero-fra-link::after {
 }
 
 .service-card:hover {
-    border-color: rgba(184, 166, 112, 0.45);
+    border-color: rgba(196, 203, 212, 0.45);
     background: var(--ink-700);
     transform: translateY(-4px);
 }
@@ -817,7 +817,7 @@ html:not(.intro-play) .hero-fra-link::after {
 }
 
 .service-card:hover .card-ring {
-    border-color: var(--gold);
+    border-color: var(--silver);
 }
 
 .service-card h3 {
@@ -839,7 +839,7 @@ html:not(.intro-play) .hero-fra-link::after {
     margin-top: auto;
     font-size: 0.88rem;
     font-weight: 500;
-    color: var(--gold);
+    color: var(--silver);
 }
 
 /* --- Carousels (testimonials, services) --- */
@@ -907,8 +907,8 @@ html:not(.intro-play) .hero-fra-link::after {
 
 .carousel-arrow:hover,
 .carousel-arrow:focus-visible {
-    border-color: var(--gold);
-    color: var(--gold);
+    border-color: var(--silver);
+    color: var(--silver);
 }
 
 .carousel-dots {
@@ -929,7 +929,7 @@ html:not(.intro-play) .hero-fra-link::after {
 
 .carousel-dot[aria-current="true"] {
     width: 22px;
-    background: var(--gold);
+    background: var(--silver);
 }
 
 /* --- How we work: staircase --- */
@@ -1001,7 +1001,7 @@ html:not(.intro-play) .hero-fra-link::after {
     top: 0.6rem;
     bottom: 0.6rem;
     width: 1px;
-    background: linear-gradient(180deg, var(--gold), var(--line));
+    background: linear-gradient(180deg, var(--silver), var(--line));
 }
 
 .values li {
@@ -1016,8 +1016,8 @@ html:not(.intro-play) .hero-fra-link::after {
     width: 13px;
     height: 13px;
     border-radius: 50%;
-    border: 1px solid var(--gold);
-    background: radial-gradient(circle, var(--gold) 0 2.5px, var(--ink-900) 3px);
+    border: 1px solid var(--silver);
+    background: radial-gradient(circle, var(--silver) 0 2.5px, var(--ink-900) 3px);
 }
 
 .values h3 {
@@ -1054,7 +1054,7 @@ html:not(.intro-play) .hero-fra-link::after {
     top: 15%;
     height: 70%;
     width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(184, 166, 112, 0.55), transparent);
+    background: linear-gradient(180deg, transparent, rgba(196, 203, 212, 0.55), transparent);
 }
 
 .stat-figure {
@@ -1076,7 +1076,7 @@ html:not(.intro-play) .hero-fra-link::after {
 .stat-suffix {
     font-family: 'Cormorant Garamond', Georgia, serif;
     font-size: clamp(1.8rem, 3.5vw, 3rem);
-    color: var(--gold);
+    color: var(--silver);
     margin-inline-start: 0.1em;
 }
 
@@ -1180,7 +1180,7 @@ html:not(.intro-play) .hero-fra-link::after {
     font-size: 5rem;
     line-height: 0.6;
     height: 2.2rem;
-    color: var(--gold);
+    color: var(--silver);
 }
 
 .testimonial-quote {
@@ -1639,7 +1639,7 @@ html:not(.intro-play) .hero-fra-link::after {
     font-family: var(--font-display);
     font-size: 4.2rem;
     font-weight: 500;
-    color: var(--gold);
+    color: var(--silver);
     line-height: 1;
 }
 
@@ -1656,7 +1656,7 @@ html:not(.intro-play) .hero-fra-link::after {
 .fra-vline {
     width: 1px;
     height: 84px;
-    background: linear-gradient(180deg, transparent, rgba(184, 166, 112, 0.5), transparent);
+    background: linear-gradient(180deg, transparent, rgba(196, 203, 212, 0.5), transparent);
     transform: scaleY(0);
     transition: transform 0.9s var(--ease) 0.35s;
 }
@@ -1675,7 +1675,7 @@ html:not(.intro-play) .hero-fra-link::after {
     height: 72px;
     object-fit: contain;
     flex-shrink: 0;
-    filter: drop-shadow(0 0 10px rgba(184, 166, 112, 0.25));
+    filter: drop-shadow(0 0 10px rgba(196, 203, 212, 0.25));
     transform: scale(0.7);
     transition: transform 0.7s var(--ease) 0.3s;
 }
@@ -1689,7 +1689,7 @@ html:not(.intro-play) .hero-fra-link::after {
 
 .fra-label {
     font-size: 0.8rem;
-    color: var(--gold);
+    color: var(--silver);
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
@@ -1713,9 +1713,9 @@ html:not(.intro-play) .hero-fra-link::after {
     align-items: center;
     gap: 0.5rem;
     padding: 0.7rem 1.5rem;
-    border: 1px solid rgba(184, 166, 112, 0.5);
+    border: 1px solid rgba(196, 203, 212, 0.5);
     border-radius: 999px;
-    color: var(--gold);
+    color: var(--silver);
     font-size: 0.95rem;
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -1747,8 +1747,8 @@ html:not(.intro-play) .hero-fra-link::after {
 
 .fra-card:hover .fra-verify,
 .fra-card:focus-visible .fra-verify {
-    background: var(--gold);
-    border-color: var(--gold);
+    background: var(--silver);
+    border-color: var(--silver);
     color: var(--ink-900);
 }
 
@@ -1778,7 +1778,7 @@ html:not(.intro-play) .hero-fra-link::after {
     }
 }
 
-/* complaints line: one muted sentence under the card, segments split by gold dots */
+/* complaints line: one muted sentence under the card, segments split by silver dots */
 .fra-cx {
     margin-top: 1.75rem;
     text-align: center;
@@ -1797,22 +1797,22 @@ html:not(.intro-play) .hero-fra-link::after {
     height: 4px;
     margin: 0 0.8rem;
     border-radius: 50%;
-    background: var(--gold);
+    background: var(--silver);
     vertical-align: middle;
 }
 
 .fra-cx a {
     color: var(--cream);
     text-decoration: underline;
-    text-decoration-color: rgba(184, 166, 112, 0.6);
+    text-decoration-color: rgba(196, 203, 212, 0.6);
     text-underline-offset: 3px;
     transition: color 0.3s ease, text-decoration-color 0.3s ease;
 }
 
 .fra-cx a:hover,
 .fra-cx a:focus-visible {
-    color: var(--gold);
-    text-decoration-color: var(--gold);
+    color: var(--silver);
+    text-decoration-color: var(--silver);
 }
 
 .fra-cx-guide {
@@ -1907,7 +1907,7 @@ html:not(.intro-play) .hero-fra-link::after {
 
 .footer-links a:hover,
 .footer-social-link:hover {
-    color: var(--gold);
+    color: var(--silver);
 }
 
 .footer-contact li {
@@ -1921,7 +1921,7 @@ html:not(.intro-play) .hero-fra-link::after {
 .footer-contact svg {
     flex-shrink: 0;
     margin-top: 4px;
-    color: var(--gold);
+    color: var(--silver);
 }
 
 .footer-bottom {
@@ -1951,7 +1951,7 @@ html:not(.intro-play) .hero-fra-link::after {
     justify-content: center;
     border-radius: 50%;
     background: var(--ink-800);
-    border: 1px solid var(--gold);
+    border: 1px solid var(--silver);
     color: var(--cream);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     z-index: 999;
@@ -2373,10 +2373,10 @@ html.intro-play .nav-logo img {
     overflow: visible; /* viewBox is tight-cropped; lets the wordmark glow paint past the edges */
 }
 
-/* Phase 1+2: gold trace (0-1.9s, staggered), then light-on-dark fill / stroke fade (1.7-2.4s) */
+/* Phase 1+2: silver trace (0-1.9s, staggered), then light-on-dark fill / stroke fade (1.7-2.4s) */
 #intro .emblem path {
     fill-opacity: 0;
-    stroke: var(--gold);
+    stroke: var(--silver);
     stroke-width: 0.9;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
@@ -2410,7 +2410,7 @@ html.intro-play .nav-logo img {
 
 #intro .wordmark path {
     fill-opacity: 0;
-    stroke: #dee4ec; /* silver counterpart to the emblem's gold */
+    stroke: #dee4ec; /* brighter silver than the emblem trace */
     stroke-width: 0.45;
     stroke-dasharray: 1;
     stroke-dashoffset: 1;
