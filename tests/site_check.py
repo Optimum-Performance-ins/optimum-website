@@ -53,7 +53,7 @@ def check_no_errors(b, base):
 def check_structure(b, base):
     for lang in PAGES:
         p, _ = open_page(b, base, lang)
-        for sel in ['#hero', '.pain-strip', '#services', '#how-we-work', '#why-us', '#stats',
+        for sel in ['#hero', '#vision', '#services', '#how-we-work', '#stats',
                     '#partners', '#testimonials', '#quote', '#trusted', '#faq', '.fra-strip', '#contact']:
             assert p.locator(sel).count() >= 1, f'{lang}: missing {sel}'
         left = p.locator('.cinematic-strip, .hero-particles, .section-shapes').count()

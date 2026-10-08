@@ -725,29 +725,42 @@ html:not(.intro-play) .hero-fra-link::after {
     width: 100%;
 }
 
-/* --- Pain strip --- */
-.pain-grid {
+/* --- Vision & mission --- */
+.mv-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--line);
 }
 
-.pain-item {
-    text-align: center;
+.mv-item {
+    padding-top: 2.75rem;
+    padding-inline-end: 3.5rem;
 }
 
-.pain-item .draw {
-    max-width: 200px;
-    margin: 0 auto 1.5rem;
+.mv-item + .mv-item {
+    padding-inline: 3.5rem 0;
+    border-inline-start: 1px solid var(--line);
 }
 
-.pain-item p {
+.mv-icon {
+    margin: 0 0 1.5rem;
+}
+
+.mv-kicker {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.mv-text {
     font-family: var(--font-display);
-    font-size: 1.4rem;
-    line-height: 1.3;
+    font-size: clamp(1.5rem, 2.4vw, 1.95rem);
+    line-height: 1.35;
     color: var(--cream);
-    max-width: 13em;
-    margin: 0 auto;
+    max-width: 22em;
 }
 
 /* --- Services --- */
@@ -973,64 +986,6 @@ html:not(.intro-play) .hero-fra-link::after {
 .step p {
     font-size: 0.95rem;
     line-height: 1.65;
-}
-
-/* --- Why us --- */
-.why-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.1fr;
-    gap: 4rem;
-    align-items: center;
-}
-
-.why-copy .section-head {
-    margin-bottom: 2.5rem;
-}
-
-.values {
-    position: relative;
-    display: grid;
-    gap: 1.75rem;
-    padding-inline-start: 2.5rem;
-}
-
-.values::before {
-    content: '';
-    position: absolute;
-    inset-inline-start: 7px;
-    top: 0.6rem;
-    bottom: 0.6rem;
-    width: 1px;
-    background: linear-gradient(180deg, var(--gold), var(--line));
-}
-
-.values li {
-    position: relative;
-}
-
-.values li::before {
-    content: '';
-    position: absolute;
-    inset-inline-start: calc(-2.5rem + 1px);
-    top: 0.55rem;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    border: 1px solid var(--gold);
-    background: radial-gradient(circle, var(--gold) 0 2.5px, var(--ink-900) 3px);
-}
-
-.values h3 {
-    font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 500;
-    line-height: 1.2;
-    color: var(--cream);
-    margin-bottom: 0.25rem;
-}
-
-.values p {
-    font-size: 0.98rem;
 }
 
 /* --- Stats --- */
@@ -2005,8 +1960,7 @@ html:not(.intro-play) .hero-fra-link::after {
         display: none;
     }
 
-.hero-grid,
-    .why-grid {
+.hero-grid {
         gap: 3rem;
     }
 
@@ -2018,11 +1972,6 @@ html:not(.intro-play) .hero-fra-link::after {
         --carousel-per-view: 1;
     }
 
-    .pain-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3rem 2rem;
-    }
-
     .steps {
         grid-template-columns: repeat(2, 1fr);
         gap: 2.5rem 2rem;
@@ -2031,19 +1980,29 @@ html:not(.intro-play) .hero-fra-link::after {
 
 @media (max-width: 900px) {
     .hero-grid,
-    .why-grid,
     .quote-head {
         grid-template-columns: 1fr;
+    }
+
+    .mv-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .mv-item,
+    .mv-item + .mv-item {
+        padding-inline: 0;
+    }
+
+    .mv-item + .mv-item {
+        margin-top: 2.75rem;
+        border-inline-start: 0;
+        border-top: 1px solid var(--line);
     }
 
     .hero-art,
     .quote-art {
         justify-self: center;
         max-width: 520px;
-    }
-
-    .why-art {
-        max-width: 420px;
     }
 }
 
@@ -2124,7 +2083,6 @@ html:not(.intro-play) .hero-fra-link::after {
         padding: 0 1.25rem;
     }
 
-    .pain-grid,
     .steps {
         grid-template-columns: 1fr;
     }
@@ -2194,7 +2152,6 @@ html:not(.intro-play) .hero-fra-link::after {
 .lang-ar .section-head--center,
 .lang-ar .stats-grid,
 .lang-ar .section-cta,
-.lang-ar .pain-item,
 .lang-ar .footer-bottom,
 .lang-ar .form-success {
     text-align: center;
@@ -2202,6 +2159,7 @@ html:not(.intro-play) .hero-fra-link::after {
 
 /* Arabic: tracking breaks letter joining; synthetic italic looks broken */
 .lang-ar .sec-label,
+.lang-ar .mv-kicker,
 .lang-ar .pill,
 .lang-ar .btn,
 .lang-ar .stat-label,
@@ -2220,6 +2178,10 @@ html:not(.intro-play) .hero-fra-link::after {
     font-size: 0.9rem;
 }
 
+.lang-ar .mv-kicker {
+    font-size: 0.95rem;
+}
+
 .lang-ar .headline {
     line-height: 1.45;
     letter-spacing: 0;
@@ -2234,10 +2196,9 @@ html:not(.intro-play) .hero-fra-link::after {
     font-size: clamp(2.5rem, 5.4vw, 4.6rem);
 }
 
-.lang-ar .pain-item p,
+.lang-ar .mv-text,
 .lang-ar .service-card h3,
 .lang-ar .step h3,
-.lang-ar .values h3,
 .lang-ar .accordion-header,
 .lang-ar .meeting-card h3,
 .lang-ar .testimonial-quote,
