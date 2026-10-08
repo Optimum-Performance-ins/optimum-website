@@ -2396,6 +2396,49 @@ html.intro-play .nav-logo img {
     to { fill-opacity: 1; stroke-opacity: 0; }
 }
 
+/* Gold glow from the ring in toward the centre: fades up with the fill, a faint screen pass tints the letters,
+   then fades out on the glide so the nav logo lands as the normal logo */
+#intro .intro-halo {
+    opacity: 0;
+    animation: introHaloIn 0.9s ease 1.5s forwards;
+}
+
+#intro .intro-halo--over {
+    mix-blend-mode: screen;
+    --halo-max: 0.25;
+}
+
+#intro.intro-gliding .intro-halo {
+    animation: introHaloOut 0.5s ease forwards;
+}
+
+/* Candle-like flicker on the circles (multiplies with the group's fade), both layers in step */
+#intro .intro-halo circle {
+    animation: introHaloFlicker 4.5s ease-in-out 1.5s infinite;
+}
+
+@keyframes introHaloFlicker {
+    0%, 100% { opacity: 1; }
+    9%  { opacity: 0.78; }
+    16% { opacity: 0.94; }
+    27% { opacity: 0.66; }
+    35% { opacity: 0.9; }
+    48% { opacity: 0.74; }
+    58% { opacity: 1; }
+    71% { opacity: 0.82; }
+    79% { opacity: 0.95; }
+    90% { opacity: 0.7; }
+}
+
+@keyframes introHaloIn {
+    to { opacity: var(--halo-max, 1); }
+}
+
+@keyframes introHaloOut {
+    from { opacity: var(--halo-max, 1); }
+    to { opacity: 0; }
+}
+
 /* Phase 3: wordmark writes on letter by letter with a silver trace + glow (1.6-3.4s) */
 #intro .wordmark {
     animation: introWordGlow 3.6s ease forwards;
