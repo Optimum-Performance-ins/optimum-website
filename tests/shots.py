@@ -3,7 +3,7 @@ import sys
 from site_check import serve, open_page, OUT, PAGES
 from playwright.sync_api import sync_playwright
 
-SECTIONS = ['#hero', '.pain-strip', '#services', '#story', '#how-we-work', '#why-us', '#stats',
+SECTIONS = ['#hero', '.pain-strip', '#services', '#how-we-work', '#why-us', '#stats',
             '#partners', '#testimonials', '#quote', '#trusted', '#faq', '.fra-strip', '#contact']
 
 if __name__ == '__main__':

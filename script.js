@@ -102,33 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- Story: scroll-driven beats ---
-    // The section is pinned for ~3 screens; progress through it picks the beat (1-4, then "end").
-    // Reduced motion / low-end devices keep the static stacked layout instead.
-    const story = document.getElementById('story');
-    const storyLive = Boolean(story) && !reduceMotion && !isLowEnd;
-    if (storyLive) {
-        story.classList.add('story--live');
-        story.dataset.beat = '';
-    }
-
-    let storyDrawn = '';
-    const updateStory = () => {
-        if (!storyLive) return;
-        const rect = story.getBoundingClientRect();
-        const span = story.offsetHeight - window.innerHeight;
-        if (span <= 0) return;
-        const progress = Math.min(Math.max(-rect.top / span, 0), 1);
-        const beat = progress >= 0.9 ? 'end' : String(Math.min(4, Math.floor(progress / 0.225) + 1));
-        if (story.dataset.beat !== beat) story.dataset.beat = beat;
-        // Trace the frames now on stage once the stage is actually in view (beat "end" keeps frame 4)
-        const frame = beat === 'end' ? '4' : beat;
-        if (frame !== storyDrawn && rect.top < window.innerHeight * 0.5) {
-            storyDrawn = frame;
-            story.querySelectorAll(`[data-frame="${frame}"] svg.draw`).forEach(svg => svg.classList.add('is-drawn'));
-        }
-    };
-
     // --- Combined Scroll Handler (RAF-throttled) ---
     const sections = document.querySelectorAll('section[id]');
     let scrollTicking = false;
@@ -146,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Sticky navbar
             navbar.classList.toggle('scrolled', scrollTop > 100);
 
-            updateStory();
 
             // Active nav highlighting
             const scrollY = scrollTop + 120;
@@ -413,10 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }, { rootMargin: '0px 0px -10% 0px', threshold: 0.15 });
-        // Pinned story frames are traced by the beat controller instead
-        whenIntroDone(() => drawables.forEach(svg => {
-            if (!(storyLive && story.contains(svg))) drawObserver.observe(svg);
-        }));
+        whenIntroDone(() => drawables.forEach(svg => drawObserver.observe(svg)));
     }
 
     // --- Segment Tab Switching ---

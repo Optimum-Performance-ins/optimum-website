@@ -79,7 +79,7 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
-    overflow-x: clip; /* clip, not hidden: hidden would make a scroll container and break the sticky story stage */
+    overflow-x: clip; /* clip, not hidden: hidden makes a scroll container and breaks position: sticky */
     background: var(--ink-900);
 }
 
@@ -932,202 +932,6 @@ html:not(.intro-play) .hero-fra-link::after {
     background: var(--gold);
 }
 
-/* --- Story (scroll-driven split screen) --- */
-.story-split {
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr;
-    gap: clamp(1rem, 3vw, 3rem);
-}
-
-.story-rule {
-    background: linear-gradient(180deg, var(--gold), transparent);
-    opacity: 0.6;
-}
-
-.story-side {
-    min-width: 0;
-    text-align: center;
-}
-
-.story-side--with .pill {
-    --accent: var(--teal);
-}
-
-.story-side--without .pill {
-    border-color: var(--line);
-    color: var(--cream-muted);
-}
-
-.story-frames {
-    display: grid;
-    gap: 2.5rem;
-    margin-top: 1.75rem;
-}
-
-.story-frame .draw {
-    max-width: 360px;
-    margin: 0 auto;
-}
-
-.story-cap {
-    margin-top: 0.75rem;
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    line-height: 1.35;
-    color: var(--cream);
-}
-
-.story-side--without .story-cap {
-    color: var(--cream-muted);
-}
-
-.story .stamp .ember {
-    stroke: var(--ember);
-}
-
-.story .stamp text {
-    fill: var(--ember);
-    stroke: none;
-    font-family: var(--font-body);
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-}
-
-.lang-ar .story .stamp text {
-    letter-spacing: 0;
-    font-size: 17px;
-}
-
-.story-close {
-    margin-top: 4rem;
-    text-align: center;
-}
-
-.story-close .btn {
-    margin-top: 2rem;
-}
-
-/* live mode: pinned stage, one frame per side at a time */
-.story--live {
-    height: 400vh;
-    padding: 0;
-    overflow: visible;
-    background: var(--ink-900);
-}
-
-.story--live .story-stage {
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    height: 100svh;
-    display: flex;
-    align-items: safe center; /* overflowing content starts at the top instead of hiding under the nav */
-    padding: 6.25rem 0 1.5rem;
-    background: radial-gradient(ellipse 75% 60% at 50% 50%, var(--ink-700), var(--ink-900) 72%);
-    overflow: hidden;
-}
-
-.story--live .story-stage > .container {
-    width: 100%;
-}
-
-.story--live .sec-label {
-    margin-bottom: 1.25rem;
-}
-
-.story--live .section-head {
-    margin-bottom: 1.75rem;
-}
-
-.story--live .headline {
-    font-size: clamp(1.9rem, 3.6vw, 3rem);
-}
-
-.story--live .story-frames {
-    display: grid;
-    gap: 0;
-}
-
-.story--live .story-frame {
-    grid-area: 1 / 1;
-    opacity: 0;
-    transition: opacity 0.6s ease;
-}
-
-.story--live .story-frame .draw {
-    max-height: clamp(96px, calc(100svh - 29rem), 34vh);
-    width: auto;
-    max-width: 100%;
-}
-
-.story--live[data-beat="1"] [data-frame="1"],
-.story--live[data-beat="2"] [data-frame="2"],
-.story--live[data-beat="3"] [data-frame="3"],
-.story--live[data-beat="4"] [data-frame="4"],
-.story--live[data-beat="end"] [data-frame="4"] {
-    opacity: 1;
-}
-
-.story--live .story-close {
-    margin-top: 1.5rem;
-    opacity: 0;
-    visibility: hidden; /* keeps the CTA out of the tab order until it is shown */
-    transform: translateY(12px);
-    transition: opacity 0.6s ease, transform 0.6s ease, visibility 0s linear 0.6s;
-}
-
-.story--live[data-beat="end"] .story-close {
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    transition-delay: 0s;
-}
-
-/* at the end the closing headline takes over from the stage headline */
-.story--live[data-beat="end"] .section-head {
-    display: none;
-}
-
-/* short viewports (laptops, landscape phones): drop the headline from the pinned stage */
-@media (max-height: 760px) {
-    .story--live .section-head {
-        display: none;
-    }
-
-    .story--live .story-frames {
-        margin-top: 1rem;
-    }
-
-    .story--live .story-cap {
-        font-size: 1.05rem;
-    }
-
-    .story--live .story-close {
-        margin-top: 0.75rem;
-    }
-
-    .story--live .story-close .headline {
-        font-size: clamp(1.4rem, 2.6vw, 2rem);
-    }
-}
-
-/* very short (landscape phones): the closing CTA replaces the split at the end */
-@media (max-height: 520px) {
-    .story--live .story-stage {
-        padding-top: 5rem;
-    }
-
-    .story--live[data-beat="end"] .story-split {
-        display: none;
-    }
-}
-
-.story--live .story-close .btn {
-    margin-top: 1rem;
-}
-
 /* --- How we work: staircase --- */
 .stairs {
     max-width: 760px;
@@ -1792,59 +1596,232 @@ html:not(.intro-play) .hero-fra-link::after {
     line-height: 1.75;
 }
 
-/* --- FRA verification --- */
-.fra-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+/* --- FRA licence strip (original card layout) --- */
+.fra-strip {
+    padding: 3.5rem 0;
+    overflow: hidden;
+}
+
+/* oversized faded seal behind the card */
+.fra-watermark {
+    position: absolute;
+    top: 50%;
+    inset-inline-start: 3%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 300px;
+    object-fit: contain;
+    opacity: 0.06;
+    filter: grayscale(40%);
+    pointer-events: none;
+}
+
+.fra-card {
+    position: relative;
+    display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 2.25rem;
+    flex-wrap: wrap;
+    text-decoration: none;
+}
+
+/* oversized registration number - the focal point */
+.fra-regblock {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s var(--ease) 0.15s, transform 0.6s var(--ease) 0.15s;
+}
+
+.fra-regnum {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 4.2rem;
+    font-weight: 500;
+    color: var(--gold);
+    line-height: 1;
+}
+
+.fra-reglabel {
+    display: block;
+    margin-top: 0.2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--cream-faint);
+    white-space: nowrap;
+}
+
+/* hairline dividers grow in on reveal */
+.fra-vline {
+    width: 1px;
+    height: 84px;
+    background: linear-gradient(180deg, transparent, rgba(184, 166, 112, 0.5), transparent);
+    transform: scaleY(0);
+    transition: transform 0.9s var(--ease) 0.35s;
+}
+
+.fra-mid {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s var(--ease) 0.3s, transform 0.6s var(--ease) 0.3s;
+}
+
+.fra-logo-img {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 10px rgba(184, 166, 112, 0.25));
+    transform: scale(0.7);
+    transition: transform 0.7s var(--ease) 0.3s;
+}
+
+.fra-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    text-align: start;
+}
+
+.fra-label {
+    font-size: 0.8rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .fra-authority {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2rem;
     font-family: var(--font-display);
-    font-size: 1.45rem;
-    line-height: 1.3;
+    font-size: 1.4rem;
+    font-weight: 500;
     color: var(--cream);
+    letter-spacing: 0.02em;
+    line-height: 1.3;
 }
 
-.fra-authority span {
-    font-family: var(--font-body);
+.fra-authority-alt {
     font-size: 0.9rem;
-    color: var(--cream-muted);
+    color: var(--cream-faint);
 }
 
-.fra-copy .lede {
-    margin-bottom: 1.75rem;
-}
-
-.cert {
-    position: relative;
-    max-width: 440px;
-    width: 100%;
-    justify-self: center;
-}
-
-/* FRA logo sits inside the drawn seal (seal centre 180,150 in a 280x220 viewBox) */
-.cert-seal {
-    position: absolute;
-    left: calc(180 / 280 * 100%);
-    top: calc(150 / 220 * 100%);
-    width: calc(46 / 280 * 100%);
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-}
-
-.cert-reg {
-    position: absolute;
-    left: calc(58 / 280 * 100%);
-    top: calc(24 / 220 * 100%);
-    font-size: clamp(0.6rem, 1.5vw, 0.78rem);
-    letter-spacing: 0.08em;
+.fra-verify {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border: 1px solid rgba(184, 166, 112, 0.5);
+    border-radius: 999px;
     color: var(--gold);
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
     white-space: nowrap;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s var(--ease) 0.45s, transform 0.6s var(--ease) 0.45s,
+        background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.fra-verify-arrow {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.fra-card.visible .fra-regblock,
+.fra-card.visible .fra-mid,
+.fra-card.visible .fra-verify {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fra-card.visible .fra-vline {
+    transform: scaleY(1);
+}
+
+.fra-card.visible .fra-logo-img {
+    transform: scale(1);
+}
+
+.fra-card:hover .fra-verify,
+.fra-card:focus-visible .fra-verify {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink-900);
+}
+
+.fra-card:hover .fra-verify-arrow {
+    transform: translate(2px, -2px);
+}
+
+.lang-ar .fra-card:hover .fra-verify-arrow {
+    transform: translate(-2px, -2px);
+}
+
+/* hide hairlines once the row starts wrapping */
+@media (max-width: 1100px) {
+    .fra-vline {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .fra-mid {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .fra-text {
+        text-align: center;
+    }
+}
+
+/* complaints line: one muted sentence under the card, segments split by gold dots */
+.fra-cx {
+    margin-top: 1.75rem;
+    text-align: center;
+}
+
+.fra-cx p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--cream-faint);
+}
+
+.fra-cx-dot {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    margin: 0 0.8rem;
+    border-radius: 50%;
+    background: var(--gold);
+    vertical-align: middle;
+}
+
+.fra-cx a {
+    color: var(--cream);
+    text-decoration: underline;
+    text-decoration-color: rgba(184, 166, 112, 0.6);
+    text-underline-offset: 3px;
+    transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+
+.fra-cx a:hover,
+.fra-cx a:focus-visible {
+    color: var(--gold);
+    text-decoration-color: var(--gold);
+}
+
+.fra-cx-guide {
+    white-space: nowrap;
+}
+
+.fra-cx-guide svg {
+    vertical-align: -1px;
+    margin-inline-start: 0.2rem;
 }
 
 /* --- Footer --- */
@@ -2029,8 +2006,7 @@ html:not(.intro-play) .hero-fra-link::after {
     }
 
 .hero-grid,
-    .why-grid,
-    .fra-layout {
+    .why-grid {
         gap: 3rem;
     }
 
@@ -2056,7 +2032,6 @@ html:not(.intro-play) .hero-fra-link::after {
 @media (max-width: 900px) {
     .hero-grid,
     .why-grid,
-    .fra-layout,
     .quote-head {
         grid-template-columns: 1fr;
     }
@@ -2193,15 +2168,6 @@ html:not(.intro-play) .hero-fra-link::after {
         letter-spacing: 0.1em;
     }
 
-    .story-cap {
-        font-size: 1rem;
-    }
-
-    .story .pill {
-        font-size: 0.6rem;
-        letter-spacing: 0.1em;
-        padding: 0.4rem 0.7rem;
-    }
 
     .testimonial-card {
         padding: 2rem 1.5rem 1.75rem;
@@ -2227,8 +2193,6 @@ html:not(.intro-play) .hero-fra-link::after {
 
 .lang-ar .section-head--center,
 .lang-ar .stats-grid,
-.lang-ar .story-side,
-.lang-ar .story-close,
 .lang-ar .section-cta,
 .lang-ar .pain-item,
 .lang-ar .footer-bottom,
@@ -2243,7 +2207,11 @@ html:not(.intro-play) .hero-fra-link::after {
 .lang-ar .stat-label,
 .lang-ar .form-group label,
 .lang-ar .footer-links h5,
-.lang-ar .footer-contact h5 {
+.lang-ar .footer-contact h5,
+.lang-ar .fra-label,
+.lang-ar .fra-reglabel,
+.lang-ar .fra-verify,
+.lang-ar .fra-authority {
     letter-spacing: 0;
     text-transform: none;
 }
@@ -2270,7 +2238,6 @@ html:not(.intro-play) .hero-fra-link::after {
 .lang-ar .service-card h3,
 .lang-ar .step h3,
 .lang-ar .values h3,
-.lang-ar .story-cap,
 .lang-ar .accordion-header,
 .lang-ar .meeting-card h3,
 .lang-ar .testimonial-quote,
@@ -2321,8 +2288,8 @@ html:not(.intro-play) .lang-ar .hero-fra-link::after {
    Performance & motion preferences
    ========================================================================== */
 
-/* Skip rendering work for off-screen sections (not the pinned story) */
-.section:not(.story),
+/* Skip rendering work for off-screen sections */
+.section,
 .footer {
     content-visibility: auto;
     contain-intrinsic-size: auto 700px;

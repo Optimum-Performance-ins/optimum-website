@@ -53,7 +53,7 @@ def check_no_errors(b, base):
 def check_structure(b, base):
     for lang in PAGES:
         p, _ = open_page(b, base, lang)
-        for sel in ['#hero', '.pain-strip', '#services', '#story', '#how-we-work', '#why-us', '#stats',
+        for sel in ['#hero', '.pain-strip', '#services', '#how-we-work', '#why-us', '#stats',
                     '#partners', '#testimonials', '#quote', '#trusted', '#faq', '.fra-strip', '#contact']:
             assert p.locator(sel).count() >= 1, f'{lang}: missing {sel}'
         left = p.locator('.cinematic-strip, .hero-particles, .section-shapes').count()
@@ -129,31 +129,15 @@ def check_service_prefill(b, base):
         assert (ct, it) == ('individual', 'motor'), f'{lang}: prefill gave {(ct, it)}'
 
 
-def check_story_beats(b, base):
-    for lang in PAGES:
-        p, _ = open_page(b, base, lang)
-        assert p.locator('#story').count() == 1, f'{lang}: no #story'
-        assert 'story--live' in p.evaluate("document.getElementById('story').className"), f'{lang}: story not live'
-        top = p.evaluate("document.getElementById('story').getBoundingClientRect().top + scrollY")
-        span = p.evaluate("document.getElementById('story').offsetHeight - innerHeight")
-        seen = []
-        for f in (0.05, 0.3, 0.55, 0.8, 0.98, 0.55, 0.05):
-            p.evaluate(f"window.scrollTo({{top: {top} + {span} * {f}, behavior: 'instant'}})")
-            p.wait_for_timeout(200)
-            seen.append(p.evaluate("document.getElementById('story').dataset.beat"))
-        assert seen == ['1', '2', '3', '4', 'end', '3', '1'], f'{lang}: beats {seen}'
-        stuck = p.evaluate("document.querySelector('#story .story-stage').getBoundingClientRect().top")
-        assert abs(stuck) < 2, f'{lang}: stage not pinned (top={stuck})'
-
-
 def check_reduced_motion(b, base):
     for lang in PAGES:
         p, _ = open_page(b, base, lang, reduced=True)
-        assert p.locator('#story .story-frame').count() == 8, f'{lang}: expected 8 story frames'
-        assert 'story--live' not in p.evaluate("document.getElementById('story').className"), f'{lang}: story pinned under reduced motion'
+        assert p.locator('#story').count() == 0, f'{lang}: story section still present'
         assert not p.evaluate("document.documentElement.classList.contains('js-draw')"), f'{lang}: draw-on active under reduced motion'
-        hidden = p.evaluate("[...document.querySelectorAll('#story .story-frame')].filter(f => getComputedStyle(f).opacity === '0').length")
-        assert hidden == 0, f'{lang}: {hidden} story frames hidden'
+        p.evaluate("document.querySelector('.fra-strip').scrollIntoView({behavior: 'instant'})")
+        p.wait_for_timeout(500)
+        hidden = p.evaluate("[...document.querySelectorAll('.fra-card > *')].filter(e => getComputedStyle(e).opacity === '0').length")
+        assert hidden == 0, f'{lang}: {hidden} FRA card parts hidden'
 
 
 def check_form(b, base):
@@ -180,43 +164,6 @@ def check_dashes_stay_dashed(b, base):
         assert p.evaluate("document.documentElement.classList.contains('js-draw')"), f'{lang}: draw-on not active'
         bad = p.evaluate("document.querySelectorAll('svg.draw .dash[pathLength]').length")
         assert bad == 0, f'{lang}: {bad} dashed strokes normalised (render solid)'
-
-
-def _story_to(p, f):
-    top = p.evaluate("document.getElementById('story').getBoundingClientRect().top + scrollY")
-    span = p.evaluate("document.getElementById('story').offsetHeight - innerHeight")
-    p.evaluate(f"window.scrollTo({{top: {top} + {span} * {f}, behavior: 'instant'}})")
-    p.wait_for_timeout(900)
-
-
-def check_story_fits_short_screens(b, base):
-    # laptop / landscape viewports: the pinned stage must show its label below the nav and its CTA
-    for lang in PAGES:
-        for w, h in ((1366, 657), (1280, 720), (1440, 900), (844, 390)):
-            ctx = b.new_context(viewport={'width': w, 'height': h})
-            p = ctx.new_page()
-            p.goto(base + PAGES[lang])
-            p.evaluate("document.documentElement.classList.remove('intro-play'); document.getElementById('intro')?.remove(); document.dispatchEvent(new CustomEvent('intro:done'))")
-            _story_to(p, 0.98)
-            r = p.evaluate("""(() => {
-                const nav = document.getElementById('navbar').getBoundingClientRect().bottom;
-                const lab = document.querySelector('#story .sec-label').getBoundingClientRect().top;
-                const cta = document.querySelector('#story .story-close .btn').getBoundingClientRect().bottom;
-                return {nav, lab, cta, h: innerHeight};
-            })()""")
-            assert r['lab'] >= r['nav'] - 1 and r['cta'] <= r['h'], f'{lang}@{w}x{h}: {r}'
-            ctx.close()
-
-
-def check_story_cta_hidden_until_end(b, base):
-    for lang in PAGES:
-        p, _ = open_page(b, base, lang)
-        _story_to(p, 0.3)
-        vis = p.evaluate("getComputedStyle(document.querySelector('#story .story-close')).visibility")
-        assert vis == 'hidden', f'{lang}: story CTA focusable before the end ({vis})'
-        _story_to(p, 0.98)
-        vis = p.evaluate("getComputedStyle(document.querySelector('#story .story-close')).visibility")
-        assert vis == 'visible', f'{lang}: story CTA not shown at end ({vis})'
 
 
 def check_carousel_clones_drawn(b, base):
